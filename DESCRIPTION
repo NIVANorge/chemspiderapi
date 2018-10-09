@@ -1,0 +1,18 @@
+Package: chemspideR
+Type: Package
+Title: R functionalities for ChemSpider's new API services
+Version: 0.0.0.9000
+Authors@R: person("Raoul", "Wolf", email = "raoul.wolf@niva.no", role = c("aut", "cre"))
+Description: ChemSpider has announced a fundamental change to the syntax of their API services ().
+    This package provides convenience wrappers for the new API functionalities of ChemSpider, as well as complementary functions, e.g., to save pictures or .mol files.
+License: MIT + file LICENSE
+Imports: 
+    httr, 
+    jsonlite,
+    png
+Suggests: 
+    keyring
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+RoxygenNote: 6.1.0
