@@ -1,15 +1,40 @@
 post_validate_inchikey <- function(inchikey, apikey) {
+  # if (!requireNamespace("httr", quietly = TRUE)) {
+  #   stop("Package \"httr\" needed for this function to work. Please install it.", call. = FALSE)
+  # }
+  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
+  # }
   if (length(inchikey) > 1) {
-    stop("This function can only handle individual (\"inchikey\") entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-  }
-  if (!requireNamespace("httr", quietly = TRUE)) {
-    stop("Package \"httr\" needed for this function to work. Please install it.", call. = FALSE)
-  }
-  if (!requireNamespace("jsonlite", quietly = TRUE)) {
-    stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
+    warning("This function can only handle individual \"inchikey\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    stop("Please use a valid 32 character ChemSpider API key (\"apikey\").", call. = FALSE)
+    warning("Please use a valid 32-character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  # if (nchar(inchikey) != 27) {
+  #   warning("The provided \"inchikey\" should be a 27-character vector; not performing API query.", call. = FALSE)
+  #   return(data.frame(valid = FALSE))
+  # }
+  if (length(strsplit(inchikey, split = "-")[[1]]) != 3) {
+    warning("The provided \"inchikey\" should be hyphen-divided into three parts; not performing API query.", call. = FALSE)
+    return(data.frame(valid = FALSE))
+  }
+  if (nchar(strsplit(inchikey, split = "-")[[1]][1]) != 14) {
+    warning("The first part of the \"inchikey\" should be 14 characters long; not performing API query.", call. = FALSE)
+    return(data.frame(valid = FALSE))
+  }
+  if (nchar(strsplit(inchikey, split = "-")[[1]][2]) != 10) {
+    warning("The first part of the \"inchikey\" should be 10 characters long; not performing API query.", call. = FALSE)
+    return(data.frame(valid = FALSE))
+  }
+  if (nchar(strsplit(inchikey, split = "-")[[1]][3]) != 1) {
+    warning("The third part of the \"inchikey\" should be 1 character long; not performing API query.", call. = FALSE)
+    return(data.frame(valid = FALSE))
+  }
+  if (substr(strsplit(inchikey, split = "-")[[1]][2], start = 9L, stop = 9L) != "S") {
+    warning("This is not a standard \"inchikey\"; performing query regardless.", call. = FALSE)
   }
   url <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
   result <- httr::POST(url = url, config = httr::add_headers(apikey = apikey), body = list(inchikey = inchikey), encode = "json")
