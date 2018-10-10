@@ -1,18 +1,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-chemspider
+chemspideR
 ==========
 
 > R functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018. This package provides R wrappers around the new API services. E.g., `records-recordId-details-get` becomes `chemspider::get_details()`. The `chemspider` package is platform independent, but requires a valid ChemSpider API key. While the `chemspider` package does *not* provide any tools to securely store and access the API key, a look into the excellent `keyring` package is recommended.
+ChemSpider has introduced a new API syntax in late 2018. This package provides R wrappers around the new API services. E.g., `records-recordId-details-get` becomes `chemspideR::get_details()`. The `chemspideR` package is platform independent, but requires a valid ChemSpider API key. While the `chemspideR` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended.
 
-`chemspider` is fully `tidyverse` compatible, i.e., it can be used in pipes and in functional programming approaches through `purrr::map()`
+The aim of this package is to
+
+1.  translate the new ChemSpider API services into R-friendly functions
+2.  include thorough quality checking *before* the query is send, to avoid using up the query quota because of, e.g., spelling errors
+3.  create the R functionality in a way that is suitable for both `base` and `tidyverse` programming
+4.  include (non-ChemSpider) convenience functions to complement the functionality
 
 Coverage
 --------
 
-As of 2018-10-09, the following functionalities are implemented (56% coverage):
+As of 2018-10-10, the following functionalities are implemented (56% coverage):
 
 **FILTERING**
 
@@ -20,38 +25,38 @@ As of 2018-10-09, the following functionalities are implemented (56% coverage):
 -   filter-formula-batch-post
 -   filter-formula-batch-queryId-results-get
 -   filter-formula-batch-queryId-status-get
--   filter-formula-post: `chemspider::post_formula()`
--   filter-inchi-post: `chemspider::post_inchi()`
--   filter-inchikey-post: `chemspider::post_inchikey()`
+-   filter-formula-post: `chemspideR::post_formula()`
+-   filter-inchi-post: `chemspideR::post_inchi()`
+-   filter-inchikey-post: `chemspideR::post_inchikey()`
 -   filter-intrinsicproperty-post
 -   filter-mass-batch-post
 -   filter-mass-batch-queryId-results-get
 -   filter-mass-batch-queryId-status-get
--   filter-mass-post: `chemspider::post_mass()`
--   filter-name-post: `chemspider::post_name()`
+-   filter-mass-post: `chemspideR::post_mass()`
+-   filter-name-post: `chemspideR::post_name()`
 -   filter-queryId-results-get: `chemspider::get_results()`
--   filter-queryId-results-sdf-get **TROUBLE**
--   filter-queryId-status-get `chemspider::get_status()`
--   filter-smiles-post: `chemspider::post_smiles()`
+-   filter-queryId-results-sdf-get <span style="color:red">**TROUBLE**<span>
+-   filter-queryId-status-get `chemspideR::get_status()`
+-   filter-smiles-post: `chemspideR::post_smiles()`
 
 **LOOKUPS**
 
--   lookups-datasources-get `chemspider::get_data_sources()`
+-   lookups-datasources-get `chemspideR::get_data_sources()`
 
 **RECORDS**
 
--   records-batch-post **TROUBLE**
--   records-recordId-details-get: `chemspider::get_details()`
--   records-recordId-externalreferences-get: `chemspider::get_external_references()`
--   records-recordId-image-get: `chemspider::get_image()`
--   records-recordId-mol-get: `chemspider::get_mol()`
+-   records-batch-post <span style="color:red">**TROUBLE**<span>
+-   records-recordId-details-get: `chemspideR::get_details()`
+-   records-recordId-externalreferences-get: `chemspideR::get_external_references()`
+-   records-recordId-image-get: `chemspideR::get_image()`
+-   records-recordId-mol-get: `chemspideR::get_mol()`
 
 **TOOLS**
 
--   tools-convert-post: `chemspider::post_convert()`
--   tools-validate-inchikey-post: `chemspider::post_validate_inchikey()`
+-   tools-convert-post: `chemspideR::post_convert()`
+-   tools-validate-inchikey-post: `chemspideR::post_validate_inchikey()`
 
-**WRITING (`chemspider` EXCLUSIVE)**
+**WRITING (`chemspideR` EXCLUSIVE)**
 
 -   `chemspider::write_image()`
 -   `chemspider::write_mol()`
@@ -61,13 +66,13 @@ Installation
 
 ### Dependencies
 
-This packages relies on two essential dependencies, namely `httr` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `magick` package; as `magick` comes with several prerequisites, it is recommendable to check with the official documentation first.
+This packages relies on two essential dependencies, namely `httr` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `png` package.
 
-The two packages (three with `magick`) can be installed as follows:
+If not already installed, these packages *should* be installed automatically when installing `chemspideR`. Should this result in trouble, the dependency packages can be installed manually:
 
 ``` r
 install.packages(c("httr", "jsonlite"))
-# install.packages("magick")
+# install.packages("png")
 ```
 
 If `httr` and/or `jsonlite` are missing from the R library, all functions of `chemspider` will throw an error.
@@ -78,8 +83,10 @@ Install the package from GitHub (using `devtools`):
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("NIVANorge/chemspider")
+devtools::install_github("NIVANorge/chemspideR")
 ```
+
+Currently the only tested environment for `chemspideR` is Windows 10, but it should install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
 
 Usage
 -----
@@ -87,7 +94,7 @@ Usage
 Funding
 -------
 
-This package was created as part of NIVA's Computational Toxicity Program (NCTP) and funded by the MixRisk project.
+This package was created in conjunction with NIVA's Computational Toxicity Program (NCTP) at NIVA's Section for Ecotoxicology and Risk Assessment and funded by the MixRisk project ().
 
 License
 -------
