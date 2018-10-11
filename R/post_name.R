@@ -1,4 +1,4 @@
-post_name <- function(name, orderBy = "", orderDirection = "", apikey) {
+post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", apikey) {
   if (length(name) > 1) {
     stop("This function can only handle individual (\"name\") entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
   }

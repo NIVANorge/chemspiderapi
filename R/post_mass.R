@@ -6,14 +6,14 @@ post_mass <- function(mass, range, dataSources = NULL, orderBy = "recordId", ord
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
   # }
   if (length(mass) > 1) {
-    warning("This function can only handle individual (\"smiles\") entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle individual (\"smiles\") entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (is.na(as.double(mass))) {
     warning("The provided \"mass\" is not a valid (double) number; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  if (is.na(as.double(mass))) {
+  if (is.na(as.double(range))) {
     warning("The provided \"range\" is not a valid (double) number; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }

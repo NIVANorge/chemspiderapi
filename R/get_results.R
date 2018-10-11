@@ -6,11 +6,11 @@ get_results <- function(queryId, start = NULL, count = NULL, apikey) {
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
   # }
   if (length(queryId) > 1) {
-    warning("This function can only handle individual (\"queryId\") entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle individual \"queryId\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(queryId) != 36) {
-    warning("Please use a valid 36-character (\"queryId\"); returning \"NA\".", call. = FALSE)
+    warning("Please use a valid 36-character \"queryId\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (!is.null(start) && is.na(as.integer(start))) {
