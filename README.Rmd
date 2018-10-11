@@ -8,14 +8,16 @@ output: github_document
 
 > R functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018. This package provides R wrappers around the new API services. E.g., `records-recordId-details-get` becomes `chemspideR::get_details()`. The `chemspideR` package is platform independent, but requires a valid ChemSpider API key. While the `chemspideR` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. 
+ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides R wrappers around the new API services. 
 
-The aim of this package is to
+The aim of this package is to:
 
-1) translate the new ChemSpider API services into R-friendly functions
-2) include thorough quality checking *before* the query is send, to avoid using up the query quota because of, e.g., spelling errors
-3) create the R functionality in a way that is suitable for both `base` and `tidyverse` programming
-4) include (non-ChemSpider) convenience functions to complement the functionality
+1) Translate the new ChemSpider API services into R-friendly functions
+2) Include thorough quality checking *before* the query is send, to avoid using up the query quota because of, e.g., spelling errors
+3) Create the R functionality in a way that is suitable for both `base` and `tidyverse` programming
+4) Provide (non-ChemSpider) convenience functions to complement the functionality
+
+The `chemspideR` package is platform independent, but requires a valid ChemSpider API key. While the `chemspideR` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. Future updates of `chemspideR` will likely incorporate [`memoise`](https://github.com/r-lib/memoise) features to better handle query IDs.
 
 ## Coverage
 
