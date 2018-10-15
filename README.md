@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-10, the following functionalities are implemented (56% coverage):
+As of 2018-10-15, the following functionalities are implemented (56% coverage):
 
 **FILTERING**
 
@@ -47,7 +47,7 @@ As of 2018-10-10, the following functionalities are implemented (56% coverage):
 
 **RECORDS**
 
--   records-batch-post <span style="color:red">**TROUBLE**<span>
+-   records-batch-post: `chemspideR::post_batch()`
 -   records-recordId-details-get: `chemspideR::get_details()`
 -   records-recordId-externalreferences-get: `chemspideR::get_external_references()`
 -   records-recordId-image-get: `chemspideR::get_image()`
@@ -68,12 +68,12 @@ Installation
 
 ### Dependencies
 
-This packages relies on two essential dependencies, namely `httr` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `png` package.
+This packages relies on two essential dependencies, namely `curl` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `png` package.
 
 If not already installed, these packages *should* be installed automatically when installing `chemspideR`. Should this result in trouble, the dependency packages can be installed manually:
 
 ``` r
-install.packages(c("httr", "jsonlite"))
+install.packages(c("curl", "jsonlite"))
 # install.packages("png")
 ```
 
@@ -88,7 +88,7 @@ Install the package from GitHub (using `devtools`):
 devtools::install_github("NIVANorge/chemspideR")
 ```
 
-Currently the only tested environment for `chemspideR` is Windows 10, but it should install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
+Currently the only tested environment for `chemspideR` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
 
 Usage
 -----

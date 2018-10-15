@@ -7,7 +7,7 @@ Description: ChemSpider has announced a fundamental change to the syntax of thei
     This package provides convenience wrappers for the new API functionalities of ChemSpider, as well as complementary functions, e.g., to save pictures or .mol files.
 License: MIT + file LICENSE
 Imports: 
-    httr, 
+    curl, 
     jsonlite,
     png
 Suggests: 

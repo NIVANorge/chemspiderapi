@@ -1,33 +1,41 @@
-get_external_references <- function(recordId, dataSources = "", apikey) {
+get_external_references <- function(recordId, dataSources = NULL, apikey) {
+  # if (!requireNamespace("curl", quietly = TRUE)) {
+  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
+  # }
+  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
+  # }
   if (length(recordId) > 1) {
-    stop("This function can only handle individual (\"recordId\") entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-  }
-  if (!requireNamespace("httr", quietly = TRUE)) {
-    stop("Package \"httr\" needed for this function to work. Please install it.", call. = FALSE)
-  }
-  if (!requireNamespace("jsonlite", quietly = TRUE)) {
-    stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  }
-  if (is.na(as.integer(recordId))) {
-    stop("Please use a valid (\"recordId\").", call. = FALSE)
-  }
-  dataSources <- tolower(dataSources)
-  dataSources2 <- paste0(dataSources, collapse = ",")
-  url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences")
-  result <- httr::GET(url = url, config = httr::add_headers(apikey = apikey), query = list(dataSources = dataSources2))
-  if (result$status_code != 200) {
-    warning("No valid information was retrieved, returning NA.\nCarfully check the (\"recordId\"), the desired (\"dataSources\"), and the validity of the API key (\"apikey\").")
+    warning("This function can only handle individual \"recordId\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
-  else {
-    result <- httr::content(result, type = "application/json")
-    result2 <- data.frame(source = character(), sourceUrl = character(), externalId = character(), externalUrl = character(), stringsAsFactors = FALSE)
-    for (i in 1:length(result[[1]])) {
-      result2[i, ] <- sapply(result[[1]][i], FUN = as.character)
-    }
-    if (length(unique(result2$source)) < length(dataSources)) {
-      warning("One (or more) \"dataSources\" were not found. Maybe a spelling mistake?", call. = FALSE)
-    }
-    return(result)
+  if (is.na(as.integer(recordId))) {
+    warning("Please use a valid (\"recordId\").", call. = FALSE)
+    return(NA_character_)
   }
+  if (!is.null(dataSources)) {
+    dataSources <- paste(dataSources, collapse = ",")
+  }
+  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  if (!is.null(dataSources)) {
+    curlUrl <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences?dataSources=", dataSources)
+  }
+  else {
+    curlUrl <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences")
+  }
+  curlHandle <- curl::new_handle()
+  curl::handle_setopt(curlHandle, customrequest = "GET")
+  curl::handle_setheaders(curlHandle, .list = curlHeader)
+  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
+  if (result$status_code != 200) {
+    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"recordId\", the desired \"dataSources\", and the validity of the \"apikey\".", call. = FALSE)
+    return(NA_character_)
+  }
+  result <- rawToChar(result$content)
+  result <- jsonlite::fromJSON(result)
+  result <- as.data.frame(result[[1]], stringsAsFactors = FALSE)
+  if (length(unique(result$source)) < length(dataSources)) {
+    warning("One (or more) \"dataSources\" were not found. Maybe a spelling mistake?", call. = FALSE)
+  }
+  return(result)
 }
