@@ -1,6 +1,6 @@
 post_validate_inchikey <- function(inchikey, apikey) {
-  # if (!requireNamespace("httr", quietly = TRUE)) {
-  #   stop("Package \"httr\" needed for this function to work. Please install it.", call. = FALSE)
+  # if (!requireNamespace("curl", quietly = TRUE)) {
+  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
   # }
   # if (!requireNamespace("jsonlite", quietly = TRUE)) {
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
@@ -36,8 +36,15 @@ post_validate_inchikey <- function(inchikey, apikey) {
   if (substr(strsplit(inchikey, split = "-")[[1]][2], start = 9L, stop = 9L) != "S") {
     warning("This is not a standard \"inchikey\"; performing query regardless.", call. = FALSE)
   }
-  url <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
-  result <- httr::POST(url = url, config = httr::add_headers(apikey = apikey), body = list(inchikey = inchikey), encode = "json")
+  curlData <- list("inchikey" = inchikey)
+  curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
+  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlUrl <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
+  curlHandle <- curl::new_handle()
+  curl::handle_setopt(curlHandle, customrequest = "POST")
+  curl::handle_setopt(curlHandle, postfields = curlData)
+  curl::handle_setheaders(curlHandle, .list = curlHeader)
+  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code == 200) {
     return(data.frame(valid = TRUE))
   }
@@ -45,3 +52,4 @@ post_validate_inchikey <- function(inchikey, apikey) {
     return(data.frame(valid = FALSE))
   }
 }
+
