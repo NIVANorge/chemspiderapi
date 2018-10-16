@@ -1,6 +1,6 @@
 Package: chemspideR
 Type: Package
-Title: R functionalities for ChemSpider's new API services
+Title: R wrapper for ChemSpider's new API services
 Version: 0.0.0.9000
 Authors@R: person("Raoul", "Wolf", email = "raoul.wolf@niva.no", role = c("aut", "cre"))
 Description: ChemSpider has announced a fundamental change to the syntax of their API services in late 2018.

@@ -6,7 +6,7 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
   # }
   if (length(recordIds) == 1) {
-    warning("This function is meant for handling multiple \"queryId\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function is meant for handling multiple \"queryId\" entries; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (length(recordIds) > 100) {
@@ -14,21 +14,17 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    warning("Please use a valid 32-character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
-    return(NA_character_)
-  }
-  if (nchar(apikey) != 32) {
     warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  if (fields == "all") {
-      fields <- "SMILES,Formula,AverageMass,MolecularWeight,MonoisotopicMass,NominalMass,CommonName,ReferenceCount,DataSourceCount,PubMedCount,RSCCount,Mol2D,Mol3D"
+  if (length(fields) == 1 && fields == "all") {
+    fields <- c("SMILES", "Formula", "AverageMass", "MolecularWeight", "MonoisotopicMass", "NominalMass", "CommonName", "ReferenceCount", "DataSourceCount", "PubMedCount", "RSCCount", "Mol2D", "Mol3D")
     }
-  else {
-    fields <- paste(fields, collapse = ",")
+  if (length(fields) == 1 && fields != "all") {
+    fields <- I(fields)
   }
   curlData <- list("recordIds" = recordIds, "fields" = fields)
-  curlData <- jsonlite::toJSON(curlData, auto_unbox = FALSE)
+  curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
   curlHeader <- list("Content-Type" = "", "apikey" = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/records/batch"
   curlHandle <- curl::new_handle()
@@ -37,7 +33,7 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   curl::handle_setheaders(curlHandle, .list = curlHeader)
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code != 200) {
-    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"name\", \"orderBy\" and \"orderDirection\" (if applicable), and the validity of the (\"apikey\").", call. = FALSE)
+    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"name\", \"orderBy\" and \"orderDirection\" (if applicable), and the validity of the \"apikey\".", call. = FALSE)
     return(NA_character_)
   }
   result <- rawToChar(result$content)
