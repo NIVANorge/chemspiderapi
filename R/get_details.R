@@ -1,12 +1,6 @@
 get_details <- function(recordId, fields = "all", apikey, id = TRUE) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(recordId) > 1) {
-    warning("This function can only handle individual ChemSpider IDs (\"recordId\"); returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle a single \"recordId\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (is.na(as.integer(recordId)) == TRUE) {
@@ -19,6 +13,10 @@ get_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   }
   if (nchar(apikey) != 32) {
     warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (fields != "all" && sum(tolower(fields) %in% c("smiles", "formula", "averagemass", "molecularweight", "monoisotopicmass", "nominalmass", "commonname", "referencecount", "datasourcecount", "pubmedcount", "rsccount", "mol2d", "mol3d")) < length(fields)) {
+    warning("One or more \"fields\" are not valid; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (length(fields) == 1 && fields == "all") {
@@ -41,14 +39,8 @@ get_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   if (id == FALSE) {
     result$id <- NULL
   }
-  if (ncol(result) == 1 && typeof(result) == "character") {
-    result <- as.character(result)
-  }
-  if (ncol(result) == 1 && typeof(result) == "double") {
-    result <- as.double(result)
-  }
-  if (ncol(result) == 1 && typeof(result) == "integer") {
-    result <- as.integer(result)
+  if (ncol(result) == 1) {
+    result <- unlist(result)
   }
   return(result)
 }

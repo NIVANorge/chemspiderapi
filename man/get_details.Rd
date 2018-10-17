@@ -1,61 +1,63 @@
 \name{get_details}
 \alias{get_details}
-\title{Get the record details for a compound from ChemSpider}
+\title{GET the record details for a compound from ChemSpider}
 \description{
 This function is used to return record details from ChemSpider.
 }
 \usage{
-get_details(recordId, fields, apikey, id = TRUE)
+get_details(recordId, fields = "all", apikey, id = TRUE)
 }
 \arguments{
-\item{recordId}{a valid (integer) ChemSpider Record ID. This is sometimes simply referred to as ChemSpider ID.}
-\item{fields}{either a single character string, a character vector, or a character list stating which fields to return. Alternatively, \code{"all"} returns all possible \code{fields}. \code{fields} is NOT case sensitive, but see details for a list of possible entries.}
-\item{apikey}{a 32 character string with a valid key for ChemSpider's API services.}
-\item{id}{\code{logical}: should the \code{id} column (i.e., the \code{recordId}) be part of the output (ChemSpider default)?}
+\item{recordId}{A valid (integer) ChemSpider ID.}
+\item{fields}{Either a single character string, a character vector, or a character list stating which fields to return. Alternatively, \code{"all"} returns all possible \code{fields}. \code{fields} is NOT case sensitive, but see details for a list of possible entries.}
+\item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
+\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output (ChemSpider default)?}
 }
 \details{
-Call this endpoint with \code{recordId} as an integer.
+The available options for \code{fields} are:
 
-The available inputs for \code{fields} are:
+\code{"SMILES"}
 
-\code{SMILES}
+\code{"Formula"}
 
-\code{Formula}
+\code{"AverageMass"}
 
-\code{AverageMass}
+\code{"MolecularWeight"}
 
-\code{MolecularWeight}
+\code{"MonoisotopicMass"}
 
-\code{MonoisotopicMass}
+\code{"NominalMass"}
 
-\code{NominalMass}
+\code{"CommonName"}
 
-\code{CommonName}
+\code{"ReferenceCount"}
 
-\code{ReferenceCount}
+\code{"DataSourceCount"}
 
-\code{DataSourceCount}
+\code{"PubMedCount"}
 
-\code{PubMedCount}
+\code{"RSCCount"}
 
-\code{RSCCount}
+\code{"Mol2D"}
 
-\code{Mol2D}
+\code{"Mol3D"}
 
-\code{Mol3D}
+\code{"all"} (default)
 
-If successful, returns a \code{data.frame} of results from the query, with the requested fields.
+If successful, returns either a \code{data.frame} of results from the query with the requested fields; if only one paraemeter is returned, this is then transformed into a vector.
 
 If not successful, it returns \code{NA}.
 
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}
+This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
 ## Do not run
 ## Record details for Aspirin.
 
+# recordId <- 2157
 # apikey <- "a_valid_ChemSpider_API_key"
-#
-# get_details(recordId = 2157, fields = c("SMILES", "MolecularWeight", "CommonName"),
+# get_details(recordId = recordId, fields = c("SMILES", "MolecularWeight", "CommonName"),
 #             apikey = apikey)
+# get_details(recordId = recordId, fields = "MolecularWeight", apikey = apikey,
+#             id = FALSE)
 }

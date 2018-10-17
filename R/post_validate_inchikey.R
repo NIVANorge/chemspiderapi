@@ -1,22 +1,16 @@
 post_validate_inchikey <- function(inchikey, apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(inchikey) > 1) {
-    warning("This function can only handle individual \"inchikey\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle a single \"inchikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
     warning("Please use a valid 32-character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  # if (nchar(inchikey) != 27) {
-  #   warning("The provided \"inchikey\" should be a 27-character vector; not performing API query.", call. = FALSE)
-  #   return(data.frame(valid = FALSE))
-  # }
+  if (nchar(inchikey) != 27) {
+    warning("The provided \"inchikey\" should be a 27-character vector; not performing API query.", call. = FALSE)
+    return(FALSE)
+  }
   if (length(strsplit(inchikey, split = "-")[[1]]) != 3) {
     warning("The provided \"inchikey\" should be hyphen-divided into three parts; not performing API query.", call. = FALSE)
     return(FALSE)
@@ -52,4 +46,3 @@ post_validate_inchikey <- function(inchikey, apikey) {
     return(FALSE)
   }
 }
-

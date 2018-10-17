@@ -8,7 +8,7 @@ Functionality to convert between different chemical identifier formats: InChI, I
 post_convert(input, inputFormat, outputFormat, apikey)
 }
 \arguments{
-\item{input}{A valid .mol file, e.g., as downloaded via \code{chemspider::get_mol()}.}
+\item{input}{A character string in the specified \code{inputFormat}.}
 \item{inputFormat}{A character string indicating which format the input has. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 \item{outputFormat}{A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
@@ -46,9 +46,10 @@ This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr
 ## Do not run
 ## convert the InChI string of Aspirin to SMILES.
 
+# input <- "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
+# inputFormat <- "InChI"
+# outputFormat <- "SMILES"
 # apikey <- "a_valid_ChemSpider_API_key"
-# post_convert(input = "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)",
-#              inputFormat = "InChI",
-#              outputFormat = "SMILES",
+# post_convert(input = input, inputFormat = inputFormat, outputFormat = outputFormat,
 #              apikey = apikey)
 }

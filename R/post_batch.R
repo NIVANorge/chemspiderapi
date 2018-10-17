@@ -1,10 +1,4 @@
 post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(recordIds) == 1) {
     warning("This function is meant for handling multiple \"queryId\" entries; returning \"NA\".", call. = FALSE)
     return(NA_character_)
@@ -20,7 +14,7 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   if (length(fields) == 1 && fields == "all") {
     fields <- c("SMILES", "Formula", "AverageMass", "MolecularWeight", "MonoisotopicMass", "NominalMass", "CommonName", "ReferenceCount", "DataSourceCount", "PubMedCount", "RSCCount", "Mol2D", "Mol3D")
     }
-  if (length(fields) == 1 && fields != "all") {
+  if (length(fields) == 1) {
     fields <- I(fields)
   }
   curlData <- list(recordIds = recordIds, fields = fields)
@@ -33,7 +27,7 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   curl::handle_setheaders(curlHandle, .list = curlHeader)
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code != 200) {
-    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"name\", \"orderBy\" and \"orderDirection\" (if applicable), and the validity of the \"apikey\".", call. = FALSE)
+    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"recordIds\", \"fields\", and the validity of the \"apikey\".", call. = FALSE)
     return(NA_character_)
   }
   result <- rawToChar(result$content)
@@ -42,14 +36,9 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   if (id == FALSE) {
     result$id <- NULL
   }
-  if (ncol(result) == 1 && typeof(result) == "character") {
-    result <- as.character(result)
-  }
-  if (ncol(result) == 1 && typeof(result) == "double") {
-    result <- as.double(result)
-  }
-  if (ncol(result) == 1 && typeof(result) == "integer") {
-    result <- as.integer(result)
+  if (ncol(result) == 1) {
+    result <- unlist(result)
+    result <- unname(result)
   }
   return(result)
 }
