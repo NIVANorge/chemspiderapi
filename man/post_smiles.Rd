@@ -2,28 +2,27 @@
 \alias{post_smiles}
 \title{POST a SMILES string}
 \description{
-Functionality to POST a SMILES string, in order to obtain a \code{queryId} for use in \code{chemspideR::get_status()} and \code{chemspideR::get_results()}.
+Functionality to POST a SMILES string to obtain a \code{queryId} for use in \code{chemspideR::get_status()} and \code{chemspideR::get_results()}.
 }
 \usage{
 post_smiles(smiles, apikey)
 }
 \arguments{
-\item{smiles}{A valid SMILES character string.}
-\item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+\item{smiles}{A SMILES string.}
+\item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
 }
 \details{
-If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspideR::get_status()} and \code{chemspideR::get_results()}.
+If successful, \code{chemspideR::post_smiles()} returns the \code{queryId} as character string.
 
 If not successful, it returns \code{NA}.
 
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}
+This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
 ## Do not run
-## Post the SMILES character string of aspirin.
+## POST the SMILES string of Aspirin to get a queryId.
 
-# smiles <- "CC(=O)Oc1ccccc1C(=O)O"
-# apikey <- "a_valid_ChemSpider_API_key"
-#
+# smiles <- "CC(=O)OC1=CC=CC=C1C(=O)O"
+# apikey <- "a valid 32-character ChemSpider apikey"
 # post_smiles(smiles = smiles, apikey = apikey)
 }

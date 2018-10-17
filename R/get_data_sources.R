@@ -1,12 +1,6 @@
 get_data_sources <- function(apikey) {
-  # if (!requireNamespace("httr", quietly = TRUE)) {
-  #   stop("Package \"httr\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (nchar(apikey) != 32) {
-    warning("Please use a valid 32-character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
+    warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   curlHeader <- list(`Content-Type` = "", apikey = apikey)
@@ -21,6 +15,7 @@ get_data_sources <- function(apikey) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- unlist(result)
+  result <- unname(result)
   return(result)
 }

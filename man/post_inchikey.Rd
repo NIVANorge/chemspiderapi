@@ -1,30 +1,30 @@
 \name{post_inchikey}
 \alias{post_inchikey}
-\title{POST a InChIKey string}
+\title{POST an InChIKey}
 \description{
-Functionality to POST a chemical formula, in order to obtain a \code{queryId} for use in \code{chemspider::get_results()}.
+Functionality to POST an InChIKey to obtain a \code{queryId} for use in \code{chemspideR::get_status()} and \code{chemspideR::get_results()}.
 }
 \usage{
 post_inchikey(inchikey, apikey)
 }
 \arguments{
-\item{inchikey}{A valid .mol file, e.g., as downloaded via \code{chemspider::get_mol()}.}
-\item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+\item{inchikey}{A valid 27-character InChIKey; see Details.}
+\item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
 }
 \details{
-If successful, performs the desired conversion and stores the result as a named ("output") character string.
+The validity criteria for InChIKeys are outlined here: https://www.inchi-trust.org/technical-faq/#13.1. If certain criteria are not met by the input \code{inchikey}, \code{chemspideR::post_inchikey()} returns a warning message and \code{NA}, and does not perform an API query.
+
+If successful, returns the \code{queryId} as character string.
 
 If not successful, it returns \code{NA}.
 
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}
+This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
 ## Do not run
-## convert the InChI string of Aspirin to SMILES.
+## POST the InChIKey of Aspirin to get a queryId.
 
-# apikey <- "a_valid_ChemSpider_API_key"
-# post_convert(input = "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)",
-#              inputFormat = "InChI",
-#              outputFormat = "SMILES",
-#              apikey = apikey)
+# inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
+# apikey <- "a valid 32-character ChemSpider apikey"
+# post_inchikey(inchikey = inchikey, apikey = apikey)
 }

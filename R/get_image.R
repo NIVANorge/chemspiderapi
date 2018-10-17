@@ -1,16 +1,10 @@
 get_image <- function(recordId, apikey, png = FALSE) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(recordId) > 1) {
-    warning("This function can only handle individual ChemSpider \"recordId\"; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle a single \"recordId\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (is.na(as.integer(recordId))) {
-    warning("The ChemSpider ID (\"recordId\") must be an integer number; returning \"NA\".", call. = FALSE)
+    warning("Please use a valid (integer) \"recordId\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
@@ -29,12 +23,10 @@ get_image <- function(recordId, apikey, png = FALSE) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
+  result <- unlist(result)
   if (png == TRUE) {
-    result <- jsonlite::base64_dec(result[[1]])
+    result <- jsonlite::base64_dec(result)
     result <- png::readPNG(result)
-  }
-  else {
-    result <- as.character(result, stringsAsFactors = FALSE)
   }
   return(result)
 }

@@ -1,20 +1,14 @@
 get_mol <- function(recordId, apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(recordId) > 1) {
-    warning("This function can only handle individual ChemSpider IDs (\"recordId\"); returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle a single \"recordId\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (is.na(as.integer(recordId))) {
-    warning("The ChemSpider ID (\"recordId\") must be an integer number; returning \"NA\".", call. = FALSE)
+    warning("Please provide a valid (integer) \"recordId\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    warning("Please include a valid 32 character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
+    warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   curlHeader <- list(`Content-Type` = "", apikey = apikey)
@@ -29,10 +23,6 @@ get_mol <- function(recordId, apikey) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
-  if (nchar(result) < 1) {
-    warning("No valid Mol/SDF file was retrieved; returning \"NA\".\nCarfully check the ChemSpider ID (\"recordId\") and the validity of the API key (\"apikey\").")
-    return(NA_character_)
-  }
+  result <- unlist(result)
   return(result)
 }

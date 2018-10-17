@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-17, the following functionalities are implemented (100% of functionality with 67% of annotation):
+As of 2018-10-17, the following functionalities are implemented (100% functionality with 67% overall annotation and 37% quality annotation):
 
 **FILTERING**
 
@@ -60,17 +60,17 @@ As of 2018-10-17, the following functionalities are implemented (100% of functio
 <tr class="odd">
 <td align="left">filter-formula-post</td>
 <td align="left"><code>chemspideR::post_formula()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="even">
 <td align="left">filter-inchi-post</td>
 <td align="left"><code>chemspideR::post_inchi()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-inchikey-post</td>
 <td align="left"><code>chemspideR::post_inchikey()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="even">
 <td align="left">filter-intrinsicproperty-post</td>
@@ -115,12 +115,12 @@ As of 2018-10-17, the following functionalities are implemented (100% of functio
 <tr class="even">
 <td align="left">filter-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_status()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-smiles-post</td>
 <td align="left"><code>chemspideR::post_smiles()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 </tbody>
 </table>
@@ -131,7 +131,7 @@ As of 2018-10-17, the following functionalities are implemented (100% of functio
 
 | ChemSpider Compound API | `chemspideR` wrapper             | `chemspideR` help file |
 |:------------------------|:---------------------------------|:----------------------:|
-| lookups-datasources-get | `chemspideR::get_data_sources()` |           yes          |
+| lookups-datasources-get | `chemspideR::get_data_sources()` |         **yes**        |
 
 **RECORDS**
 
@@ -167,12 +167,12 @@ As of 2018-10-17, the following functionalities are implemented (100% of functio
 <tr class="even">
 <td align="left">records-recordId-image-get</td>
 <td align="left"><code>chemspideR::get_image()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-mol-get</td>
 <td align="left"><code>chemspideR::get_mol()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 </tbody>
 </table>
@@ -188,8 +188,8 @@ As of 2018-10-17, the following functionalities are implemented (100% of functio
 
 | ChemSpider Compound API | `chemspideR` wrapper        | `chemspideR` help file |
 |:------------------------|:----------------------------|:----------------------:|
-|                         | `chemspideR::write_image()` |           yes          |
-|                         | `chemspideR::write_mol()`   |           yes          |
+|                         | `chemspideR::write_image()` |         **yes**        |
+|                         | `chemspideR::write_mol()`   |         **yes**        |
 
 Installation
 ------------

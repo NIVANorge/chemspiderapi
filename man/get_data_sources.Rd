@@ -1,4 +1,4 @@
-\name{get_datas_ources}
+\name{get_datas_sources}
 \alias{get_data_sources}
 \title{A listing of all (external) ChemSpider data sources}
 \description{
@@ -8,16 +8,18 @@ A listing of all (external) ChemSpider data sources.
 get_data_sources(apikey)
 }
 \arguments{
-\item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+\item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
 }
 \details{
-This function returns a data frame listing all available (external) data sources.
+If succesfull, return a character vector listing all available (external) data sources.
 
-This function is most useful for narrowing down \code{dataSources} in \code{chemspider::get_references()}.
+If not succesfull, returns a warning and NA.
+
+This function is most useful for narrowing down \code{dataSources} in other functionalities, e.g., \code{chemspider::get_references()}.
 }
 \examples{
 ## Do not run
 
-# apikey <- "a_valid_ChemSpider_API_key"
+# apikey <- "a valid 32-character ChemSpider apikey"
 # get_data_sources(apikey = apikey)
 }
