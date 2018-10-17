@@ -29,7 +29,7 @@ get_mol <- function(recordId, apikey) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   if (nchar(result) < 1) {
     warning("No valid Mol/SDF file was retrieved; returning \"NA\".\nCarfully check the ChemSpider ID (\"recordId\") and the validity of the API key (\"apikey\").")
     return(NA_character_)

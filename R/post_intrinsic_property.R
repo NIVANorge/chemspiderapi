@@ -94,6 +94,6 @@ post_intrinsic_property <- function(property, formula = NULL, complexity = NULL,
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   return(result)
 }

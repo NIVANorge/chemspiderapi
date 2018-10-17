@@ -28,6 +28,6 @@ post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", 
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   return(result)
 }

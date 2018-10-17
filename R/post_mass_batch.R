@@ -64,6 +64,6 @@ post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   return(result)
 }

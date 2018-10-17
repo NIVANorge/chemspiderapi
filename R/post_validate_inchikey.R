@@ -19,19 +19,19 @@ post_validate_inchikey <- function(inchikey, apikey) {
   # }
   if (length(strsplit(inchikey, split = "-")[[1]]) != 3) {
     warning("The provided \"inchikey\" should be hyphen-divided into three parts; not performing API query.", call. = FALSE)
-    return(data.frame(valid = FALSE))
+    return(FALSE)
   }
   if (nchar(strsplit(inchikey, split = "-")[[1]][1]) != 14) {
     warning("The first part of the \"inchikey\" should be 14 characters long; not performing API query.", call. = FALSE)
-    return(data.frame(valid = FALSE))
+    return(FALSE)
   }
   if (nchar(strsplit(inchikey, split = "-")[[1]][2]) != 10) {
     warning("The first part of the \"inchikey\" should be 10 characters long; not performing API query.", call. = FALSE)
-    return(data.frame(valid = FALSE))
+    return(FALSE)
   }
   if (nchar(strsplit(inchikey, split = "-")[[1]][3]) != 1) {
     warning("The third part of the \"inchikey\" should be 1 character long; not performing API query.", call. = FALSE)
-    return(data.frame(valid = FALSE))
+    return(FALSE)
   }
   if (substr(strsplit(inchikey, split = "-")[[1]][2], start = 9L, stop = 9L) != "S") {
     warning("This is not a standard \"inchikey\"; performing query regardless.", call. = FALSE)
@@ -46,10 +46,10 @@ post_validate_inchikey <- function(inchikey, apikey) {
   curl::handle_setheaders(curlHandle, .list = curlHeader)
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code == 200) {
-    return(data.frame(valid = TRUE))
+    return(TRUE)
   }
   else {
-    return(data.frame(valid = FALSE))
+    return(FALSE)
   }
 }
 

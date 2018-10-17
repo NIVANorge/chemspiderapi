@@ -52,5 +52,14 @@ get_results <- function(queryId, start = NULL, count = NULL, apikey) {
     warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\"", call. = FALSE)
   }
   result <- data.frame(results = result$results, stringsAsFactors = FALSE)
+  if (ncol(result) == 1 && typeof(result) == "character") {
+    result <- as.character(result)
+  }
+  if (ncol(result) == 1 && typeof(result) == "double") {
+    result <- as.double(result)
+  }
+  if (ncol(result) == 1 && typeof(result) == "integer") {
+    result <- as.integer(result)
+  }
   return(result)
 }

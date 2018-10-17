@@ -34,7 +34,7 @@ get_image <- function(recordId, apikey, png = FALSE) {
     result <- png::readPNG(result)
   }
   else {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- as.character(result, stringsAsFactors = FALSE)
   }
   return(result)
 }

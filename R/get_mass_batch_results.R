@@ -30,5 +30,14 @@ get_mass_batch_results <- function(queryId, apikey) {
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
   result <- data.frame(results = result$results, stringsAsFactors = FALSE)
+  if (ncol(result) == 1 && typeof(result) == "character") {
+    result <- as.character(result)
+  }
+  if (ncol(result) == 1 && typeof(result) == "double") {
+    result <- as.double(result)
+  }
+  if (ncol(result) == 1 && typeof(result) == "integer") {
+    result <- as.integer(result)
+  }
   return(result)
 }

@@ -29,6 +29,6 @@ get_sdf <- function(queryId, apikey) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- data.frame(results = result$results, stringsAsFactors = FALSE)
+  result <- as.character(result$results)
   return(result)
 }

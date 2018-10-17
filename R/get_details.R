@@ -41,5 +41,14 @@ get_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   if (id == FALSE) {
     result$id <- NULL
   }
+  if (ncol(result) == 1 && typeof(result) == "character") {
+    result <- as.character(result)
+  }
+  if (ncol(result) == 1 && typeof(result) == "double") {
+    result <- as.double(result)
+  }
+  if (ncol(result) == 1 && typeof(result) == "integer") {
+    result <- as.integer(result)
+  }
   return(result)
 }

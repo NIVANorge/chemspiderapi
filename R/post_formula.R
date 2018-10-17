@@ -29,6 +29,6 @@ post_formula <- function(formula, dataSources = NULL, orderBy = "recordId", orde
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   return(result)
 }

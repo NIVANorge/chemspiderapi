@@ -21,10 +21,10 @@ get_status <- function(queryId, apikey) {
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code != 200) {
     warning("Query not yet finalized, please check again in 10 seconds.\nCarefully check the validity of the \"apikey\".", call. = FALSE)
-    return(data.frame(status = "Incomplete", stringsAsFactors = FALSE))
+    return(as.character("Incomplete"))
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   return(result)
 }
