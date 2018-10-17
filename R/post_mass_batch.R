@@ -39,19 +39,19 @@ post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId
   }
   masses <- list()
   for (i in 1:length(mass)) {
-    masses[[i]] <- list("mass" = mass[i], "range" = range[i])
+    masses[[i]] <- list(mass = mass[i], range = range[i])
   }
   if (!is.null(dataSources)) {
     if (length(dataSources) == 1) {
       dataSources <- I(dataSources)
     }
-    curlData <- list("masses" = masses, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    curlData <- list(masses = masses, dataSources = dataSources, orderBy = orderBy, orderDirection = orderDirection)
   }
   else {
-    curlData <- list("masses" = masses, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    curlData <- list(masses = masses, orderBy = orderBy, orderDirection = orderDirection)
   }
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/mass/batch"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

@@ -13,11 +13,11 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
     warning("ChemSpider only supports up to 100 entries in \"excludeElements\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  if (sum(tolower(complexity) %in% c("any", "single", "multiple")) < 1) {
+  if (sum(tolower(complexity) %in% c("any", "single", "multiple")) != 1) {
     warning("The provided complexity is not \"any\", \"single\", or \"multiple\"; returning NA.", call. = FALSE)
     return(NA_character_)
   }
-  if (sum(tolower(isotopic) %in% c("any", "labeled", "unlabeled")) < 1) {
+  if (sum(tolower(isotopic) %in% c("any", "labeled", "unlabeled")) != 1) {
     warning("The provided isotopic is not \"any\", \"labeled\", or \"unlabeled\"; returning NA.", call. = FALSE)
     return(NA_character_)
   }
@@ -31,10 +31,10 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
   if (length(excludeElements) == 1) {
     excludeElements <- I(excludeElements)
   }
-  options <- list("includeAll" = includeAll, "complexity" = complexity, "isotopic" = isotopic)
-  curlData <- list("includeElements" = includeElements, "excludeElements" = excludeElements, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+  options <- list(includeAll = includeAll, complexity = complexity, isotopic = isotopic)
+  curlData <- list(includeElements = includeElements, excludeElements = excludeElements, options = options, orderBy = orderBy, orderDirection = orderDirection)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/element"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

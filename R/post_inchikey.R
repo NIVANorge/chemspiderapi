@@ -5,7 +5,7 @@ post_inchikey <- function(inchikey, apikey) {
   # if (!requireNamespace("jsonlite", quietly = TRUE)) {
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
   # }
-  if (length(inchi) > 1) {
+  if (length(inchikey) > 1) {
     warning("This function can only handle individual \"inchikey\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
@@ -13,9 +13,9 @@ post_inchikey <- function(inchikey, apikey) {
     warning("Please use a valid 32 character ChemSpider API key (\"apikey\").", call. = FALSE)
     return(NA_character_)
   }
-  curlData <- list("inchikey" = inchikey)
+  curlData <- list(inchikey = inchikey)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/inchikey"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

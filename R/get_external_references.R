@@ -10,13 +10,13 @@ get_external_references <- function(recordId, dataSources = NULL, apikey) {
     return(NA_character_)
   }
   if (is.na(as.integer(recordId))) {
-    warning("Please use a valid (\"recordId\").", call. = FALSE)
+    warning("Please use a valid \"recordId\"; returning NA.", call. = FALSE)
     return(NA_character_)
   }
   if (!is.null(dataSources)) {
     dataSources <- paste(dataSources, collapse = ",")
   }
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   if (!is.null(dataSources)) {
     curlUrl <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences?dataSources=", dataSources)
   }

@@ -22,10 +22,10 @@ get_results <- function(queryId, start = NULL, count = NULL, apikey) {
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    warning("Please use a valid 32-character ChemSpider (\"apikey\"); returning \"NA\".", call. = FALSE)
+    warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   if (is.null(start) && is.null(count)) {
     curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results")
   }

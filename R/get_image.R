@@ -17,7 +17,7 @@ get_image <- function(recordId, apikey, png = FALSE) {
     warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/image")
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "GET")

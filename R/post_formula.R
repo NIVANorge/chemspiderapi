@@ -6,15 +6,17 @@ post_formula <- function(formula, dataSources = NULL, orderBy = "recordId", orde
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
   # }
   if (length(formula) > 1) {
-    stop("This function can only handle individual (\"formula\") entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle individual \"formula\" entries; returning NA.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    stop("Please use a valid 32 character ChemSpider API key (\"apikey\").", call. = FALSE)
+    warning("Please use a valid 32 character ChemSpider \"apikey\"; returning NA.", call. = FALSE)
+    return(NA_character_)
   }
   dataSources <- paste(dataSources, collapse = ",")
-  curlData <- list("formula" = formula, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
+  curlData <- list(formula = formula, dataSources = dataSources, orderBy = orderBy, orderDirection = orderDirection)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/formula"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

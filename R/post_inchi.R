@@ -13,9 +13,9 @@ post_inchi <- function(inchi, apikey) {
     warning("Please use a valid 32 character ChemSpider API key (\"apikey\").", call. = FALSE)
     return(NA_character_)
   }
-  curlData <- list("inchi" = inchi)
+  curlData <- list(inchi = inchi)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/inchi"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

@@ -13,9 +13,9 @@ post_smiles <- function(smiles, apikey) {
     warning("Please use a valid 32 character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  curlData <- list("smiles" = smiles)
+  curlData <- list(smiles = smiles)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/smiles"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

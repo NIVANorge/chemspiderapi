@@ -23,9 +23,9 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   if (length(fields) == 1 && fields != "all") {
     fields <- I(fields)
   }
-  curlData <- list("recordIds" = recordIds, "fields" = fields)
+  curlData <- list(recordIds = recordIds, fields = fields)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/records/batch"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

@@ -37,13 +37,13 @@ post_mass <- function(mass, range, dataSources = NULL, orderBy = "recordId", ord
     if (length(dataSources) == 1) {
       dataSources <- I(dataSources)
     }
-    curlData <- list("mass" = mass, "range" = range, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    curlData <- list(mass = mass, range = range, dataSources = dataSources, orderBy = orderBy, orderDirection = orderDirection)
   }
   else {
-    curlData <- list("mass" = mass, "range" = range, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    curlData <- list(mass = mass, range = range, orderBy = orderBy, orderDirection = orderDirection)
   }
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/mass"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

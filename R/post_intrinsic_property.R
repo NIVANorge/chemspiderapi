@@ -60,28 +60,28 @@ post_intrinsic_property <- function(property, formula = NULL, complexity = NULL,
   if (is.null(isotopic)) {
     isotopic <- ""
   }
-  options <- list("complexity" = complexity, "isotopic" = isotopic)
+  options <- list(complexity = complexity, isotopic = isotopic)
   if (tolower(property) == "formula") {
-    curlData <- list("formula" = formula, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    curlData <- list(formula = formula, options = options, orderBy = orderBy, orderDirection = orderDirection)
   }
   if (tolower(property) == "molecularweight") {
-    molecularWeight <- list("mass" = mass, "range" = range)
-    curlData <- list("molecularWeight" = molecularWeight, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    molecularWeight <- list(mass = mass, range = range)
+    curlData <- list(molecularWeight = molecularWeight, options = options, orderBy = orderBy, orderDirection = orderDirection)
   }
   if (tolower(property) == "nominalmass") {
-    nominalMass <- list("mass" = mass, "range" = range)
-    curlData <- list("nominalMass" = nominalMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    nominalMass <- list(mass = mass, range = range)
+    curlData <- list(nominalMass = nominalMass, options = options, orderBy = orderBy, orderDirection = orderDirection)
   }
   if (tolower(property) == "averagemass") {
-    averageMass <- list("mass" = mass, "range" = range)
-    curlData <- list("averageMass" = averageMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    averageMass <- list(mass = mass, range = range)
+    curlData <- list(averageMass = averageMass, options = options, orderBy = orderBy, orderDirection = orderDirection)
   }
   if (tolower(property) == "monoisotopicmass") {
-    monoisotopicMass <- list("mass" = mass, "range" = range)
-    curlData <- list("monoisotopicMass" = monoisotopicMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    monoisotopicMass <- list(mass = mass, range = range)
+    curlData <- list(monoisotopicMass = monoisotopicMass, options = options, orderBy = orderBy, orderDirection = orderDirection)
   }
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/intrinsicproperty"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")
@@ -97,5 +97,3 @@ post_intrinsic_property <- function(property, formula = NULL, complexity = NULL,
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   return(result)
 }
-
-test <- post_intrinsic_property(property = "formula", formula = "C8H12O9", apikey = apikey)

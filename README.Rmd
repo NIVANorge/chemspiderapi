@@ -103,7 +103,7 @@ devtools::install_github("NIVANorge/chemspideR")
 
 Currently the only tested environment for `chemspideR` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles. 
 
-## Usage
+## Best practices for ChemSpider's Compound APIs
 
 This section will be updated with practical examples in the future.
 

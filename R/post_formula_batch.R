@@ -5,7 +5,7 @@ post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId
   # if (!requireNamespace("jsonlite", quietly = TRUE)) {
   #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
   # }
-  if (length(formula) == 1) {
+  if (length(formulas) == 1) {
     warning("This is ment for multiple \"formula\"; returning \"NA\".\nFor an individual \"formula\" approach, try chemspideR::post_formula().", call. = FALSE)
     return(NA_character_)
   }
@@ -17,9 +17,9 @@ post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId
     dataSources <- I(dataSources)
   }
   dataSources <- paste(dataSources, collapse = ",")
-  curlData <- list("formulas" = formulas, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
+  curlData <- list(formulas = formulas, dataSources = dataSources, orderBy = orderBy, orderDirection = orderDirection)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/formula/batch"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

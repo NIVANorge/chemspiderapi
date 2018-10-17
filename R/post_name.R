@@ -13,9 +13,9 @@ post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", 
     warning("Please use a valid 32 character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  curlData <- list("name" = name, "orderBy" = orderBy, "orderDirection" = orderDirection)
+  curlData <- list(name = name, orderBy = orderBy, orderDirection = orderDirection)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/filter/name"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

@@ -36,9 +36,9 @@ post_validate_inchikey <- function(inchikey, apikey) {
   if (substr(strsplit(inchikey, split = "-")[[1]][2], start = 9L, stop = 9L) != "S") {
     warning("This is not a standard \"inchikey\"; performing query regardless.", call. = FALSE)
   }
-  curlData <- list("inchikey" = inchikey)
+  curlData <- list(inchikey = inchikey)
   curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  curlHeader <- list("Content-Type" = "", "apikey" = apikey)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
   curlUrl <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
   curlHandle <- curl::new_handle()
   curl::handle_setopt(curlHandle, customrequest = "POST")

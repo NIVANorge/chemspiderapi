@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-16, the following functionalities are implemented (100% of functionality with 67% annotation):
+As of 2018-10-17, the following functionalities are implemented (100% of functionality with 67% annotation):
 
 **FILTERING**
 
@@ -218,8 +218,8 @@ devtools::install_github("NIVANorge/chemspideR")
 
 Currently the only tested environment for `chemspideR` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
 
-Usage
------
+Best practices for ChemSpider's Compound APIs
+---------------------------------------------
 
 This section will be updated with practical examples in the future.
 
