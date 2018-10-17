@@ -19,158 +19,160 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-17, the following functionalities are implemented (100% of functionality with 67% annotation):
+As of 2018-10-17, the following functionalities are implemented (100% of functionality with 67% of annotation):
 
 **FILTERING**
 
 <table>
 <colgroup>
-<col width="37%" />
 <col width="38%" />
-<col width="24%" />
+<col width="39%" />
+<col width="22%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">ChemSpider Compound API</th>
 <th align="left"><code>chemspideR</code> wrapper</th>
-<th align="left"><code>chemspideR</code> help file</th>
+<th align="center"><code>chemspideR</code> help file</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">filter-element-post</td>
 <td align="left"><code>chemspideR::post_element()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-post</td>
 <td align="left"><code>chemspideR::post_formula_batch()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-batch-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_formula_batch_results()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_formula_batch_status()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-post</td>
 <td align="left"><code>chemspideR::post_formula()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-inchi-post</td>
 <td align="left"><code>chemspideR::post_inchi()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-inchikey-post</td>
 <td align="left"><code>chemspideR::post_inchikey()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-intrinsicproperty-post</td>
 <td align="left"><code>chemspideR::post_intrinsic_property()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-post</td>
 <td align="left"><code>chemspideR::post_mass_batch()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-batch-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_mass_batch_results()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_mass_batch_status()</code></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-post</td>
 <td align="left"><code>chemspideR::post_mass()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-name-post</td>
 <td align="left"><code>chemspideR::post_name()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_results()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-queryId-results-sdf-get</td>
-<td align="left"><code>chemspideR::get_sdf()</code> <span style="color:red"><strong>*</strong></span></td>
-<td align="left"></td>
+<td align="left"><code>chemspideR::get_sdf()</code> *</td>
+<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_status()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-smiles-post</td>
 <td align="left"><code>chemspideR::post_smiles()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 </tbody>
 </table>
 
+\* `chemspideR::get_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
+
 **LOOKUPS**
 
 | ChemSpider Compound API | `chemspideR` wrapper             | `chemspideR` help file |
-|:------------------------|:---------------------------------|:-----------------------|
-| lookups-datasources-get | `chemspideR::get_data_sources()` | yes                    |
+|:------------------------|:---------------------------------|:----------------------:|
+| lookups-datasources-get | `chemspideR::get_data_sources()` |           yes          |
 
 **RECORDS**
 
 <table>
 <colgroup>
-<col width="37%" />
 <col width="38%" />
-<col width="24%" />
+<col width="38%" />
+<col width="23%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">ChemSpider Compound API</th>
 <th align="left"><code>chemspideR</code> wrapper</th>
-<th align="left"><code>chemspideR</code> help file</th>
+<th align="center"><code>chemspideR</code> help file</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">records-batch-post</td>
 <td align="left"><code>chemspideR::post_batch()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-details-get</td>
 <td align="left"><code>chemspideR::get_details()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-externalreferences-get</td>
 <td align="left"><code>chemspideR::get_external_references()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-image-get</td>
 <td align="left"><code>chemspideR::get_image()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-mol-get</td>
 <td align="left"><code>chemspideR::get_mol()</code></td>
-<td align="left">yes</td>
+<td align="center">yes</td>
 </tr>
 </tbody>
 </table>
@@ -178,18 +180,16 @@ As of 2018-10-17, the following functionalities are implemented (100% of functio
 **TOOLS**
 
 | ChemSpider Compound API      | `chemspideR` wrapper                   | `chemspideR` help file |
-|:-----------------------------|:---------------------------------------|:-----------------------|
-| tools-convert-post           | `chemspideR::post_convert()`           | yes                    |
-| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` | yes                    |
+|:-----------------------------|:---------------------------------------|:----------------------:|
+| tools-convert-post           | `chemspideR::post_convert()`           |           yes          |
+| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` |           yes          |
 
 **WRITING (`chemspideR` EXCLUSIVE)**
 
 | ChemSpider Compound API | `chemspideR` wrapper        | `chemspideR` help file |
-|:------------------------|:----------------------------|:-----------------------|
-|                         | `chemspideR::write_image()` | yes                    |
-|                         | `chemspideR::write_mol()`   | yes                    |
-
-<span style="color:red">**\***</span> `chemspideR::get_sdf()` downloads the gzipped file, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
+|:------------------------|:----------------------------|:----------------------:|
+|                         | `chemspideR::write_image()` |           yes          |
+|                         | `chemspideR::write_mol()`   |           yes          |
 
 Installation
 ------------
@@ -225,7 +225,7 @@ This section will be updated with practical examples in the future.
 Funding
 -------
 
-This package was created at the Norwegian Institute for Water Research (*norsk institutt for vannforskning*; NIVA) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's Section for Ecotoxicology and Risk Assessment and funded by the Norwegian Research Council (NRC) project 268404: Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk).
+This package was created at the [Norwegian Institute for Water Research (*norsk institutt for vannforskning*; NIVA)](https://www.niva.no/en) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's Section for Ecotoxicology and Risk Assessment and funded by the Norwegian Research Council (NRC) project 268404: Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk).
 
 License
 -------
