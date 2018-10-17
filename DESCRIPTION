@@ -12,7 +12,8 @@ Imports:
     png
 Suggests: 
     keyring,
-    memoise
+    memoise, 
+    ratelimitr
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true

@@ -17,7 +17,7 @@ The aim of this package is to:
 3) Implement the `R` functionality in a way that is suitable for both `base` and `tidyverse` programming.
 4) Provide (non-ChemSpider) convenience functions to complement the functionality.
 
-The `chemspideR` package is platform independent, but requires a valid ChemSpider API key. While the `chemspideR` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. Future updates of `chemspideR` will likely incorporate [`memoise`](https://github.com/r-lib/memoise) features to better handle query IDs.
+The `chemspideR` package is platform independent, but requires a valid ChemSpider API key. While the `chemspideR` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. To "remember" the results of API queries (i.e., to not ruin the API allowance),  [`memoise`](https://github.com/r-lib/memoise) is recommended. Finally, any rate limitations can be created with functionalities from [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
 
 ## Coverage
 
@@ -86,8 +86,7 @@ This packages relies on two essential dependencies, namely `curl` and `jsonlite`
 If not already installed, these packages *should* be installed automatically when installing `chemspideR`. Should this result in trouble, the dependency packages can be installed manually:
 
 ```{r, eval=FALSE}
-install.packages(c("curl", "jsonlite"))
-# install.packages("png")
+install.packages(c("curl", "jsonlite", "png"))
 ```
 
 If `curl` and/or `jsonlite` are missing from the R library, all functions of `chemspideR` will throw an error.
