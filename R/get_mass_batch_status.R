@@ -1,16 +1,14 @@
-get_mass_batch_status <- function(queryId, apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
+get_mass_batch_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   if (length(queryId) > 1) {
     warning("This function can only handle individual (\"queryId\") entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
+  if (nchar(queryId) != 36) {
+    warning("Please use a valid 36-character ChemSpider \"queryId\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
   if (nchar(apikey) != 32) {
-    warning("Please use a valid 32-character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
+    warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   curlHeader <- list(`Content-Type` = "", apikey = apikey)
@@ -21,10 +19,19 @@ get_mass_batch_status <- function(queryId, apikey) {
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code != 200) {
     warning("Query not yet finalized, please check again in 10 seconds.\nCarefully check the validity of the \"apikey\".", call. = FALSE)
-    return(as.character("Incomplete"))
+    return(c(status = "Incomplete"))
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  if (count == FALSE) {
+    result$count <- NULL
+  }
+  if (message == FALSE) {
+    result$message <- NULL
+  }
+  if (ncol(result) == 1) {
+    result <- unlist(result)
+  }
   return(result)
 }

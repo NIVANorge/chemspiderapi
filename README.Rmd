@@ -21,61 +21,61 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 
 ## Coverage
 
-As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((18 / 27) * 100, digits = 2)`% overall annotation and `r signif((18 / 27) * 100, digits = 2)`% quality annotation):
+As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((20 / 27) * 100, digits = 2)`% annotation):
 
 **FILTERING**
 
-| ChemSpider Compound API                  | `chemspideR` wrapper                      | `chemspideR` help file |
+| ChemSpider Compound API                  | `chemspideR` Wrapper                      | `chemspideR` Help File |
 |:---------------------------------------- |:----------------------------------------- |:----------------------:|
 | filter-element-post                      | `chemspideR::post_element()`              |                        |
 | filter-formula-batch-post                | `chemspideR::post_formula_batch()`        |                        |
 | filter-formula-batch-queryId-results-get | `chemspideR::get_formula_batch_results()` |                        |
 | filter-formula-batch-queryId-status-get  | `chemspideR::get_formula_batch_status()`  |                        |
-| filter-formula-post                      | `chemspideR::post_formula()`              | **yes**                |
-| filter-inchi-post                        | `chemspideR::post_inchi()`                | **yes**                |
-| filter-inchikey-post                     | `chemspideR::post_inchikey()`             | **yes**                |
+| filter-formula-post                      | `chemspideR::post_formula()`              | yes                    |
+| filter-inchi-post                        | `chemspideR::post_inchi()`                | yes                    |
+| filter-inchikey-post                     | `chemspideR::post_inchikey()`             | yes                    |
 | filter-intrinsicproperty-post            | `chemspideR::post_intrinsic_property()`   |                        |
-| filter-mass-batch-post                   | `chemspideR::post_mass_batch()`           |                        |
+| filter-mass-batch-post                   | `chemspideR::post_mass_batch()`           | yes                    |
 | filter-mass-batch-queryId-results-get    | `chemspideR::get_mass_batch_results()`    |                        |
-| filter-mass-batch-queryId-status-get     | `chemspideR::get_mass_batch_status()`     |                        |
-| filter-mass-post                         | `chemspideR::post_mass()`                 | **yes**                |
-| filter-name-post                         | `chemspideR::post_name()`                 | **yes**                |
-| filter-queryId-results-get               | `chemspideR::get_results()`               | **yes**                |
+| filter-mass-batch-queryId-status-get     | `chemspideR::get_mass_batch_status()`     | yes                    |
+| filter-mass-post                         | `chemspideR::post_mass()`                 | yes                    |
+| filter-name-post                         | `chemspideR::post_name()`                 | yes                    |
+| filter-queryId-results-get               | `chemspideR::get_results()`               | yes                    |
 | filter-queryId-results-sdf-get           | `chemspideR::get_sdf()` *                 |                        |
-| filter-queryId-status-get                | `chemspideR::get_status()`                | **yes**                |
-| filter-smiles-post                       | `chemspideR::post_smiles()`               | **yes**                |
+| filter-queryId-status-get                | `chemspideR::get_status()`                | yes                    |
+| filter-smiles-post                       | `chemspideR::post_smiles()`               | yes                    |
 
 \* `chemspideR::get_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
 
 **LOOKUPS**
 
-| ChemSpider Compound API | `chemspideR` wrapper             | `chemspideR` help file |
+| ChemSpider Compound API | `chemspideR` Wrapper             | `chemspideR` Help File |
 |:----------------------- |:-------------------------------- |:----------------------:|
-| lookups-datasources-get | `chemspideR::get_data_sources()` | **yes**                |
+| lookups-datasources-get | `chemspideR::get_data_sources()` | yes                    |
 
 **RECORDS**
 
-| ChemSpider Compound API                 | `chemspideR` wrapper                    | `chemspideR` help file |
+| ChemSpider Compound API                 | `chemspideR` Wrapper                    | `chemspideR` Help File |
 |:--------------------------------------- |:--------------------------------------- |:----------------------:|
-| records-batch-post                      | `chemspideR::post_batch()`              | **yes**                |
-| records-recordId-details-get            | `chemspideR::get_details()`             | **yes**                |
-| records-recordId-externalreferences-get | `chemspideR::get_external_references()` | **yes**                |
-| records-recordId-image-get              | `chemspideR::get_image()`               | **yes**                |
-| records-recordId-mol-get                | `chemspideR::get_mol()`                 | **yes**                |
+| records-batch-post                      | `chemspideR::post_batch()`              | yes                    |
+| records-recordId-details-get            | `chemspideR::get_details()`             | yes                    |
+| records-recordId-externalreferences-get | `chemspideR::get_external_references()` | yes                    |
+| records-recordId-image-get              | `chemspideR::get_image()`               | yes                    |
+| records-recordId-mol-get                | `chemspideR::get_mol()`                 | yes                    |
 
 **TOOLS**
 
-| ChemSpider Compound API      | `chemspideR` wrapper                   | `chemspideR` help file |
+| ChemSpider Compound API      | `chemspideR` Wrapper                   | `chemspideR` Help File |
 |:---------------------------- |:-------------------------------------- |:----------------------:|
-| tools-convert-post           | `chemspideR::post_convert()`           | **yes**                |
-| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` | **yes**                |
+| tools-convert-post           | `chemspideR::post_convert()`           | yes                    |
+| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` | yes                    |
 
 **WRITING (`chemspideR` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspideR` wrapper        | `chemspideR` help file |
+| ChemSpider Compound API | `chemspideR` Wrapper        | `chemspideR` Help File |
 |:----------------------- |:--------------------------- |:----------------------:|
-|                         | `chemspideR::write_image()` | **yes**                |
-|                         | `chemspideR::write_mol()`   | **yes**                |
+|                         | `chemspideR::write_image()` | yes                    |
+|                         | `chemspideR::write_mol()`   | yes                    |
 
 
 ## Installation

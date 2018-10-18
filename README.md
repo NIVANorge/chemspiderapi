@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-18, the following functionalities are implemented (100% functionality with 67% overall annotation and 67% quality annotation):
+As of 2018-10-18, the following functionalities are implemented (100% functionality with 74% annotation):
 
 **FILTERING**
 
@@ -32,8 +32,8 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <thead>
 <tr class="header">
 <th align="left">ChemSpider Compound API</th>
-<th align="left"><code>chemspideR</code> wrapper</th>
-<th align="center"><code>chemspideR</code> help file</th>
+<th align="left"><code>chemspideR</code> Wrapper</th>
+<th align="center"><code>chemspideR</code> Help File</th>
 </tr>
 </thead>
 <tbody>
@@ -60,17 +60,17 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="odd">
 <td align="left">filter-formula-post</td>
 <td align="left"><code>chemspideR::post_formula()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-inchi-post</td>
 <td align="left"><code>chemspideR::post_inchi()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-inchikey-post</td>
 <td align="left"><code>chemspideR::post_inchikey()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-intrinsicproperty-post</td>
@@ -80,7 +80,7 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="odd">
 <td align="left">filter-mass-batch-post</td>
 <td align="left"><code>chemspideR::post_mass_batch()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-batch-queryId-results-get</td>
@@ -90,22 +90,22 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="odd">
 <td align="left">filter-mass-batch-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_mass_batch_status()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-post</td>
 <td align="left"><code>chemspideR::post_mass()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-name-post</td>
 <td align="left"><code>chemspideR::post_name()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_results()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-queryId-results-sdf-get</td>
@@ -115,12 +115,12 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="even">
 <td align="left">filter-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_status()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-smiles-post</td>
 <td align="left"><code>chemspideR::post_smiles()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 </tbody>
 </table>
@@ -129,9 +129,9 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 
 **LOOKUPS**
 
-| ChemSpider Compound API | `chemspideR` wrapper             | `chemspideR` help file |
+| ChemSpider Compound API | `chemspideR` Wrapper             | `chemspideR` Help File |
 |:------------------------|:---------------------------------|:----------------------:|
-| lookups-datasources-get | `chemspideR::get_data_sources()` |         **yes**        |
+| lookups-datasources-get | `chemspideR::get_data_sources()` |           yes          |
 
 **RECORDS**
 
@@ -144,52 +144,52 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <thead>
 <tr class="header">
 <th align="left">ChemSpider Compound API</th>
-<th align="left"><code>chemspideR</code> wrapper</th>
-<th align="center"><code>chemspideR</code> help file</th>
+<th align="left"><code>chemspideR</code> Wrapper</th>
+<th align="center"><code>chemspideR</code> Help File</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">records-batch-post</td>
 <td align="left"><code>chemspideR::post_batch()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-details-get</td>
 <td align="left"><code>chemspideR::get_details()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-externalreferences-get</td>
 <td align="left"><code>chemspideR::get_external_references()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-image-get</td>
 <td align="left"><code>chemspideR::get_image()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-mol-get</td>
 <td align="left"><code>chemspideR::get_mol()</code></td>
-<td align="center"><strong>yes</strong></td>
+<td align="center">yes</td>
 </tr>
 </tbody>
 </table>
 
 **TOOLS**
 
-| ChemSpider Compound API      | `chemspideR` wrapper                   | `chemspideR` help file |
+| ChemSpider Compound API      | `chemspideR` Wrapper                   | `chemspideR` Help File |
 |:-----------------------------|:---------------------------------------|:----------------------:|
-| tools-convert-post           | `chemspideR::post_convert()`           |         **yes**        |
-| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` |         **yes**        |
+| tools-convert-post           | `chemspideR::post_convert()`           |           yes          |
+| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` |           yes          |
 
 **WRITING (`chemspideR` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspideR` wrapper        | `chemspideR` help file |
+| ChemSpider Compound API | `chemspideR` Wrapper        | `chemspideR` Help File |
 |:------------------------|:----------------------------|:----------------------:|
-|                         | `chemspideR::write_image()` |         **yes**        |
-|                         | `chemspideR::write_mol()`   |         **yes**        |
+|                         | `chemspideR::write_image()` |           yes          |
+|                         | `chemspideR::write_mol()`   |           yes          |
 
 Installation
 ------------

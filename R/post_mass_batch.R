@@ -1,32 +1,58 @@
 post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(mass) == 1) {
     warning("This function is meant for multiple \"mass\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(mass) > 20) {
+    warning("This function is only meant for up to 20 \"mass\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
   }
   if (sum(is.na(as.double(mass))) > 0) {
     warning("The provided \"mass\" is not a valid (double) number; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
+  if (any(mass < 1 || mass > 11000)) {
+    warning("The provided \"mass\" is outside ChemSpider's settings [1,11000]; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(range) == 1) {
+    warning("This function is meant for multiple \"range\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(range) > 20) {
+    warning("This function is only meant for up to 20 \"range\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
+  }
   if (sum(is.na(as.double(range))) > 0) {
     warning("The provided \"range\" is not a valid (double) number; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
-  if (mass < 1 || mass > 11000) {
-    warning("The provided \"mass\" is outside ChemSpider's settings [1,11000]; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
-  }
-  if (range < 0.0001 || range > 0.001) {
+  if (any(range < 0.0001 || range > 0.001)) {
     warning("The provided \"range\" is outside ChemSpider's settings [0.0001,0.001]; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (length(mass) != length(range)) {
-    warning("Every \"mass\" needs a \"range\", and vice verca; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("Every \"mass\" needs a \"range\", and vice verca; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(orderBy) > 1) {
+    warning("Only a single \"orderBy\" entry is supported; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderBy) %in% c("recordid", "massdefect", "molecularweight", "referencecount", "datasourcecount", "pubmedcount", "rsccount")) != 1) {
+    warning("Please provide a valid input for \"orderBy\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(orderDirection) > 1) {
+    warning("Only a single \"orderDirection\" entry is supported; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderDirection) %in% c("ascending", "descending")) != 1) {
+    warning("Please use either \"ascending\" or \"descending\" as input for \"orderDirection\"; returning NA.", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(apikey) > 1) {
+    warning("Only a single \"apikey\" is supported; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
@@ -64,6 +90,6 @@ post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- unlist(result)
   return(result)
 }
