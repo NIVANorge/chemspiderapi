@@ -3,13 +3,13 @@
 chemspideR
 ==========
 
-> R functionalities for ChemSpider's new API services
+> `R` functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides R wrappers around the new API services.
+ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides `R` wrappers around the new API services.
 
 The aim of this package is to:
 
-1.  Translate the new ChemSpider API services into R-friendly functions.
+1.  Translate the new ChemSpider API services into `R`-friendly functions.
 2.  Include thorough quality checking *before* the query is send, to avoid using up the query quota on, e.g., spelling errors.
 3.  Implement the `R` functionality in a way that is suitable for both `base` and `tidyverse` programming.
 4.  Provide (non-ChemSpider) convenience functions to complement the functionality.
@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-18, the following functionalities are implemented (100% functionality with 74% annotation):
+As of 2018-10-18, the following functionalities are implemented (100% functionality with 93% annotation):
 
 **FILTERING**
 
@@ -40,22 +40,22 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="odd">
 <td align="left">filter-element-post</td>
 <td align="left"><code>chemspideR::post_element()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-post</td>
 <td align="left"><code>chemspideR::post_formula_batch()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-batch-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_formula_batch_results()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-queryId-status-get</td>
 <td align="left"><code>chemspideR::get_formula_batch_status()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-post</td>
@@ -85,7 +85,7 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="even">
 <td align="left">filter-mass-batch-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_mass_batch_results()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-queryId-status-get</td>

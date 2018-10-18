@@ -6,13 +6,13 @@ output: github_document
 
 # chemspideR
 
-> R functionalities for ChemSpider's new API services
+> `R` functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides R wrappers around the new API services. 
+ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides `R` wrappers around the new API services. 
 
 The aim of this package is to:
 
-1) Translate the new ChemSpider API services into R-friendly functions.
+1) Translate the new ChemSpider API services into `R`-friendly functions.
 2) Include thorough quality checking *before* the query is send, to avoid using up the query quota on, e.g., spelling errors.
 3) Implement the `R` functionality in a way that is suitable for both `base` and `tidyverse` programming.
 4) Provide (non-ChemSpider) convenience functions to complement the functionality.
@@ -21,22 +21,22 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 
 ## Coverage
 
-As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((20 / 27) * 100, digits = 2)`% annotation):
+As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((25 / 27) * 100, digits = 2)`% annotation):
 
 **FILTERING**
 
 | ChemSpider Compound API                  | `chemspideR` Wrapper                      | `chemspideR` Help File |
 |:---------------------------------------- |:----------------------------------------- |:----------------------:|
-| filter-element-post                      | `chemspideR::post_element()`              |                        |
-| filter-formula-batch-post                | `chemspideR::post_formula_batch()`        |                        |
-| filter-formula-batch-queryId-results-get | `chemspideR::get_formula_batch_results()` |                        |
-| filter-formula-batch-queryId-status-get  | `chemspideR::get_formula_batch_status()`  |                        |
+| filter-element-post                      | `chemspideR::post_element()`              | yes                    |
+| filter-formula-batch-post                | `chemspideR::post_formula_batch()`        | yes                    |
+| filter-formula-batch-queryId-results-get | `chemspideR::get_formula_batch_results()` | yes                    |
+| filter-formula-batch-queryId-status-get  | `chemspideR::get_formula_batch_status()`  | yes                    |
 | filter-formula-post                      | `chemspideR::post_formula()`              | yes                    |
 | filter-inchi-post                        | `chemspideR::post_inchi()`                | yes                    |
 | filter-inchikey-post                     | `chemspideR::post_inchikey()`             | yes                    |
 | filter-intrinsicproperty-post            | `chemspideR::post_intrinsic_property()`   |                        |
 | filter-mass-batch-post                   | `chemspideR::post_mass_batch()`           | yes                    |
-| filter-mass-batch-queryId-results-get    | `chemspideR::get_mass_batch_results()`    |                        |
+| filter-mass-batch-queryId-results-get    | `chemspideR::get_mass_batch_results()`    | yes                    |
 | filter-mass-batch-queryId-status-get     | `chemspideR::get_mass_batch_status()`     | yes                    |
 | filter-mass-post                         | `chemspideR::post_mass()`                 | yes                    |
 | filter-name-post                         | `chemspideR::post_name()`                 | yes                    |
@@ -76,7 +76,6 @@ As of `r Sys.Date()`, the following functionalities are implemented (`r signif((
 |:----------------------- |:--------------------------- |:----------------------:|
 |                         | `chemspideR::write_image()` | yes                    |
 |                         | `chemspideR::write_mol()`   | yes                    |
-
 
 ## Installation
 

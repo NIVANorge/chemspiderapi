@@ -1,16 +1,22 @@
 post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(formulas) == 1) {
-    warning("This is ment for multiple \"formula\"; returning \"NA\".\nFor an individual \"formula\" approach, try chemspideR::post_formula().", call. = FALSE)
+    warning("This is function is meant for multiple \"formula\"; returning \"NA\".\nFor an individual \"formula\" approach, try chemspideR::post_formula().", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(formulas) > 100) {
+    warning("This is only meant for up to 100 \"formula\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderBy) %in% c("recordid", "massdefect", "molecularweight", "referencecount", "datasourcecount", "pubmedcount", "rsccount")) != 1) {
+    warning("No valid \"orderBy\" provided; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderDirection) %in% c("ascending", "descending")) != 1) {
+    warning("No valid \"orderDirection\" provided; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    warning("Please use a valid 32 character ChemSpider API key (\"apikey\").", call. = FALSE)
+    warning("Please use a valid 32 character ChemSpider \"apikey\".", call. = FALSE)
     return(NA_character_)
   }
   if (length(dataSources) == 1) {
@@ -27,11 +33,11 @@ post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId
   curl::handle_setheaders(curlHandle, .list = curlHeader)
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code != 200) {
-    warning("No valid results were obtained, returning \"NA\".\nCarefully check the \"formula\", \"start\" and \"count\" (if applicable), and the validity of the \"apikey\".", call. = FALSE)
+    warning("No valid results were obtained, returning \"NA\".\nCarefully check the \"formulas\", \"dataSources\", \"orderBy\" and \"orderDirection\" (if applicable), and the validity of the \"apikey\".", call. = FALSE)
     return(NA_character_)
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- unlist(result)
   return(result)
 }

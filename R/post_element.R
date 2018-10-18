@@ -1,10 +1,4 @@
 post_element <- function(includeElements, excludeElements, includeAll = FALSE, complexity = "any", isotopic = "any", orderBy = "recordId", orderDirection = "ascending", apikey) {
-  # if (!requireNamespace("httr", quietly = TRUE)) {
-  #   stop("Package \"httr\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(includeElements) > 15) {
     warning("ChemSpider only supports up to 15 entries in \"includeElements\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
@@ -14,15 +8,35 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
     return(NA_character_)
   }
   if (sum(tolower(complexity) %in% c("any", "single", "multiple")) != 1) {
-    warning("The provided complexity is not \"any\", \"single\", or \"multiple\"; returning NA.", call. = FALSE)
+    warning("The provided complexity is not \"any\", \"single\", or \"multiple\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (sum(tolower(isotopic) %in% c("any", "labeled", "unlabeled")) != 1) {
-    warning("The provided isotopic is not \"any\", \"labeled\", or \"unlabeled\"; returning NA.", call. = FALSE)
+    warning("The provided isotopic is not \"any\", \"labeled\", or \"unlabeled\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(orderBy) > 1) {
+    warning("Only a single \"orderBy\" entry is supported; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderBy) %in% c("recordid", "massdefect", "molecularweight", "referencecount", "datasourcecount", "pubmedcount", "rsccount")) != 1) {
+    warning("Please provide a valid input for \"orderBy\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(orderDirection) > 1) {
+    warning("Only a single \"orderDirection\" entry is supported; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderDirection) %in% c("ascending", "descending")) != 1) {
+    warning("Please use either \"ascending\" or \"descending\" as input for \"orderDirection\"; returning NA.", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(apikey) > 1) {
+    warning("Only a single \"apikey\" is supported; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
-    warning("Please use a valid 32-character ChemSpider (\"apikey\"); returning \"NA\".", call. = FALSE)
+    warning("Please use a valid 32-character ChemSpider \"apikey\"; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (length(includeElements) == 1) {
@@ -47,6 +61,6 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- unlist(result)
   return(result)
 }

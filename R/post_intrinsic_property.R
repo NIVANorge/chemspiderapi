@@ -1,10 +1,4 @@
 post_intrinsic_property <- function(property, formula = NULL, complexity = NULL, isotopic = NULL, mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(property) > 1) {
     warning("This function is meant for single \"property\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
@@ -94,6 +88,6 @@ post_intrinsic_property <- function(property, formula = NULL, complexity = NULL,
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- unlist(result)
   return(result)
 }
