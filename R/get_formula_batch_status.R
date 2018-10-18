@@ -1,4 +1,4 @@
-get_formula_batch_status <- function(queryId, apikey) {
+get_formula_batch_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   if (length(queryId) > 1) {
     warning("This function can one individual \"queryId\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
@@ -19,6 +19,15 @@ get_formula_batch_status <- function(queryId, apikey) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  if (count == FALSE) {
+    result$count <- NULL
+  }
+  if (message == FALSE) {
+    result$message <- NULL
+  }
+  if (ncol(result) == 1) {
+    result <- unlist(result)
+  }
   return(result)
 }

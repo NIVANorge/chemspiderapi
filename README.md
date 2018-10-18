@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-18, the following functionalities are implemented (100% functionality with 93% annotation):
+As of 2018-10-18, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
@@ -75,7 +75,7 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="even">
 <td align="left">filter-intrinsicproperty-post</td>
 <td align="left"><code>chemspideR::post_intrinsic_property()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-post</td>
@@ -110,7 +110,7 @@ As of 2018-10-18, the following functionalities are implemented (100% functional
 <tr class="odd">
 <td align="left">filter-queryId-results-sdf-get</td>
 <td align="left"><code>chemspideR::get_sdf()</code> *</td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-status-get</td>

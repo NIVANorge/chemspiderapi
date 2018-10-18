@@ -21,7 +21,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 
 ## Coverage
 
-As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((25 / 27) * 100, digits = 2)`% annotation):
+As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((27 / 27) * 100, digits = 2)`% annotation):
 
 **FILTERING**
 
@@ -41,7 +41,7 @@ As of `r Sys.Date()`, the following functionalities are implemented (`r signif((
 | filter-mass-post                         | `chemspideR::post_mass()`                 | yes                    |
 | filter-name-post                         | `chemspideR::post_name()`                 | yes                    |
 | filter-queryId-results-get               | `chemspideR::get_results()`               | yes                    |
-| filter-queryId-results-sdf-get           | `chemspideR::get_sdf()` *                 |                        |
+| filter-queryId-results-sdf-get           | `chemspideR::get_sdf()` *                 | yes                    |
 | filter-queryId-status-get                | `chemspideR::get_status()`                | yes                    |
 | filter-smiles-post                       | `chemspideR::post_smiles()`               | yes                    |
 

@@ -11,7 +11,11 @@ post_intrinsic_property(property, formula = NULL, complexity = "any", isotopic =
 }
 \arguments{
 \item{property}{See Details.}
-\item{dataSources}{Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspideR::get_data_sources()}}
+\item{formula}{See Details.}
+\item{complexity}{See Details.}
+\item{isotopic}{See Details.}
+\item{mass}{See Details.}
+\item{range}{See Details.}
 \item{orderBy}{A character string indicating by which parameter the results should be ordered; see Details.}
 \item{orderDirection}{A character string indicating in which direction the results should be ordered; see Details.}
 \item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}

@@ -23,7 +23,7 @@ get_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- data.frame(result, stringsAsFactors = FALSE)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
   if (count == FALSE) {
     result$count <- NULL
   }

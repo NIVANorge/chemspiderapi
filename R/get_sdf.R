@@ -1,10 +1,4 @@
 get_sdf <- function(queryId, apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(queryId) > 1) {
     warning("This function can only handle individual \"queryId\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
@@ -24,11 +18,11 @@ get_sdf <- function(queryId, apikey) {
   curl::handle_setheaders(curlHandle, .list = curlHeader)
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
   if (result$status_code != 200) {
-    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"recordId\", the spelling of the \"fields\", and the validity of the \"apikey\".", call. = FALSE)
+    warning("No valid information was retrieved; returning \"NA\".\nCarfully check the \"queryId\" and the validity of the \"apikey\".", call. = FALSE)
     return(NA_character_)
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result$results)
+  result <- unlist(result$results)
   return(result)
 }
