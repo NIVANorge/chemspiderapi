@@ -34,7 +34,7 @@ As of `r Sys.Date()`, the following functionalities are implemented (`r signif((
 | filter-formula-post                      | `chemspideR::post_formula()`              | yes                    |
 | filter-inchi-post                        | `chemspideR::post_inchi()`                | yes                    |
 | filter-inchikey-post                     | `chemspideR::post_inchikey()`             | yes                    |
-| filter-intrinsicproperty-post            | `chemspideR::post_intrinsic_property()`   |                        |
+| filter-intrinsicproperty-post            | `chemspideR::post_intrinsic_property()`   | yes                    |
 | filter-mass-batch-post                   | `chemspideR::post_mass_batch()`           | yes                    |
 | filter-mass-batch-queryId-results-get    | `chemspideR::get_mass_batch_results()`    | yes                    |
 | filter-mass-batch-queryId-status-get     | `chemspideR::get_mass_batch_status()`     | yes                    |

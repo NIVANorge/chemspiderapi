@@ -1,4 +1,4 @@
-post_intrinsic_property <- function(property, formula = NULL, complexity = NULL, isotopic = NULL, mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_intrinsic_property <- function(property, formula = NULL, complexity = "any", isotopic = "any", mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   if (length(property) > 1) {
     warning("This function is meant for single \"property\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
@@ -47,12 +47,6 @@ post_intrinsic_property <- function(property, formula = NULL, complexity = NULL,
   if (!is.null(isotopic) && sum(tolower(isotopic) %in% c("any", "labeled", "unlabeled")) != 1) {
     warning("Please provide \"isotopic\" as either \"any\", \"labeled\", or \"unlabeled\"; returning \"NA\".")
     return(NA_character_)
-  }
-  if (is.null(complexity)) {
-    complexity <- ""
-  }
-  if (is.null(isotopic)) {
-    isotopic <- ""
   }
   options <- list(complexity = complexity, isotopic = isotopic)
   if (tolower(property) == "formula") {
