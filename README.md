@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-17, the following functionalities are implemented (100% functionality with 67% overall annotation and 56% quality annotation):
+As of 2018-10-18, the following functionalities are implemented (100% functionality with 67% overall annotation and 67% quality annotation):
 
 **FILTERING**
 
@@ -95,17 +95,17 @@ As of 2018-10-17, the following functionalities are implemented (100% functional
 <tr class="even">
 <td align="left">filter-mass-post</td>
 <td align="left"><code>chemspideR::post_mass()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-name-post</td>
 <td align="left"><code>chemspideR::post_name()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-results-get</td>
 <td align="left"><code>chemspideR::get_results()</code></td>
-<td align="center">yes</td>
+<td align="center"><strong>yes</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-queryId-results-sdf-get</td>

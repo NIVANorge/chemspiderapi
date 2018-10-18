@@ -1,12 +1,26 @@
 post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(name) > 1) {
-    warning("This function can only handle individual \"name\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    warning("This function can only handle a single \"name\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(orderBy) > 1) {
+    warning("Only a single \"orderBy\" entry is supported; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderBy) %in% c("recordid", "massdefect", "molecularweight", "referencecount", "datasourcecount", "pubmedcount", "rsccount")) != 1) {
+    warning("Please provide a valid input for \"orderBy\"; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(orderDirection) > 1) {
+    warning("Only a single \"orderDirection\" entry is supported; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (sum(tolower(orderDirection) %in% c("ascending", "descending")) != 1) {
+    warning("Please use either \"ascending\" or \"descending\" as input for \"orderDirection\"; returning NA.", call. = FALSE)
+    return(NA_character_)
+  }
+  if (length(apikey) > 1) {
+    warning("Only a single \"apikey\" is supported; returning \"NA\".", call. = FALSE)
     return(NA_character_)
   }
   if (nchar(apikey) != 32) {
@@ -28,6 +42,6 @@ post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", 
   }
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
+  result <- unlist(result)
   return(result)
 }

@@ -1,54 +1,52 @@
 \name{post_name}
 \alias{post_name}
-\title{Convert identifiers}
+\title{POST a name to obtain a ChemSpider query ID}
 \description{
-Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
+POST the name of a compound and obtain a ChemSpider query ID for subsequent use in \code{chemspideR::get_status()} and \code{chemspideR::get_results()}.
 }
 \usage{
-post_name(name, orderBy = "", orderDirection = "", apikey)
+post_name(name, orderBy = "recordId", orderDirection = "ascending", apikey)
 }
 \arguments{
-\item{name}{A valid .mol file, e.g., as downloaded via \code{chemspider::get_mol()}.}
-\item{orderBy}{A character string indicating which format the input has.}
-\item{orderDirection}{A character string indicating which type of output is desired.}
+\item{name}{A character string of the compound name.}
+\item{orderBy}{A character string indicating by which parameter the results should be arranged (NOT case sensitive); see Details.}
+\item{orderDirection}{A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.}
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \details{
-Submit an identifier (SMILES, InChI, InChIKey or Mol) as a string and return an identifier in another format (SMILES, InChI, InChIKey or Mol).
+Allowed entries for \code{orderBy} are:
 
-Allowed conversions:
+\code{"recordId"} (default)
 
-from \code{InChI} to \code{InChIKey}
+\code{"massDefect"}
 
-from \code{InChI} to \code{Mol} file
+\code{"molecularWeight"}
 
-from \code{InChI} to \code{SMILES}
+\code{"referenceCount"}
 
-from \code{InChIKey} to \code{InChI}
+\code{"dataSourceCount"}
 
-from \code{InChIKey} to \code{Mol} file
+\code{"pubMedCount"}
 
-from \code{Mol} file to \code{InChI}
+\code{"rscCount"}
 
-from \code{Mol} file to \code{InChIKey}
+Allowed entries for \code{orderDirection} are:
 
-from \code{SMILES} to \code{InChI}
+\code{"ascending"} (default)
 
-Note: The identifier names are NOT case sensitive!
+\code{"descending"}
 
-If successful, performs the desired conversion and stores the result as a named ("output") character string.
+If successful, returns a 36-character \code{queryId} as a named character string. The \code{queryId} can be used in \code{chemspideR::get_status()} and \code{chemspideR::get_results()}.
 
 If not successful, it returns \code{NA}.
 
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}
+This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
 ## Do not run
-## convert the InChI string of Aspirin to SMILES.
+## POST the name of Aspirin to obtain a query ID
 
-# apikey <- "a_valid_ChemSpider_API_key"
-# post_convert(input = "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)",
-#              inputFormat = "InChI",
-#              outputFormat = "SMILES",
-#              apikey = apikey)
+# name <- "Aspirin"
+# apikey <- "a valid 32-character ChemSpider apikey"
+# post_name(name = name, apikey = apikey)
 }

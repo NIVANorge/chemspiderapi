@@ -1,10 +1,4 @@
 get_results <- function(queryId, start = NULL, count = NULL, apikey) {
-  # if (!requireNamespace("curl", quietly = TRUE)) {
-  #   stop("Package \"curl\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
-  # if (!requireNamespace("jsonlite", quietly = TRUE)) {
-  #   stop("Package \"jsonlite\" needed for this function to work. Please install it.", call. = FALSE)
-  # }
   if (length(queryId) > 1) {
     warning("This function can only handle individual \"queryId\" entries; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
@@ -52,14 +46,8 @@ get_results <- function(queryId, start = NULL, count = NULL, apikey) {
     warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\"", call. = FALSE)
   }
   result <- data.frame(results = result$results, stringsAsFactors = FALSE)
-  if (ncol(result) == 1 && typeof(result) == "character") {
-    result <- as.character(result)
-  }
-  if (ncol(result) == 1 && typeof(result) == "double") {
-    result <- as.double(result)
-  }
-  if (ncol(result) == 1 && typeof(result) == "integer") {
-    result <- as.integer(result)
+  if (ncol(result) == 1) {
+    result <- unlist(result)
   }
   return(result)
 }
