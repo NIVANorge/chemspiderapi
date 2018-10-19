@@ -247,59 +247,59 @@ In practice, this means the following possivle workflows can be implemented:
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">chemspideR::post_element()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_element()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left">chemspideR::post_formula()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_formula()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left">chemspideR::post_formula_batch()</td>
-<td align="left">chemspideR::get_formula_batch_status()</td>
-<td align="left">chemspideR::get_formula_batch_results()</td>
+<td align="left"><code>chemspideR::post_formula_batch()</code></td>
+<td align="left"><code>chemspideR::get_formula_batch_status()</code></td>
+<td align="left"><code>chemspideR::get_formula_batch_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left">chemspideR::post_inchi()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_inchi()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left">chemspideR::post_inchikey()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_inchikey()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left">chemspideR::post_intrinsic_property()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_intrinsic_property()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left">chemspideR::post_mass()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_mass()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left">chemspideR::post_mass_batch()</td>
-<td align="left">chemspideR::get_mass_batch_status()</td>
-<td align="left">chemspideR::get_mass_batch_results()</td>
+<td align="left"><code>chemspideR::post_mass_batch()</code></td>
+<td align="left"><code>chemspideR::get_mass_batch_status()</code></td>
+<td align="left"><code>chemspideR::get_mass_batch_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left">chemspideR::post_mass()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_mass()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left">chemspideR::post_name()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_name()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left">chemspideR::post_smiles()</td>
-<td align="left">chemspideR::get_status()</td>
-<td align="left">chemspideR::get_results()</td>
+<td align="left"><code>chemspideR::post_smiles()</code></td>
+<td align="left"><code>chemspideR::get_status()</code></td>
+<td align="left"><code>chemspideR::get_results()</code></td>
 </tr>
 </tbody>
 </table>

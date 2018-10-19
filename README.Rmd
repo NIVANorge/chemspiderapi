@@ -116,19 +116,19 @@ The basic workflow order for the above **FILTERING** queries is:
 
 In practice, this means the following possivle workflows can be implemented:
 
-| POST Query                            | GET Status                             | GET Result                              |
-:-------------------------------------- |:-------------------------------------- |:--------------------------------------- |
-| chemspideR::post_element()            | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_formula()            | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_formula_batch()      | chemspideR::get_formula_batch_status() | chemspideR::get_formula_batch_results() |
-| chemspideR::post_inchi()              | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_inchikey()           | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_intrinsic_property() | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_mass()               | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_mass_batch()         | chemspideR::get_mass_batch_status()    | chemspideR::get_mass_batch_results()    |
-| chemspideR::post_mass()               | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_name()               | chemspideR::get_status()               | chemspideR::get_results()               |
-| chemspideR::post_smiles()             | chemspideR::get_status()               | chemspideR::get_results()               |
+| POST Query                              | GET Status                               | GET Result                                |
+:---------------------------------------- |:---------------------------------------- |:----------------------------------------- |
+| `chemspideR::post_element()`            | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_formula()`            | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_formula_batch()`      | `chemspideR::get_formula_batch_status()` | `chemspideR::get_formula_batch_results()` |
+| `chemspideR::post_inchi()`              | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_inchikey()`           | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_intrinsic_property()` | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_mass()`               | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_mass_batch()`         | `chemspideR::get_mass_batch_status()`    | `chemspideR::get_mass_batch_results()`    |
+| `chemspideR::post_mass()`               | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_name()`               | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| `chemspideR::post_smiles()`             | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
 
 Typically, the result will be one or multiple ChemSpider IDs (`recordId`). They can be used as  input into the above **RECORDS** queries.
 
