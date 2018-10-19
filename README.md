@@ -5,7 +5,7 @@ chemspideR
 
 > `R` functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides `R` wrappers around the new API services.
+ChemSpider has introduced a new API syntax in late 2018, and [the old ChemSpider API syntax will be shut down at the end of November 2018](http://link.rsc.org/rsps/m/xSq8Cm8ovjN8-Elm0eYB3Sey61zutqNIUUaMcyc14sQ). `chemspideR` provides `R` wrappers around the new API services from ChemSpider.
 
 The aim of this package is to:
 
@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-18, the following functionalities are implemented (100% functionality with 100% annotation):
+As of 2018-10-19, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
@@ -221,6 +221,88 @@ Best practices for ChemSpider's Compound APIs
 ---------------------------------------------
 
 This section will be updated with practical examples in the future.
+
+The basic workflow order for the above **FILTERING** queries is:
+
+1.  POST Query
+
+2.  GET Status
+
+3.  GET Results (after GET Status returns `"Complete"`)
+
+In practice, this means the following possivle workflows can be implemented:
+
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">POST Query</th>
+<th align="left">GET Status</th>
+<th align="left">GET Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">chemspideR::post_element()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="even">
+<td align="left">chemspideR::post_formula()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="odd">
+<td align="left">chemspideR::post_formula_batch()</td>
+<td align="left">chemspideR::get_formula_batch_status()</td>
+<td align="left">chemspideR::get_formula_batch_results()</td>
+</tr>
+<tr class="even">
+<td align="left">chemspideR::post_inchi()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="odd">
+<td align="left">chemspideR::post_inchikey()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="even">
+<td align="left">chemspideR::post_intrinsic_property()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="odd">
+<td align="left">chemspideR::post_mass()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="even">
+<td align="left">chemspideR::post_mass_batch()</td>
+<td align="left">chemspideR::get_mass_batch_status()</td>
+<td align="left">chemspideR::get_mass_batch_results()</td>
+</tr>
+<tr class="odd">
+<td align="left">chemspideR::post_mass()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="even">
+<td align="left">chemspideR::post_name()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+<tr class="odd">
+<td align="left">chemspideR::post_smiles()</td>
+<td align="left">chemspideR::get_status()</td>
+<td align="left">chemspideR::get_results()</td>
+</tr>
+</tbody>
+</table>
 
 Funding
 -------

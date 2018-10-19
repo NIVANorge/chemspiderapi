@@ -8,7 +8,7 @@ output: github_document
 
 > `R` functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018. `chemspideR` provides `R` wrappers around the new API services. 
+ChemSpider has introduced a new API syntax in late 2018, and [the old ChemSpider API syntax will be shut down at the end of November 2018](http://link.rsc.org/rsps/m/xSq8Cm8ovjN8-Elm0eYB3Sey61zutqNIUUaMcyc14sQ). `chemspideR` provides `R` wrappers around the new API services from ChemSpider. 
 
 The aim of this package is to:
 
@@ -105,6 +105,30 @@ Currently the only tested environment for `chemspideR` is Windows 10, but it *sh
 ## Best practices for ChemSpider's Compound APIs
 
 This section will be updated with practical examples in the future.
+
+The basic workflow order for the above **FILTERING** queries is: 
+
+1) POST Query
+
+2) GET Status
+
+3) GET Results (after GET Status returns `"Complete"`)
+
+In practice, this means the following possivle workflows can be implemented:
+
+| POST Query                            | GET Status                             | GET Result                              |
+:-------------------------------------- |:-------------------------------------- |:--------------------------------------- |
+| chemspideR::post_element()            | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_formula()            | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_formula_batch()      | chemspideR::get_formula_batch_status() | chemspideR::get_formula_batch_results() |
+| chemspideR::post_inchi()              | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_inchikey()           | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_intrinsic_property() | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_mass()               | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_mass_batch()         | chemspideR::get_mass_batch_status()    | chemspideR::get_mass_batch_results()    |
+| chemspideR::post_mass()               | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_name()               | chemspideR::get_status()               | chemspideR::get_results()               |
+| chemspideR::post_smiles()             | chemspideR::get_status()               | chemspideR::get_results()               |
 
 ## Funding
 
