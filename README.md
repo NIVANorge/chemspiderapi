@@ -304,6 +304,8 @@ In practice, this means the following possivle workflows can be implemented:
 </tbody>
 </table>
 
+Typically, the result will be one or multiple ChemSpider IDs (`recordId`). They can be used as input into the above **RECORDS** queries.
+
 Funding
 -------
 

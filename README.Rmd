@@ -130,6 +130,8 @@ In practice, this means the following possivle workflows can be implemented:
 | chemspideR::post_name()               | chemspideR::get_status()               | chemspideR::get_results()               |
 | chemspideR::post_smiles()             | chemspideR::get_status()               | chemspideR::get_results()               |
 
+Typically, the result will be one or multiple ChemSpider IDs (`recordId`). They can be used as  input into the above **RECORDS** queries.
+
 ## Funding
 
 This package was created at the [Norwegian Institute for Water Research (*norsk institutt for vannforskning*; NIVA)](https://www.niva.no/en) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's Section for Ecotoxicology and Risk Assessment and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268404: Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk).
