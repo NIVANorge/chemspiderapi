@@ -19,7 +19,7 @@ The `chemspideR` package is platform independent, but requires a valid ChemSpide
 Coverage
 --------
 
-As of 2018-10-19, the following functionalities are implemented (100% functionality with 100% annotation):
+As of 2018-10-22, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
@@ -309,7 +309,7 @@ Typically, the result will be one or multiple ChemSpider IDs (`recordId`). They 
 Funding
 -------
 
-This package was created at the [Norwegian Institute for Water Research (*norsk institutt for vannforskning*; NIVA)](https://www.niva.no/en) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's Section for Ecotoxicology and Risk Assessment and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268404: Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk).
+This package was created at the [Norwegian Institute for Water Research (*norsk institutt for vannforskning*; NIVA)](https://www.niva.no/en) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's [Section for Ecotoxicology and Risk Assessment](https://www.niva.no/en/research/environmental-toxicology) and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268294: [Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
 
 License
 -------

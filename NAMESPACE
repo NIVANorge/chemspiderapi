@@ -1,5 +1,3 @@
-exportPattern("^[[:alpha:]]+")
-
 export(get_data_sources)
 export(get_details)
 export(get_external_references)

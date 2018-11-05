@@ -1,6 +1,6 @@
 \name{get_status}
 \alias{get_status}
-\title{Get the status for a query from ChemSpider}
+\title{GET the status for a ChemSpider query}
 \description{
 This function is used to return the status of a query from ChemSpider.
 }
@@ -9,9 +9,9 @@ get_status(queryId, count = TRUE, message = TRUE, apikey)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID. This is usually returned by POST functions, e.g., \code{chemspideR::post_inchikey()}}
-\item{count}{\code{logical}: Should the count of the results be returned (ChemSpider default)?}
-\item{message}{\code{logical}: Should the message be returned (ChemSpider default)?}
-\item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
+\item{count}{\code{logical}: Should the count of the results be returned?}
+\item{message}{\code{logical}: Should the message be returned?}
+\item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \details{
 Call this endpoint with a \code{queryId} obtained from a previous POST query,e.g., \code{chemspideR::post_inchikey()}.
@@ -28,11 +28,11 @@ A status of Failed can be caused if the backend system could not compile the res
 
 A status of Not Found can be caused if the Query ID has not been registered or has expired. Create a new filter request."
 
-If both \code{count} and \code{message} are set to \code{FALSE}, \code{chemspideR::get_status()} returns the \code{status} as character vector.
+If both \code{count} and \code{message} are set to \code{FALSE}, \code{chemspideR::get_status()} returns the \code{status} as character vector. This is recommended for functional programming approaches.
 
 If the status is \code{Complete}, the results of the query can be obtained from \code{chemspideR::get_results()}.
 
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
 }
 \examples{
 ## Do not run
