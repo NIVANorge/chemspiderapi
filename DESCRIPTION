@@ -1,7 +1,7 @@
-Package: chemspideR
+Package: chemspiderapi
 Type: Package
 Title: R wrapper for ChemSpider's new API services
-Version: 0.0.0.9001
+Version: 0.0.0.9003
 Authors@R: person("Raoul", "Wolf", email = "raoul.wolf@niva.no", role = c("aut", "cre"))
 Description: ChemSpider has announced a fundamental change to the syntax of their API services in late 2018.
     This package provides convenience wrappers for the new API functionalities of ChemSpider, as well as complementary functions, e.g., to save pictures or MOL files.
@@ -12,8 +12,9 @@ Imports:
     png
 Suggests: 
     keyring,
-    memoise, 
+    memoise,
     ratelimitr
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+RoxygenNote: 6.1.0

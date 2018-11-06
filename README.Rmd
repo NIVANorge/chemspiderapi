@@ -1,14 +1,13 @@
 ---
+title: "chemspiderapi"
 output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# chemspideR
-
 > `R` functionalities for ChemSpider's new API services
 
-ChemSpider has introduced a new API syntax in late 2018, and [the old ChemSpider API syntax will be shut down at the end of November 2018](http://link.rsc.org/rsps/m/xSq8Cm8ovjN8-Elm0eYB3Sey61zutqNIUUaMcyc14sQ). `chemspideR` provides `R` wrappers around the new API services from ChemSpider. 
+ChemSpider has introduced a new API syntax in late 2018, and [the old ChemSpider API syntax will be shut down at the end of November 2018](http://link.rsc.org/rsps/m/xSq8Cm8ovjN8-Elm0eYB3Sey61zutqNIUUaMcyc14sQ). `chemspiderapi` provides `R` wrappers around the new API services from ChemSpider. 
 
 The aim of this package is to:
 
@@ -17,65 +16,65 @@ The aim of this package is to:
 3) Implement the `R` functionality in a way that is suitable for both `base` and `tidyverse` programming.
 4) Provide (non-ChemSpider) convenience functions to complement the functionality.
 
-The `chemspideR` package is platform independent, but requires a valid ChemSpider API key. While the `chemspideR` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. To "remember" the results of API queries (i.e., to not ruin the API allowance),  [`memoise`](https://github.com/r-lib/memoise) is recommended. Finally, any rate limitations can be created with functionalities from [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
+The `chemspiderapi` package is platform independent, but requires a valid ChemSpider API key. While the `chemspiderapi` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. To "remember" the results of API queries (i.e., to not ruin the API allowance),  [`memoise`](https://github.com/r-lib/memoise) is recommended. Finally, any rate limitations can be created with functionalities from [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
 
 ## Coverage
 
-As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((27 / 27) * 100, digits = 2)`% annotation):
+As of `r Sys.Date()`, the following functionalities are implemented (`r signif((25 / 25) * 100, digits = 2)`% functionality with `r signif((5 / 27) * 100, digits = 2)`% annotation):
 
 **FILTERING**
 
-| ChemSpider Compound API                  | `chemspideR` Wrapper                      | `chemspideR` Help File |
-|:---------------------------------------- |:----------------------------------------- |:----------------------:|
-| filter-element-post                      | `chemspideR::post_element()`              | yes                    |
-| filter-formula-batch-post                | `chemspideR::post_formula_batch()`        | yes                    |
-| filter-formula-batch-queryId-results-get | `chemspideR::get_formula_batch_results()` | yes                    |
-| filter-formula-batch-queryId-status-get  | `chemspideR::get_formula_batch_status()`  | yes                    |
-| filter-formula-post                      | `chemspideR::post_formula()`              | yes                    |
-| filter-inchi-post                        | `chemspideR::post_inchi()`                | yes                    |
-| filter-inchikey-post                     | `chemspideR::post_inchikey()`             | yes                    |
-| filter-intrinsicproperty-post            | `chemspideR::post_intrinsic_property()`   | yes                    |
-| filter-mass-batch-post                   | `chemspideR::post_mass_batch()`           | yes                    |
-| filter-mass-batch-queryId-results-get    | `chemspideR::get_mass_batch_results()`    | yes                    |
-| filter-mass-batch-queryId-status-get     | `chemspideR::get_mass_batch_status()`     | yes                    |
-| filter-mass-post                         | `chemspideR::post_mass()`                 | yes                    |
-| filter-name-post                         | `chemspideR::post_name()`                 | yes                    |
-| filter-queryId-results-get               | `chemspideR::get_results()`               | yes                    |
-| filter-queryId-results-sdf-get           | `chemspideR::get_sdf()` *                 | yes                    |
-| filter-queryId-status-get                | `chemspideR::get_status()`                | yes                    |
-| filter-smiles-post                       | `chemspideR::post_smiles()`               | yes                    |
+| ChemSpider Compound API                  | `chemspiderapi` Wrapper                              | `chemspiderapi` Help File |
+|:---------------------------------------- |:---------------------------------------------------- |:-------------------------:|
+| filter-element-post                      | `chemspiderapi::post_element()`                      |                           |
+| filter-formula-batch-post                | `chemspiderapi::post_formula_batch()`                |                           |
+| filter-formula-batch-queryId-results-get | `chemspiderapi::get_formula_batch_queryId_results()` |                           |
+| filter-formula-batch-queryId-status-get  | `chemspiderapi::get_formula_batch_queryId_status()`  |                           |
+| filter-formula-post                      | `chemspiderapi::post_formula()`                      |                           |
+| filter-inchi-post                        | `chemspiderapi::post_inchi()`                        |                           |
+| filter-inchikey-post                     | `chemspiderapi::post_inchikey()`                     | yes                       |
+| filter-intrinsicproperty-post            | `chemspiderapi::post_intrinsicproperty()`            |                           |
+| filter-mass-batch-post                   | `chemspiderapi::post_mass_batch()`                   |                           |
+| filter-mass-batch-queryId-results-get    | `chemspiderapi::get_mass_batch_queryId_results()`    |                           |
+| filter-mass-batch-queryId-status-get     | `chemspiderapi::get_mass_batch_queryId_status()`     |                           |
+| filter-mass-post                         | `chemspiderapi::post_mass()`                         |                           |
+| filter-name-post                         | `chemspiderapi::post_name()`                         |                           |
+| filter-queryId-results-get               | `chemspiderapi::get_queryId_results()`               | yes                       |
+| filter-queryId-results-sdf-get           | `chemspiderapi::get_queryId_results_sdf()` *         |                           |
+| filter-queryId-status-get                | `chemspiderapi::get_queryId_status()`                | yes                       |
+| filter-smiles-post                       | `chemspiderapi::post_smiles()`                       |                           |
 
-\* `chemspideR::get_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
+\* `chemspiderapi::get_queryId_results_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
 
 **LOOKUPS**
 
-| ChemSpider Compound API | `chemspideR` Wrapper             | `chemspideR` Help File |
-|:----------------------- |:-------------------------------- |:----------------------:|
-| lookups-datasources-get | `chemspideR::get_data_sources()` | yes                    |
+| ChemSpider Compound API | `chemspiderapi` Wrapper            | `chemspiderapi` Help File |
+|:----------------------- |:---------------------------------- |:-------------------------:|
+| lookups-datasources-get | `chemspiderapi::get_datasources()` | yes                       |
 
 **RECORDS**
 
-| ChemSpider Compound API                 | `chemspideR` Wrapper                    | `chemspideR` Help File |
-|:--------------------------------------- |:--------------------------------------- |:----------------------:|
-| records-batch-post                      | `chemspideR::post_batch()`              | yes                    |
-| records-recordId-details-get            | `chemspideR::get_details()`             | yes                    |
-| records-recordId-externalreferences-get | `chemspideR::get_external_references()` | yes                    |
-| records-recordId-image-get              | `chemspideR::get_image()`               | yes                    |
-| records-recordId-mol-get                | `chemspideR::get_mol()`                 | yes                    |
+| ChemSpider Compound API                 | `chemspiderapi` Wrapper                            | `chemspiderapi` Help File |
+|:--------------------------------------- |:-------------------------------------------------- |:-------------------------:|
+| records-batch-post                      | `chemspiderapi::post_batch()`                      |                           |
+| records-recordId-details-get            | `chemspiderapi::get_recordId_details()`            | yes                       |
+| records-recordId-externalreferences-get | `chemspiderapi::get_recordId_externalreferences()` |                           |
+| records-recordId-image-get              | `chemspiderapi::get_recordId_image()`              |                           |
+| records-recordId-mol-get                | `chemspiderapi::get_recordId_mol()`                |                           |
 
 **TOOLS**
 
-| ChemSpider Compound API      | `chemspideR` Wrapper                   | `chemspideR` Help File |
-|:---------------------------- |:-------------------------------------- |:----------------------:|
-| tools-convert-post           | `chemspideR::post_convert()`           | yes                    |
-| tools-validate-inchikey-post | `chemspideR::post_validate_inchikey()` | yes                    |
+| ChemSpider Compound API      | `chemspiderapi` Wrapper                   | `chemspiderapi` Help File |
+|:---------------------------- |:----------------------------------------- |:-------------------------:|
+| tools-convert-post           | `chemspiderapi::post_convert()`           |                           |
+| tools-validate-inchikey-post | `chemspiderapi::post_validate_inchikey()` |                           |
 
-**WRITING (`chemspideR` EXCLUSIVE)**
+**WRITING (`chemspiderapi` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspideR` Wrapper        | `chemspideR` Help File |
-|:----------------------- |:--------------------------- |:----------------------:|
-|                         | `chemspideR::write_image()` | yes                    |
-|                         | `chemspideR::write_mol()`   | yes                    |
+| ChemSpider Compound API | `chemspiderapi` Wrapper        | `chemspiderapi` Help File |
+|:----------------------- |:------------------------------ |:-------------------------:|
+|                         | `chemspiderapi::write_image()` |                           |
+|                         | `chemspiderapi::write_mol()`   |                           |
 
 ## Installation
 
@@ -83,13 +82,13 @@ As of `r Sys.Date()`, the following functionalities are implemented (`r signif((
 
 This packages relies on two essential dependencies, namely `curl` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `png` package.
 
-If not already installed, these packages *should* be installed automatically when installing `chemspideR`. Should this result in trouble, the dependency packages can be installed manually:
+If not already installed, these packages *should* be installed automatically when installing `chemspiderapi`. Should this result in trouble, the dependency packages can be installed manually:
 
 ```{r, eval=FALSE}
 install.packages(c("curl", "jsonlite", "png"))
 ```
 
-If `curl` and/or `jsonlite` are missing from the R library, all functions of `chemspideR` will throw an error.
+If `curl` and/or `jsonlite` are missing from the R library, all functions of `chemspiderapi` will throw an error.
 
 ### R package
 
@@ -97,10 +96,10 @@ Install the package from GitHub (using `devtools`):
 
 ```{r,eval=FALSE}
 # install.packages("devtools")
-devtools::install_github("NIVANorge/chemspideR")
+devtools::install_github("NIVANorge/chemspiderapi")
 ```
 
-Currently the only tested environment for `chemspideR` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles. 
+Currently the only tested environment for `chemspiderapi` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles. 
 
 ## Best practices for ChemSpider's Compound APIs
 
@@ -116,25 +115,25 @@ The basic workflow order for the above **FILTERING** queries is:
 
 In practice, this means the following possivle workflows can be implemented:
 
-| POST Query                              | GET Status                               | GET Result                                |
-:---------------------------------------- |:---------------------------------------- |:----------------------------------------- |
-| `chemspideR::post_element()`            | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_formula()`            | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_formula_batch()`      | `chemspideR::get_formula_batch_status()` | `chemspideR::get_formula_batch_results()` |
-| `chemspideR::post_inchi()`              | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_inchikey()`           | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_intrinsic_property()` | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_mass()`               | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_mass_batch()`         | `chemspideR::get_mass_batch_status()`    | `chemspideR::get_mass_batch_results()`    |
-| `chemspideR::post_mass()`               | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_name()`               | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
-| `chemspideR::post_smiles()`             | `chemspideR::get_status()`               | `chemspideR::get_results()`               |
+| POST Query                                | GET Status                                          | GET Result                                           |
+:------------------------------------------ |:--------------------------------------------------- |:---------------------------------------------------- |
+| `chemspiderapi::post_element()`           | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_formula()`           | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_formula_batch()`     | `chemspiderapi::get_formula_batch_queryId_status()` | `chemspiderapi::get_formula_batch_queryId_results()` |
+| `chemspiderapi::post_inchi()`             | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_inchikey()`          | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_intrinsicproperty()` | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_mass()`              | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_mass_batch()`        | `chemspiderapi::get_mass_batch_queryId_status()`    | `chemspiderapi::get_mass_batch_queryId_results()`    |
+| `chemspiderapi::post_mass()`              | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_name()`              | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
+| `chemspiderapi::post_smiles()`            | `chemspiderapi::get_queryId_status()`               | `chemspiderapi::get_queryId_results()`               |
 
 Typically, the result will be one or multiple ChemSpider IDs (`recordId`). They can be used as  input into the above **RECORDS** queries.
 
 ## Funding
 
-This package was created at the [Norwegian Institute for Water Research (*norsk institutt for vannforskning*; NIVA)](https://www.niva.no/en) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's Section for Ecotoxicology and Risk Assessment and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268404: Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk).
+This package was created at the [Norwegian Institute for Water Research (NIVA)](https://www.niva.no/en) in conjunction with NIVA's Computational Toxicology Program (NCTP) at NIVA's [Section for Ecotoxicology and Risk Assessment](https://www.niva.no/en/research/environmental-toxicology) and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268294: [Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
 
 ## License
 
