@@ -1,0 +1,48 @@
+post_validate_inchikey <- function(inchikey, apikey) {
+  if (length(inchikey) > 1) {
+    warning("This function can only handle a single \"inchikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
+    return(NA_character_)
+  }
+  if (nchar(apikey) != 32) {
+    warning("Please use a valid 32-character ChemSpider API key (\"apikey\"); returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  if (nchar(inchikey) != 27) {
+    warning("The provided \"inchikey\" should be a 27-character vector; not performing API query.", call. = FALSE)
+    return(FALSE)
+  }
+  if (length(strsplit(inchikey, split = "-")[[1]]) != 3) {
+    warning("The provided \"inchikey\" should be hyphen-divided into three parts; not performing API query.", call. = FALSE)
+    return(FALSE)
+  }
+  if (nchar(strsplit(inchikey, split = "-")[[1]][1]) != 14) {
+    warning("The first part of the \"inchikey\" should be 14 characters long; not performing API query.", call. = FALSE)
+    return(FALSE)
+  }
+  if (nchar(strsplit(inchikey, split = "-")[[1]][2]) != 10) {
+    warning("The first part of the \"inchikey\" should be 10 characters long; not performing API query.", call. = FALSE)
+    return(FALSE)
+  }
+  if (nchar(strsplit(inchikey, split = "-")[[1]][3]) != 1) {
+    warning("The third part of the \"inchikey\" should be 1 character long; not performing API query.", call. = FALSE)
+    return(FALSE)
+  }
+  if (substr(strsplit(inchikey, split = "-")[[1]][2], start = 9L, stop = 9L) != "S") {
+    warning("This is not a standard \"inchikey\"; performing query regardless.", call. = FALSE)
+  }
+  curlData <- list(inchikey = inchikey)
+  curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
+  curlHeader <- list(`Content-Type` = "", apikey = apikey)
+  curlUrl <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
+  curlHandle <- curl::new_handle()
+  curl::handle_setopt(curlHandle, customrequest = "POST")
+  curl::handle_setopt(curlHandle, postfields = curlData)
+  curl::handle_setheaders(curlHandle, .list = curlHeader)
+  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
+  if (result$status_code == 200) {
+    return(TRUE)
+  }
+  else {
+    return(FALSE)
+  }
+}
