@@ -18,7 +18,7 @@ The `chemspiderapi` package is platform independent, but requires a valid ChemSp
 Coverage
 --------
 
-As of 2018-11-06, the following functionalities are implemented (100% functionality with 19% annotation):
+As of 2018-11-07, the following functionalities are implemented (100% functionality with 22% annotation):
 
 **FILTERING**
 
@@ -180,7 +180,7 @@ As of 2018-11-06, the following functionalities are implemented (100% functional
 
 | ChemSpider Compound API      | `chemspiderapi` Wrapper                   | `chemspiderapi` Help File |
 |:-----------------------------|:------------------------------------------|:-------------------------:|
-| tools-convert-post           | `chemspiderapi::post_convert()`           |                           |
+| tools-convert-post           | `chemspiderapi::post_convert()`           |            yes            |
 | tools-validate-inchikey-post | `chemspiderapi::post_validate_inchikey()` |                           |
 
 **WRITING (`chemspiderapi` EXCLUSIVE)**
@@ -241,7 +241,7 @@ In practice, this means the following possivle workflows can be implemented:
 <tr class="header">
 <th align="left">POST Query</th>
 <th align="left">GET Status</th>
-<th align="left">GET Result</th>
+<th align="left">GET Results</th>
 </tr>
 </thead>
 <tbody>
