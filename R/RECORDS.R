@@ -24,7 +24,12 @@
 #' #                      "CommonName"), apikey = apikey)
 #' @export
 get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
-
+  
+  if (is.na(recordId)) {
+    warning("No valid \"recordId\" provided; returning \"NA\".", call. = FALSE)
+    return(NA)
+  }
+  
   if (length(recordId) > 1L) {
     warning("This function can only handle a single \"recordId\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA)

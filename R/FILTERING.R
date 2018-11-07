@@ -21,6 +21,11 @@
 #' # post_inchikey(inchikey = inchikey, apikey = apikey)
 #' @export
 post_inchikey <- function(inchikey, apikey) {
+  
+  if (is.na(inchikey)) {
+    warning("No valid \"inchikey\" provided; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
 
   if (length(inchikey) > 1L) {
     warning("This function can only handle a single \"inchikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
@@ -165,7 +170,12 @@ post_inchikey <- function(inchikey, apikey) {
 #' # get_queryId_results(queryId = queryId, status = status, apikey = apikey)
 #' @export
 get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
-
+  
+  if (is.na(queryId)) {
+    warning("No valid \"queryId\" provided; returning \"NA\".", call. = FALSE)
+    return(NA_integer_)
+  }
+  
   if (length(queryId) > 1L) {
 
     warning("This function can only handle a single ChemSpider \"queryId\" entry; returning \"NA\".\nMaybe you are looking for chemspideR::get_formula_batch_status() or chemspideR::get_mass_batch_status()?\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
@@ -359,7 +369,12 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
 #' # get_queryId_status(queryId = queryId, apikey = apikey)
 #' @export
 get_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
-
+  
+  if (is.na(queryId)) {
+    warning("No valid \"queryId\" provided; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  
   if (length(queryId) > 1L) {
     warning("This function can only handle a single ChemSpider \"queryId\" entry; returning \"NA\".\nMaybe you are looking for chemspideR::get_formula_batch_status() or chemspideR::get_mass_batch_status()?\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
