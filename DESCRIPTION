@@ -13,7 +13,9 @@ Imports:
 Suggests: 
     keyring,
     memoise,
-    ratelimitr
+    ratelimitr,
+    testthat
+URL: https://github.com/NIVANorge/chemspiderapi
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true

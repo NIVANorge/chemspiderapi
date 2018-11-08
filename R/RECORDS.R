@@ -84,32 +84,38 @@ get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
 
   if (result$status_code != 200L) {
+    
+    error_message <- "\nNo ChemSpider Error Details were provided."
+    
     if (result$status_code == 400L) {
-      message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
+      error_message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
     }
+    
     if (result$status_code == 401L) {
-      message <- "\nChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
+      error_message <- "\nChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
     }
+    
     if (result$status_code == 404L) {
-      message <- "\nChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
+      error_message <- "\nChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
     }
+    
     if (result$status_code == 405L) {
-      message <- "\nChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
+      error_message <- "\nChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
     }
+    
     if (result$status_code == 429L) {
-      message <- "\nChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
+      error_message <- "\nChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
     }
+    
     if (result$status_code == 500L) {
-      message <- "\nChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
+      error_message <- "\nChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
     }
+    
     if (result$status_code == 503L) {
-      message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
+      error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
     }
-    else {
-      message <- "\nNo ChemSpider Error Details were provided."
-    }
-
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", message)
+    
+    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", error_message)
 
     warning(message, call. = FALSE)
     return(NA)
