@@ -138,7 +138,6 @@ post_inchikey <- function(inchikey, apikey) {
     return(NA)
   }
 
-
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
   result <- unlist(result)

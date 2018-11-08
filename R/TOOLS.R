@@ -47,6 +47,11 @@
 #' @export    
 post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
+  if (is.na(input)) {
+    warning("\"input\" is missing; returning \"NA\".", call. = FALSE)
+    return(NA_character_)
+  }
+  
   if (length(input) > 1) {
     warning("This function can only handle individual (\"input\") entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_character_)
