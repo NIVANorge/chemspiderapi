@@ -17,14 +17,14 @@
 #' @return A \code{data.frame} if multiple columns are returned, or a named vector of the appropriate type if only one \code{field} is returned.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
 #' @examples
-#' ## Not run:
+#' \dontrun{
 #' ## GET the record details for aspirin
 #' recordId <- 2157L
 #' apikey <- "A valid 32-character Chemspider API key"
-#' get_recordId_details(recordId = recordId, fields = c("SMILES", "Formula", "MolecularWeight",
-#'                      "CommonName"), apikey = apikey)
-#'                      
-#' ## End(Not run)
+#' get_recordId_details(recordId = recordId, 
+#'                      fields = c("SMILES", "Formula", "MolecularWeight", "CommonName"), 
+#'                      apikey = apikey)
+#' }
 #' @export
 get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   
@@ -155,14 +155,13 @@ get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
 #' @return Either a base64-encoded character string (\code{png == FALSE}) or a raw array (\code{png == TRUE}).
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/image} 
 #' @examples
-#' ## Not run:
+#' \dontrun{
 #' ## GET the .png image for aspirin
 #' recordId <- 2157L
 #' apikey <- "a_valid_ChemSpider_API_key"
 #' get_recordId_image(recordId = recordId, apikey = apikey)
 #' get_recordId_image(recordId = recordId, apikey = apikey, png = TRUE)
-#' 
-#' ## End(Not run)
+#' }
 #' @export 
 get_recordId_image <- function(recordId, apikey, png = FALSE) {
   if (is.na(recordId)) {
@@ -274,13 +273,12 @@ get_recordId_image <- function(recordId, apikey, png = FALSE) {
 #' @return A character string containing the (human-readable) .MOL file.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/mol} 
 #' @examples
-#' ## Not run:
+#' \dontrun{
 #' ## GET the .MOL file for aspirin
 #' recordId <- 2157L
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' get_recordId_mol(recordId = recordId, apikey = apikey)
-#' 
-#' ## End(Not run)
+#' }
 #' @export
 get_recordId_mol <- function(recordId, apikey) {
   

@@ -27,13 +27,12 @@ If not successful, returns \code{NA}.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
 }
 \examples{
-## Not run:
+\dontrun{
 ## GET the .MOL file for aspirin
 recordId <- 2157L
 apikey <- "a valid 32-character ChemSpider apikey"
 get_recordId_mol(recordId = recordId, apikey = apikey)
-
-## End(Not run)
+}
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/mol}

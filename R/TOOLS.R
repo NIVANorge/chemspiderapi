@@ -37,7 +37,7 @@
 #' @return A character string with the desired converted identifier
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/tools/convert}
 #' @examples
-#' ## Not run:
+#' \dontrun{
 #' ## Convert the InChI string of aspirin to a SMILES formula
 #' input <- "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
 #' inputFormat <- "InChI"
@@ -45,8 +45,7 @@
 #' apikey <- "A valid 32-character Chemspider API key"
 #' post_convert(input = input, inputFormat = inputFormat, outputFormat = outputFormat,
 #'              apikey = apikey)
-#' 
-#' ## End(Not run)
+#' }
 #' @export    
 post_convert <- function(input, inputFormat, outputFormat, apikey) {
   

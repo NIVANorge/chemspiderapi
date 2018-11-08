@@ -27,14 +27,13 @@ If not successful, returns \code{NA}.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
-## Not run:
+\dontrun{
 ## GET the .png image for aspirin
 recordId <- 2157L
 apikey <- "a_valid_ChemSpider_API_key"
 get_recordId_image(recordId = recordId, apikey = apikey)
 get_recordId_image(recordId = recordId, apikey = apikey, png = TRUE)
-
-## End(Not run)
+}
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/image}

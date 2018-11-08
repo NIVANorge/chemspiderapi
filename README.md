@@ -44,7 +44,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-08, the following functionalities are implemented (100% functionality with 22% annotation):
+As of 2018-11-08, the following functionalities are implemented (100% functionality with 37% annotation):
 
 **FILTERING**
 
@@ -192,12 +192,12 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 <tr class="even">
 <td align="left">records-recordId-image-get</td>
 <td align="left"><code>chemspiderapi::get_recordId_image()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-mol-get</td>
 <td align="left"><code>chemspiderapi::get_recordId_mol()</code></td>
-<td align="center"></td>
+<td align="center">yes</td>
 </tr>
 </tbody>
 </table>
@@ -213,8 +213,8 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 
 | ChemSpider Compound API | `chemspiderapi` Wrapper        | `chemspiderapi` Help File |
 |:------------------------|:-------------------------------|:-------------------------:|
-|                         | `chemspiderapi::write_image()` |                           |
-|                         | `chemspiderapi::write_mol()`   |                           |
+|                         | `chemspiderapi::write_image()` |            yes            |
+|                         | `chemspiderapi::write_mol()`   |            yes            |
 
 Best practices for ChemSpider's Compound APIs
 ---------------------------------------------

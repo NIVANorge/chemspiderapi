@@ -43,13 +43,12 @@ If the status is \code{Complete}, the results of the query can be obtained from 
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
 }
 \examples{
-## Not run:
+\dontrun{
 ## GET the status of a query from ChemSpider
 queryId <- "A valid 36-character Chemspider query ID"
 apikey <- "A valid 32-character Chemspider API key"
 get_queryId_status(queryId = queryId, apikey = apikey)
-
-## End(Not run)
+}
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status}

@@ -31,14 +31,14 @@ If not successful, it returns \code{NA}.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_*()}.
 }
 \examples{
-## Not run:
+\dontrun{
 ## GET the record details for aspirin
 recordId <- 2157L
 apikey <- "A valid 32-character Chemspider API key"
-get_recordId_details(recordId = recordId, fields = c("SMILES", "Formula", "MolecularWeight",
-                     "CommonName"), apikey = apikey)
-                     
-## End(Not run)
+get_recordId_details(recordId = recordId, 
+                     fields = c("SMILES", "Formula", "MolecularWeight", "CommonName"), 
+                     apikey = apikey)
+}
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}

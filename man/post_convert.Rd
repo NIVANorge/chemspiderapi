@@ -51,7 +51,7 @@ If not successful, it returns \code{NA}.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}
 }
 \examples{
-## Not run:
+\dontrun{
 ## Convert the InChI string of aspirin to a SMILES formula
 input <- "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
 inputFormat <- "InChI"
@@ -59,8 +59,7 @@ outputFormat <- "SMILES"
 apikey <- "A valid 32-character Chemspider API key"
 post_convert(input = input, inputFormat = inputFormat, outputFormat = outputFormat,
              apikey = apikey)
-
-## End(Not run)
+}
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/tools/convert}

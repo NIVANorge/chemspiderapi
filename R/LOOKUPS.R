@@ -12,12 +12,11 @@
 #' @return A unnamed character vector, length > 350
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}
 #' @examples
-#' ## Not run:
+#' \dontrun{
 #' ## GET the external data sources of ChemSpider
 #' apikey <- "A valid 32-character Chemspider API key"
 #' get_datasources(apikey = apikey)
-#' 
-#' ## End(Not run)
+#' }
 #' @export
 get_datasources <- function(apikey) {
 

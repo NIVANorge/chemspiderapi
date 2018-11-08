@@ -27,12 +27,11 @@ If not successful, returns \code{NA} without writing an image file.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
-## Not run:
+\dontrun{
 ## Saving the .png file for aspirin
-# recordId <- 2157L
-# apikey <- "a valid 32-character ChemSpider apikey"
-# image <- get_recordId_image(recordId = recordId, apikey = apikey)
-# write_image(image = image, file = "aspirin.png")
-
-## End(Not run)
+recordId <- 2157L
+apikey <- "a valid 32-character ChemSpider apikey"
+image <- get_recordId_image(recordId = recordId, apikey = apikey)
+write_image(image = image, file = "aspirin.png")
+}
 }

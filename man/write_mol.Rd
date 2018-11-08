@@ -27,12 +27,11 @@ If not successful, it returns \code{NA} without writing a file.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
-## Not run:
+\dontrun{
 ## Saving the .MOL file for aspirin
-# recordId <- 2157L
-# apikey <- "a_valid_ChemSpider_API_key"
-# mol <- get_recordId_mol(recordId = recordId, apikey = apikey)
-# write_mol(mol = mol, file = "aspirin.mol")
-
-## End(Not run)
+recordId <- 2157L
+apikey <- "a_valid_ChemSpider_API_key"
+mol <- get_recordId_mol(recordId = recordId, apikey = apikey)
+write_mol(mol = mol, file = "aspirin.mol")
+}
 }
