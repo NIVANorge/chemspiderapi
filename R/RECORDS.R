@@ -17,11 +17,14 @@
 #' @return A \code{data.frame} if multiple columns are returned, or a named vector of the appropriate type if only one \code{field} is returned.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
 #' @examples
-#' ## Record details for aspirin.
-#' # recordId <- as.integer(2157)
-#' # apikey <- "A valid 32-character Chemspider API key"
-#' # get_recordId_details(recordId = recordId, fields = c("SMILES", "Formula", "MolecularWeight",
-#' #                      "CommonName"), apikey = apikey)
+#' ## Not run:
+#' ## GET the record details for aspirin
+#' recordId <- 2157L
+#' apikey <- "A valid 32-character Chemspider API key"
+#' get_recordId_details(recordId = recordId, fields = c("SMILES", "Formula", "MolecularWeight",
+#'                      "CommonName"), apikey = apikey)
+#'                      
+#' ## End(Not run)
 #' @export
 get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   

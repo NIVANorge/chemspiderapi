@@ -38,11 +38,14 @@ If not successful, returns \code{NA}.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_*()}.
 }
 \examples{
+## Not run:
 ## GET the results of a query from ChemSpider
-# queryId <- "A valid 36-character Chemspider query ID"
-# apikey <- "A valid 32-character Chemspider API key"
-# status <- get_status(queryId = queryId, apikey = apikey)
-# get_queryId_results(queryId = queryId, status = status, apikey = apikey)
+queryId <- "A valid 36-character Chemspider query ID"
+apikey <- "A valid 32-character Chemspider API key"
+status <- get_queryId_status(queryId = queryId, apikey = apikey)
+get_queryId_results(queryId = queryId, status = status, apikey = apikey)
+
+## End(Not run)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}

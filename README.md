@@ -15,10 +15,36 @@ The aim of this package is to:
 
 The `chemspiderapi` package is platform independent, but requires a valid ChemSpider API key. While the `chemspiderapi` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. To "remember" the results of API queries (i.e., to not ruin the API allowance), [`memoise`](https://github.com/r-lib/memoise) is recommended. Finally, any rate limitations can be created with functionalities from [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
 
+Installation
+------------
+
+### R package
+
+Install the package from GitHub (using `devtools`):
+
+``` r
+# install.packages("devtools")
+remotes::install_github("NIVANorge/chemspiderapi")
+```
+
+Currently the only tested environment for `chemspiderapi` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
+
+### Dependencies
+
+`chemspiderapi` relies on two essential dependencies, namely `curl` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `png` package.
+
+If not already installed, these packages *should* be installed automatically when installing `chemspiderapi`. Should this result in trouble, the dependency packages can be installed manually:
+
+``` r
+install.packages(c("curl", "jsonlite", "png"))
+```
+
+If `curl` or `jsonlite` are missing from the R library, all functions of `chemspiderapi` will fail and throw an error.
+
 Coverage
 --------
 
-As of 2018-11-07, the following functionalities are implemented (100% functionality with 22% annotation):
+As of 2018-11-08, the following functionalities are implemented (100% functionality with 22% annotation):
 
 **FILTERING**
 
@@ -189,32 +215,6 @@ As of 2018-11-07, the following functionalities are implemented (100% functional
 |:------------------------|:-------------------------------|:-------------------------:|
 |                         | `chemspiderapi::write_image()` |                           |
 |                         | `chemspiderapi::write_mol()`   |                           |
-
-Installation
-------------
-
-### Dependencies
-
-This packages relies on two essential dependencies, namely `curl` and `jsonlite`. Additional (but not crucial) functionality for handling images is coming from the `png` package.
-
-If not already installed, these packages *should* be installed automatically when installing `chemspiderapi`. Should this result in trouble, the dependency packages can be installed manually:
-
-``` r
-install.packages(c("curl", "jsonlite", "png"))
-```
-
-If `curl` and/or `jsonlite` are missing from the R library, all functions of `chemspiderapi` will throw an error.
-
-### R package
-
-Install the package from GitHub (using `devtools`):
-
-``` r
-# install.packages("devtools")
-devtools::install_github("NIVANorge/chemspiderapi")
-```
-
-Currently the only tested environment for `chemspiderapi` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
 
 Best practices for ChemSpider's Compound APIs
 ---------------------------------------------

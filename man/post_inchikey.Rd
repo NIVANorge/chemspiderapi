@@ -27,10 +27,13 @@ If not successful, returns \code{NA}.\cr
 This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
 }
 \examples{
-## POST the InChIKey for aspirin to obtain a queryId
-# inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
-# apikey <- "A valid 32-character Chemspider API key"
-# post_inchikey(inchikey = inchikey, apikey = apikey)
+## Not run:
+## POST the InChIKey of aspirin to obtain a queryId
+inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
+apikey <- "A valid 32-character Chemspider API key"
+post_inchikey(inchikey = inchikey, apikey = apikey)
+
+## End(Not run)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchikey}

@@ -23,9 +23,12 @@ If not succesfull, returns a warning and \code{NA}.\cr
 This function is most useful for narrowing down \code{dataSources} in other \code{chemspiderapi} functions, e.g., \code{chemspiderapi::get_references()}.
 }
 \examples{
+## Not run:
 ## GET the external data sources of ChemSpider
-# apikey <- "A valid 32-character Chemspider API key"
-# get_datasources(apikey = apikey)
+apikey <- "A valid 32-character Chemspider API key"
+get_datasources(apikey = apikey)
+
+## End(Not run)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}

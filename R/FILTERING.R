@@ -15,10 +15,13 @@
 #' @return A 36-character queryId string
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchikey}
 #' @examples
-#' ## POST the InChIKey for aspirin to obtain a queryId
-#' # inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
-#' # apikey <- "A valid 32-character Chemspider API key"
-#' # post_inchikey(inchikey = inchikey, apikey = apikey)
+#' ## Not run:
+#' ## POST the InChIKey of aspirin to obtain a queryId
+#' inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
+#' apikey <- "A valid 32-character Chemspider API key"
+#' post_inchikey(inchikey = inchikey, apikey = apikey)
+#' 
+#' ## End(Not run)
 #' @export
 post_inchikey <- function(inchikey, apikey) {
   
@@ -169,11 +172,14 @@ post_inchikey <- function(inchikey, apikey) {
 #' @return A character vector indicating the status of the query; see Details.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}
 #' @examples
+#' ## Not run:
 #' ## GET the results of a query from ChemSpider
-#' # queryId <- "A valid 36-character Chemspider query ID"
-#' # apikey <- "A valid 32-character Chemspider API key"
-#' # status <- get_status(queryId = queryId, apikey = apikey)
-#' # get_queryId_results(queryId = queryId, status = status, apikey = apikey)
+#' queryId <- "A valid 36-character Chemspider query ID"
+#' apikey <- "A valid 32-character Chemspider API key"
+#' status <- get_queryId_status(queryId = queryId, apikey = apikey)
+#' get_queryId_results(queryId = queryId, status = status, apikey = apikey)
+#' 
+#' ## End(Not run)
 #' @export
 get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
   
@@ -375,10 +381,13 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
 #' @return A character vector indicating the status of the query; see Details.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status}
 #' @examples
+#' ## Not run:
 #' ## GET the status of a query from ChemSpider
-#' # queryId <- "A valid 36-character Chemspider query ID"
-#' # apikey <- "A valid 32-character Chemspider API key"
-#' # get_queryId_status(queryId = queryId, apikey = apikey)
+#' queryId <- "A valid 36-character Chemspider query ID"
+#' apikey <- "A valid 32-character Chemspider API key"
+#' get_queryId_status(queryId = queryId, apikey = apikey)
+#' 
+#' ## End(Not run)
 #' @export
 get_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   
