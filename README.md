@@ -44,7 +44,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-08, the following functionalities are implemented (100% functionality with 37% annotation):
+As of 2018-11-09, the following functionalities are implemented (100% functionality with 37% annotation):
 
 **FILTERING**
 
@@ -64,32 +64,32 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 <tbody>
 <tr class="odd">
 <td align="left">filter-element-post</td>
-<td align="left"><code>chemspiderapi::post_element()</code></td>
+<td align="left"><code>chemspiderapi:::post_element()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-post</td>
-<td align="left"><code>chemspiderapi::post_formula_batch()</code></td>
+<td align="left"><code>chemspiderapi:::post_formula_batch()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-batch-queryId-results-get</td>
-<td align="left"><code>chemspiderapi::get_formula_batch_queryId_results()</code></td>
+<td align="left"><code>chemspiderapi:::get_formula_batch_queryId_results()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-queryId-status-get</td>
-<td align="left"><code>chemspiderapi::get_formula_batch_queryId_status()</code></td>
+<td align="left"><code>chemspiderapi:::get_formula_batch_queryId_status()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-post</td>
-<td align="left"><code>chemspiderapi::post_formula()</code></td>
+<td align="left"><code>chemspiderapi:::post_formula()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-inchi-post</td>
-<td align="left"><code>chemspiderapi::post_inchi()</code></td>
+<td align="left"><code>chemspiderapi:::post_inchi()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
@@ -99,32 +99,32 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 </tr>
 <tr class="even">
 <td align="left">filter-intrinsicproperty-post</td>
-<td align="left"><code>chemspiderapi::post_intrinsicproperty()</code></td>
+<td align="left"><code>chemspiderapi:::post_intrinsicproperty()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-post</td>
-<td align="left"><code>chemspiderapi::post_mass_batch()</code></td>
+<td align="left"><code>chemspiderapi:::post_mass_batch()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-batch-queryId-results-get</td>
-<td align="left"><code>chemspiderapi::get_mass_batch_queryId_results()</code></td>
+<td align="left"><code>chemspiderapi:::get_mass_batch_queryId_results()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-queryId-status-get</td>
-<td align="left"><code>chemspiderapi::get_mass_batch_queryId_status()</code></td>
+<td align="left"><code>chemspiderapi:::get_mass_batch_queryId_status()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-post</td>
-<td align="left"><code>chemspiderapi::post_mass()</code></td>
+<td align="left"><code>chemspiderapi:::post_mass()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="left">filter-name-post</td>
-<td align="left"><code>chemspiderapi::post_name()</code></td>
+<td align="left"><code>chemspiderapi:::post_name()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
@@ -134,7 +134,7 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">filter-queryId-results-sdf-get</td>
-<td align="left"><code>chemspiderapi::get_queryId_results_sdf()</code> *</td>
+<td align="left"><code>chemspiderapi:::get_queryId_results_sdf()</code> *</td>
 <td align="center"></td>
 </tr>
 <tr class="even">
@@ -144,7 +144,7 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">filter-smiles-post</td>
-<td align="left"><code>chemspiderapi::post_smiles()</code></td>
+<td align="left"><code>chemspiderapi:::post_smiles()</code></td>
 <td align="center"></td>
 </tr>
 </tbody>
@@ -160,11 +160,11 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 
 **RECORDS**
 
-<table style="width:100%;">
+<table>
 <colgroup>
 <col width="33%" />
-<col width="42%" />
-<col width="23%" />
+<col width="43%" />
+<col width="22%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -176,7 +176,7 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 <tbody>
 <tr class="odd">
 <td align="left">records-batch-post</td>
-<td align="left"><code>chemspiderapi::post_batch()</code></td>
+<td align="left"><code>chemspiderapi:::post_batch()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
@@ -186,7 +186,7 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-externalreferences-get</td>
-<td align="left"><code>chemspiderapi::get_recordId_externalreferences()</code></td>
+<td align="left"><code>chemspiderapi:::get_recordId_externalreferences()</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
@@ -204,10 +204,10 @@ As of 2018-11-08, the following functionalities are implemented (100% functional
 
 **TOOLS**
 
-| ChemSpider Compound API      | `chemspiderapi` Wrapper                   | `chemspiderapi` Help File |
-|:-----------------------------|:------------------------------------------|:-------------------------:|
-| tools-convert-post           | `chemspiderapi::post_convert()`           |            yes            |
-| tools-validate-inchikey-post | `chemspiderapi::post_validate_inchikey()` |                           |
+| ChemSpider Compound API      | `chemspiderapi` Wrapper                    | `chemspiderapi` Help File |
+|:-----------------------------|:-------------------------------------------|:-------------------------:|
+| tools-convert-post           | `chemspiderapi::post_convert()`            |            yes            |
+| tools-validate-inchikey-post | `chemspiderapi:::post_validate_inchikey()` |                           |
 
 **WRITING (`chemspiderapi` EXCLUSIVE)**
 
