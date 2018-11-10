@@ -160,11 +160,11 @@ As of 2018-11-10, the following functionalities are implemented (100% functional
 
 **RECORDS**
 
-<table>
+<table style="width:100%;">
 <colgroup>
 <col width="33%" />
-<col width="43%" />
-<col width="22%" />
+<col width="42%" />
+<col width="23%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -176,8 +176,8 @@ As of 2018-11-10, the following functionalities are implemented (100% functional
 <tbody>
 <tr class="odd">
 <td align="left">records-batch-post</td>
-<td align="left"><code>chemspiderapi:::post_batch()</code></td>
-<td align="center"></td>
+<td align="left"><code>chemspiderapi::post_batch()</code></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-details-get</td>
@@ -186,8 +186,8 @@ As of 2018-11-10, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-externalreferences-get</td>
-<td align="left"><code>chemspiderapi:::get_recordId_externalreferences()</code></td>
-<td align="center"></td>
+<td align="left"><code>chemspiderapi::get_recordId_externalreferences()</code></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-image-get</td>
