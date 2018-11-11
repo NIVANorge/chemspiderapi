@@ -10,7 +10,7 @@ get_queryId_results(queryId, status, start = NULL, count = NULL,
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID string; see Details.}
 
-\item{status}{A character string indicating the query status as returned by \code{chemspiderapi::get_status()}}
+\item{status}{A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}}
 
 \item{start}{Optional: An integer value giving the position from which to start the retrival of query results. See Details.}
 

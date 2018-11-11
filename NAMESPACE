@@ -2,6 +2,7 @@
 
 export(get_datasources)
 export(get_queryId_results)
+export(get_queryId_results_sdf)
 export(get_queryId_status)
 export(get_recordId_details)
 export(get_recordId_externalreferences)
