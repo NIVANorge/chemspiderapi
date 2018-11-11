@@ -44,7 +44,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-11, the following functionalities are implemented (100% functionality with 78% annotation):
+As of 2018-11-11, the following functionalities are implemented (100% functionality with 81% annotation):
 
 **FILTERING**
 
@@ -104,8 +104,8 @@ As of 2018-11-11, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-post</td>
-<td align="left"><code>chemspiderapi:::post_mass_batch()</code></td>
-<td align="center"></td>
+<td align="left"><code>chemspiderapi::post_mass_batch()</code></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-batch-queryId-results-get</td>
