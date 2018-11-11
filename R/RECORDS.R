@@ -1,3 +1,7 @@
+##########################
+# get_recordId_details() #
+##########################
+
 #' GET the record details for a compound from ChemSpider
 #'
 #' This function is used to return record details from ChemSpider.
@@ -139,6 +143,11 @@ get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   return(result)
 }
 
+
+########################
+# get_recordId_image() #
+########################
+
 #' GET a .png image of a ChemSpider record ID
 #' 
 #' This function is used to obtain a .png image file of a ChemSpider record ID, e.g., after \code{chemspiderapi::get_queryID_results()}.
@@ -256,6 +265,11 @@ get_recordId_image <- function(recordId, apikey, png = FALSE) {
   return(result)
 }
 
+
+######################
+# get_recordId_mol() #
+######################
+
 #' GET the .MOL of a ChemSpider record
 #' 
 #' This function is used to download a single .MOL file from ChemSpider.
@@ -368,6 +382,11 @@ get_recordId_mol <- function(recordId, apikey) {
 
     return(result)
 }
+
+
+################
+# post_batch() #
+################
 
 #' POST a batch of ChemSpider IDs
 #' 
@@ -503,6 +522,11 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
     }
   return(result)
 }
+
+
+#####################################
+# get_recordId_externalreferences() #
+#####################################
 
 #' GET external references of a record ID
 #' 
@@ -645,4 +669,3 @@ get_recordId_externalreferences <- function(recordId, dataSources = NULL, apikey
   
   return(result)
 }
-

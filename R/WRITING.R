@@ -1,3 +1,7 @@
+###############
+# write_mol() #
+###############
+
 #' Write a .MOL file
 #' 
 #' Convenience function to write a .MOL file, e.g., after downloading with \code{chemspiderapi::get_recordId_mol()}.
@@ -38,6 +42,11 @@ write_mol <- function(mol, file) {
   
   writeLines(text = mol, con = file(file), sep = "\n")
 }
+
+
+#################
+# write_image() #
+#################
 
 #' Write a .png image file
 #' 

@@ -1,3 +1,7 @@
+##################
+# post_convert() #
+##################
+
 #' Convert chemical identifiers
 #' 
 #' Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
@@ -181,6 +185,11 @@ post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
   return(result)
 }
+
+
+############################
+# post_validate_inchikey() #
+############################
 
 #' Validate an InChIKey
 #' 
