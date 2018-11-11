@@ -19,10 +19,10 @@
 #' recordId <- 2157L
 #' apikey <- "a_valid_ChemSpider_API_key"
 #' mol <- get_recordId_mol(recordId = recordId, apikey = apikey)
-#' write_mol(mol = mol, file = "aspirin.mol")
+#' write_recordId_mol(mol = mol, file = "aspirin.mol")
 #' }
 #' @export
-write_mol <- function(mol, file) {
+write_recordId_mol <- function(mol, file) {
   
   if (length(mol) > 1) {
     warning("This function can only handle individual \"mol\" entries; returing \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
