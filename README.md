@@ -44,7 +44,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-11, the following functionalities are implemented (100% functionality with 63% annotation):
+As of 2018-11-11, the following functionalities are implemented (100% functionality with 67% annotation):
 
 **FILTERING**
 
@@ -84,8 +84,8 @@ As of 2018-11-11, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-post</td>
-<td align="left"><code>chemspiderapi:::post_formula()</code></td>
-<td align="center"></td>
+<td align="left"><code>chemspiderapi::post_formula()</code></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-inchi-post</td>
@@ -150,7 +150,7 @@ As of 2018-11-11, the following functionalities are implemented (100% functional
 </tbody>
 </table>
 
-\* `chemspiderapi:::get_queryId_results_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
+\* `chemspiderapi::get_queryId_results_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
 
 **LOOKUPS**
 
