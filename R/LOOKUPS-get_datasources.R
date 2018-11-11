@@ -1,8 +1,4 @@
-#####################
-# get_datasources() #
-#####################
-
-#' GET a listing of all external ChemSpider data sources
+#' GET a all external ChemSpider data sources
 #'
 #' Returns a listing of all external ChemSpider data sources.
 #'
