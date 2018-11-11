@@ -44,7 +44,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-11, the following functionalities are implemented (100% functionality with 81% annotation):
+As of 2018-11-11, the following functionalities are implemented (100% functionality with 85% annotation):
 
 **FILTERING**
 
@@ -114,8 +114,8 @@ As of 2018-11-11, the following functionalities are implemented (100% functional
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-queryId-status-get</td>
-<td align="left"><code>chemspiderapi:::get_mass_batch_queryId_status()</code></td>
-<td align="center"></td>
+<td align="left"><code>chemspiderapi::get_mass_batch_queryId_status()</code></td>
+<td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-post</td>
@@ -211,10 +211,10 @@ As of 2018-11-11, the following functionalities are implemented (100% functional
 
 **WRITING (`chemspiderapi` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspiderapi` Wrapper        | `chemspiderapi` Help File |
-|:------------------------|:-------------------------------|:-------------------------:|
-|                         | `chemspiderapi::write_image()` |            yes            |
-|                         | `chemspiderapi::write_mol()`   |            yes            |
+| ChemSpider Compound API | `chemspiderapi` Wrapper                 | `chemspiderapi` Help File |
+|:------------------------|:----------------------------------------|:-------------------------:|
+|                         | `chemspiderapi::write_recordId_image()` |            yes            |
+|                         | `chemspiderapi::write_recordId_mol()`   |            yes            |
 
 Best practices for ChemSpider's Compound APIs
 ---------------------------------------------
