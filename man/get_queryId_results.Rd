@@ -22,10 +22,10 @@ get_queryId_results(queryId, status, start = NULL, count = NULL,
 A character vector indicating the status of the query; see Details.
 }
 \description{
-This function is used to retrieve the results of a ChemSpider query after \code{chemspiderapi::get_status()} returns \code{"Complete"}.
+This function is used to retrieve the results of a ChemSpider query after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
 }
 \details{
-Before running \code{chemspiderapi::get_results()}, make sure \code{chemspiderapi::get_status()} returns \code{"Complete"}. In fact, this function will return \code{"NA"} if the status is not \code{"Complete"}.\cr
+Before running \code{chemspiderapi::get_queryId_results()}, make sure \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}. In fact, this function will return \code{"NA"} if the status is not \code{"Complete"}.\cr
 \cr
 If the results have been truncated because there were more results than the maximum number of results permitted (by default, 10,000), a warning is issued. If this happens, you can split your requests into smaller batches.\cr
 \cr

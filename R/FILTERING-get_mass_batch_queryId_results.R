@@ -1,36 +1,29 @@
-#' GET the results of a ChemSpider query
-#'
-#' This function is used to retrieve the results of a ChemSpider query after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
-#'
-#' Before running \code{chemspiderapi::get_queryId_results()}, make sure \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}. In fact, this function will return \code{"NA"} if the status is not \code{"Complete"}.\cr
+#' GET the results of a mass batch query from ChemSpider
+#' 
+#' GET the results from a ChemSpider query after \code{chemspiderapi::get_mass_batch_queryId_status()} returns \code{"Complete"}.
+#' 
+#' Before running \code{chemspiderapi::get_mass_batch_queryId_results()}, make sure \code{chemspiderapi::get_mass_batch_queryIdstatus()} returns \code{"Complete"}!\cr
 #' \cr
-#' If the results have been truncated because there were more results than the maximum number of results permitted (by default, 10,000), a warning is issued. If this happens, you can split your requests into smaller batches.\cr
-#' \cr
-#' To batch your requests, call this function with two optional parameters, \code{start} and \code{count}. Both take integer values. \code{start} is the number of the record to start with (zero-based), and \code{count} is the number of records to return. For example, to request results 200-300, use \code{start = 200L} and \code{count = 100L}.\cr
-#' \cr
-#' If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single vector.\cr
+#' If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single (integer) vector.\cr
 #' \cr
 #' If not successful, returns \code{NA}.\cr
 #' \cr
-#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_*()}.
-#'
-#' @param queryId A valid 36-character ChemSpider query ID string; see Details.
-#' @param start Optional: An integer value giving the position from which to start the retrival of query results. See Details.
-#' @param count Optional: An integer value giving the the number of query results to retrieve. See Details.
+#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_int()}.
+#' 
+#' @param queryId A valid 36-character query ID, as returned by \code{chemspiderapi::post_mass_batch()}.
+#' @param status status A character string indicating the query status as returned by \code{chemspiderapi::get_mass_batch_queryId_status()}
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param status A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}
-#' @return A character vector indicating the status of the query; see Details.
-#' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}
-#' @examples
+#' @return Returns the record IDs of a mass batch query 
+#' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/mass/batch/{queryId}/results}
+#' @examples 
 #' \dontrun{
-#' ## GET the results of a query from ChemSpider
-#' queryId <- "A valid 36-character Chemspider query ID"
-#' apikey <- "A valid 32-character Chemspider API key"
-#' status <- get_queryId_status(queryId = queryId, apikey = apikey)
-#' get_queryId_results(queryId = queryId, status = status, apikey = apikey)
+#' ## Obtain the result from a mass batch query
+#' apikey <- "a valid 32-character ChemSpider apikey"
+#' queryId <- "a valid 36-character ChemSpider queryId"
+#' get_mass_batch_queryId_results(queryId = queryId, apikey = apikey)
 #' }
 #' @export
-get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
+get_mass_batch_queryId_results <- function(queryId, status, apikey) {
   
   if (is.na(queryId)) {
     warning("No valid \"queryId\" provided; returning \"NA\".", call. = FALSE)
@@ -92,16 +85,6 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
     return(NA_integer_)
   }
   
-  if (!is.null(start) && is.na(as.integer(start))) {
-    warning("Please use a valid integer \"start\" value; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (!is.null(count) && is.na(as.integer(count))) {
-    warning("Please use a valid integer \"count\" value; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
   if (length(apikey) > 1L) {
     warning("This function can only handle a single ChemSpider \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
     return(NA_integer_)
@@ -119,21 +102,7 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
   
   curlHeader <- list(`Content-Type` = "", apikey = apikey)
   
-  if (is.null(start) && is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results")
-  }
-  
-  if (!is.null(start) && is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start)
-  }
-  
-  if (is.null(start) && !is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?count=", count)
-  }
-  
-  if (!is.null(start) && !is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start, "&count=", count)
-  }
+  curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/mass/batch/", queryId, "/results")
   
   curlHandle <- curl::new_handle()
   
@@ -183,14 +152,9 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
   
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
+  result <- as.data.frame(results = result$results, stringsAsFactors = FALSE)
   
-  if (result$limitedToMaxAllowed == TRUE) {
-    warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
-  }
-  
-  result <- data.frame(results = result$results, stringsAsFactors = FALSE)
-  
-  if (ncol(result) == 1L) {
+  if (ncol(result) == 1) {
     result <- unlist(result)
   }
   
