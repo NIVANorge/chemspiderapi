@@ -19,10 +19,10 @@
 #' recordId <- 2157L
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' image <- get_recordId_image(recordId = recordId, apikey = apikey)
-#' write_recordId_image(image = image, file = "aspirin.png")
+#' write_image(image = image, file = "aspirin.png")
 #' }
 #' @export
-write_recordId_image <- function(image, file) {
+write_image <- function(image, file) {
   
   if (length(image) > 1) {
     warning("This function can only handle a single \"image\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)

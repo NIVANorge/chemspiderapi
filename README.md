@@ -79,8 +79,8 @@ As of 2018-11-12, the following functionalities are implemented (100% functional
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-queryId-status-get</td>
-<td align="left"><code>chemspiderapi:::get_formula_batch_queryId_status()</code></td>
-<td align="center"></td>
+<td align="left"><code>chemspiderapi::get_formula_batch_queryId_status()</code></td>
+<td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-post</td>
@@ -211,10 +211,10 @@ As of 2018-11-12, the following functionalities are implemented (100% functional
 
 **WRITING (`chemspiderapi` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspiderapi` Wrapper                 | `chemspiderapi` Help File |
-|:------------------------|:----------------------------------------|:-------------------------:|
-|                         | `chemspiderapi::write_recordId_image()` |            yes            |
-|                         | `chemspiderapi::write_recordId_mol()`   |            yes            |
+| ChemSpider Compound API | `chemspiderapi` Wrapper        | `chemspiderapi` Help File |
+|:------------------------|:-------------------------------|:-------------------------:|
+|                         | `chemspiderapi::write_image()` |            yes            |
+|                         | `chemspiderapi::write_mol()`   |            yes            |
 
 Best practices for ChemSpider's Compound APIs
 ---------------------------------------------
