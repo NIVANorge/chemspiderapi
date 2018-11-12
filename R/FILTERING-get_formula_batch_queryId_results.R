@@ -1,111 +1,109 @@
-#' GET the status for a formula batch query from ChemSpider
+#' GET the results of a formula batch query from ChemSpider
 #' 
-#' This function is used to return the status of a query from \code{chemspiderapi::post_formula_batch()}.
+#' GET the results of a formula batch query from ChemSpider after \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}.
 #' 
-#' Call this endpoint with a \code{queryId} obtained from \code{chemspiderapi::post_formula_batch()}.\cr
+#' Before running \code{chemspiderapi::get_formula_batch_queryId_results()}, make sure \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}!\cr
 #' \cr
-#' If the query is still ongoing, returns a warning and a character vector of the query status as \code{Incomplete}. It is recommended to wait at least ten seconds before checking the status again.\cr
+#' If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single vector.\cr
 #' \cr
-#' If the query is finalized, returns a data frame of the query status with \code{status}, \code{count} and \code{message}. The \code{status} can be either \code{Complete}, \code{Suspended}, \code{Failed}, or \code{Not Found}.\cr
+#' If not successful, returns \code{NA}.\cr
 #' \cr
-#' Says ChemSpider:\cr
-#' \cr
-#' \emph{"A status of Suspended can be caused if the results could not be compiled within a reasonable amount of time. Create a new filter request with more restrictive parameters.\cr
-#' \cr
-#' A status of Failed can be caused if the backend system could not compile the results. Create a new filter request and, if the same outcome occurs, apply more restrictive parameters.\cr
-#' \cr
-#' A status of Not Found can be caused if the Query ID has not been registered or has expired. Create a new filter request."}\cr
-#' \cr
-#' If both \code{count} and \code{message} are set to \code{FALSE}, \code{chemspiderapi::get_formula_batch_queryId_status()} returns the \code{status} as character vector.\cr
-#' \cr
-#' If the status is \code{"Complete"}, the results of the query can be obtained from \code{chemspiderapi::get_formula_batch_queryId_results()}.\cr
-#' \cr
-#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_int()}.
 #' 
-#' @param queryId A valid 36-character ChemSpider query ID obtained from \code{chemspiderapi::post_formula_batch()}.
-#' @param count \code{logical}: Should the count of the results be returned (ChemSpider default)?
-#' @param message \code{logical}: Should the message be returned (ChemSpider default)?
+#' @param queryId A valid 36-character query ID, as returned by \code{chemspiderapi::post_formula_batch()}.
+#' @param status status A character string indicating the query status as returned by \code{chemspiderapi::get_formula_batch_queryId_status()}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @return Returns the query status as character vector
-#' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/formula/batch/{queryId}/status}
+#' @return Returns the (integer) ChemSpider IDs
+#' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/formula/batch/{queryId}/results}
 #' @examples 
 #' \dontrun{
-#' ## Get the status of a formula batch query from ChemSpider
-#' queryId <- "a valid 36-character ChemSpider queryId"
+#' ## Obtain the result from a mass batch query
 #' apikey <- "a valid 32-character ChemSpider apikey"
-#' get_formula_batch_queryId_status(queryId = queryId, apikey = apikey)
+#' queryId <- "a valid 36-character ChemSpider queryId"
+#' status <- get_formula_batch_queryId_status(queryId = queryId, apikey = apikey)
+#' get_formula_batch_queryId_results(queryId = queryId, status = status, apikey = apikey)
 #' }
 #' @export
-get_formula_batch_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
+get_formula_batch_queryId_results <- function(queryId, status, apikey) {
   
   if (is.na(queryId)) {
-    warning("No \"queryId\" provided; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    warning("No valid \"queryId\" provided; returning \"NA\".", call. = FALSE)
+    return(NA_integer_)
   }
   
   if (length(queryId) > 1L) {
     warning("This function can only handle a single ChemSpider \"queryId\" entry; returning \"NA\".\nMaybe you are looking for chemspideR::get_formula_batch_status() or chemspideR::get_mass_batch_status()?\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (typeof(queryId) != "character") {
     warning("The ChemSpider \"queryId\" should be a 36-character string; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(queryId) != 36L) {
     warning("Please use a valid 36-character ChemSpider \"queryId\"; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (length(unlist(strsplit(queryId, split = "-"))) != 5L) {
     warning("The provided ChemSpider \"queryId\" should be hyphen-divided into five parts; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(unlist(strsplit(queryId, split = "-"))[1]) != 8L) {
     warning("The first part of the ChemSpider \"queryId\" should be 8 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(unlist(strsplit(queryId, split = "-"))[2]) != 4L) {
     warning("The second part of the ChemSpider \"queryId\" should be 4 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(unlist(strsplit(queryId, split = "-"))[3]) != 4L) {
     warning("The third part of the ChemSpider \"queryId\" should be 4 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(unlist(strsplit(queryId, split = "-"))[4]) != 4L) {
     warning("The fourth part of the ChemSpider \"queryId\" should be 4 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(unlist(strsplit(queryId, split = "-"))[5]) != 12L) {
     warning("The fifth part of the ChemSpider \"queryId\" should be 12 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
+  }
+  
+  if (is.null(status)) {
+    warning("No ChemSpider query \"status\" provided; returning \"NA\".", call. = FALSE)
+    return(NA_integer_)
+  }
+  
+  if (status != "Complete") {
+    warning("Query computation not yet completet; returning \"NA\".", call. = FALSE)
+    return(NA_integer_)
   }
   
   if (length(apikey) > 1L) {
     warning("This function can only handle a single ChemSpider \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (typeof(apikey) != "character") {
     warning("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   if (nchar(apikey) != 32L) {
     warning("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   curlHeader <- list(`Content-Type` = "", apikey = apikey)
   
-  curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/formula/batch/", queryId, "/status")
+  curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/formula/batch/", queryId, "/results")
   
   curlHandle <- curl::new_handle()
   
@@ -150,20 +148,12 @@ get_formula_batch_queryId_status <- function(queryId, count = TRUE, message = TR
     message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", error_message)
     
     warning(message, call. = FALSE)
-    return(NA_character_)
+    return(NA_integer_)
   }
   
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
-  
-  if (count == FALSE) {
-    result$count <- NULL
-  }
-  
-  if (message == FALSE) {
-    result$message <- NULL
-  }
+  result <- as.data.frame(results = result$results, stringsAsFactors = FALSE)
   
   if (ncol(result) == 1) {
     result <- unlist(result)

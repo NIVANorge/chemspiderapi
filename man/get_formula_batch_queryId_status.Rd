@@ -52,5 +52,5 @@ get_formula_batch_queryId_status(queryId = queryId, apikey = apikey)
 }
 }
 \seealso{
-\url{https://api.rsc.org/compounds/v1/filter/formula/batch/{queryId}/status}
+\url{https://developer.rsc.org/compounds-v1/apis/get/filter/formula/batch/{queryId}/status}
 }
