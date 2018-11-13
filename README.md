@@ -44,7 +44,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-12, the following functionalities are implemented (100% functionality with 100% annotation):
+As of 2018-11-13, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
@@ -215,6 +215,13 @@ As of 2018-11-12, the following functionalities are implemented (100% functional
 |:------------------------|:-------------------------------|:-------------------------:|
 |                         | `chemspiderapi::write_image()` |            yes            |
 |                         | `chemspiderapi::write_mol()`   |            yes            |
+
+**FUNCTIONALITY (`chemspiderapi` EXCLUSIVE)**
+
+| ChemSpider Compound API | `chemspiderapi` Wrapper              | `chemspiderapi` Help File |
+|:------------------------|:-------------------------------------|:-------------------------:|
+|                         | `chemspiderapi::set_rate_limit()`    |            yes            |
+|                         | `chemspiderapi::remove_rate_limit()` |            yes            |
 
 Best practices for ChemSpider's Compound APIs
 ---------------------------------------------
