@@ -20,11 +20,18 @@ Installation
 
 ### R package
 
-Install the package from GitHub (using `devtools`):
+Install the package from GitHub (using the `remotes` package; automatically installed alongside `devtools`):
 
 ``` r
 # install.packages("devtools")
 remotes::install_github("NIVANorge/chemspiderapi")
+```
+
+The development version can also be installed:
+
+``` r
+# install.packages("devtools")
+remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
 ```
 
 Currently the only tested environment for `chemspiderapi` is Windows 10, but it *should* install smoothly on macOS and Linux distributions as well. Please open an issue if you run into any troubles.
@@ -44,7 +51,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-13, the following functionalities are implemented (100% functionality with 100% annotation):
+As of 2018-11-15, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
