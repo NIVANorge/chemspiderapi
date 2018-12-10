@@ -13,7 +13,7 @@ The aim of this package is to:
 3.  Implement the `R` functionality in a way that is suitable for both `base` and `tidyverse` programming.
 4.  Provide (non-ChemSpider) convenience functions to complement the functionality.
 
-The `chemspiderapi` package is platform independent, but requires a valid ChemSpider API key. While the `chemspiderapi` package does *not* provide any tools to securely store and access the API key, a look into the excellent [`keyring`](https://github.com/r-lib/keyring) package is recommended. To "remember" the results of API queries (i.e., to not ruin the API allowance), [`memoise`](https://github.com/r-lib/memoise) is recommended. Finally, any rate limitations can be created with functionalities from [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
+The `chemspiderapi` package is platform independent, and provides experimental support to securely store and acess API keys via the excellent [`keyring`](https://github.com/r-lib/keyring) package, as well as functionality to "remember" the results of API queries (i.e., to not ruin the API allowance), based on the equally excellent [`memoise`](https://github.com/r-lib/memoise) package. Finally, any rate limitations can be created with functionalities from [`ratelimitr`](https://github.com/tarakc02/ratelimitr).
 
 Installation
 ------------
@@ -51,15 +51,15 @@ If `curl` or `jsonlite` are missing from the R library, all functions of `chemsp
 Coverage
 --------
 
-As of 2018-11-16, the following functionalities are implemented (100% functionality with 100% annotation):
+As of 2018-12-06, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
 <table>
 <colgroup>
-<col width="33%" />
-<col width="43%" />
-<col width="22%" />
+<col width="38%" />
+<col width="35%" />
+<col width="25%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -71,107 +71,107 @@ As of 2018-11-16, the following functionalities are implemented (100% functional
 <tbody>
 <tr class="odd">
 <td align="left">filter-element-post</td>
-<td align="left"><code>chemspiderapi::post_element()</code></td>
+<td align="left"><code>post_element()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-post</td>
-<td align="left"><code>chemspiderapi::post_formula_batch()</code></td>
+<td align="left"><code>post_formula_batch()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-batch-queryId-results-get</td>
-<td align="left"><code>chemspiderapi::get_formula_batch_queryId_results()</code></td>
+<td align="left"><code>get_formula_batch_queryId_results()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-formula-batch-queryId-status-get</td>
-<td align="left"><code>chemspiderapi::get_formula_batch_queryId_status()</code></td>
+<td align="left"><code>get_formula_batch_queryId_status()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-formula-post</td>
-<td align="left"><code>chemspiderapi::post_formula()</code></td>
+<td align="left"><code>post_formula()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-inchi-post</td>
-<td align="left"><code>chemspiderapi::post_inchi()</code></td>
+<td align="left"><code>post_inchi()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-inchikey-post</td>
-<td align="left"><code>chemspiderapi::post_inchikey()</code></td>
+<td align="left"><code>post_inchikey()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-intrinsicproperty-post</td>
-<td align="left"><code>chemspiderapi::post_intrinsicproperty()</code></td>
+<td align="left"><code>post_intrinsicproperty()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-post</td>
-<td align="left"><code>chemspiderapi::post_mass_batch()</code></td>
+<td align="left"><code>post_mass_batch()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-batch-queryId-results-get</td>
-<td align="left"><code>chemspiderapi::get_mass_batch_queryId_results()</code></td>
+<td align="left"><code>get_mass_batch_queryId_results()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-mass-batch-queryId-status-get</td>
-<td align="left"><code>chemspiderapi::get_mass_batch_queryId_status()</code></td>
+<td align="left"><code>get_mass_batch_queryId_status()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-mass-post</td>
-<td align="left"><code>chemspiderapi::post_mass()</code></td>
+<td align="left"><code>post_mass()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-name-post</td>
-<td align="left"><code>chemspiderapi::post_name()</code></td>
+<td align="left"><code>post_name()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-results-get</td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-queryId-results-sdf-get</td>
-<td align="left"><code>chemspiderapi::get_queryId_results_sdf()</code> *</td>
+<td align="left"><code>get_queryId_results_sdf()</code> *</td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">filter-queryId-status-get</td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">filter-smiles-post</td>
-<td align="left"><code>chemspiderapi::post_smiles()</code></td>
+<td align="left"><code>post_smiles()</code></td>
 <td align="center">yes</td>
 </tr>
 </tbody>
 </table>
 
-\* `chemspiderapi::get_queryId_results_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
+\* `get_queryId_results_sdf()` downloads the gzipped base64-encoded character string, but there is currently no implementation for accessing the (multiple) .mol files contained inside.
 
 **LOOKUPS**
 
-| ChemSpider Compound API | `chemspiderapi` Wrapper            | `chemspiderapi` Help File |
-|:------------------------|:-----------------------------------|:-------------------------:|
-| lookups-datasources-get | `chemspiderapi::get_datasources()` |            yes            |
+| ChemSpider Compound API | `chemspiderapi` Wrapper | `chemspiderapi` Help File |
+|:------------------------|:------------------------|:-------------------------:|
+| lookups-datasources-get | `get_datasources()`     |            yes            |
 
 **RECORDS**
 
-<table style="width:100%;">
+<table>
 <colgroup>
-<col width="33%" />
-<col width="42%" />
-<col width="23%" />
+<col width="38%" />
+<col width="34%" />
+<col width="26%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -183,27 +183,27 @@ As of 2018-11-16, the following functionalities are implemented (100% functional
 <tbody>
 <tr class="odd">
 <td align="left">records-batch-post</td>
-<td align="left"><code>chemspiderapi::post_batch()</code></td>
+<td align="left"><code>post_batch()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-details-get</td>
-<td align="left"><code>chemspiderapi::get_recordId_details()</code></td>
+<td align="left"><code>get_recordId_details()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-externalreferences-get</td>
-<td align="left"><code>chemspiderapi::get_recordId_externalreferences()</code></td>
+<td align="left"><code>get_recordId_externalreferences()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="even">
 <td align="left">records-recordId-image-get</td>
-<td align="left"><code>chemspiderapi::get_recordId_image()</code></td>
+<td align="left"><code>get_recordId_image()</code></td>
 <td align="center">yes</td>
 </tr>
 <tr class="odd">
 <td align="left">records-recordId-mol-get</td>
-<td align="left"><code>chemspiderapi::get_recordId_mol()</code></td>
+<td align="left"><code>get_recordId_mol()</code></td>
 <td align="center">yes</td>
 </tr>
 </tbody>
@@ -211,25 +211,28 @@ As of 2018-11-16, the following functionalities are implemented (100% functional
 
 **TOOLS**
 
-| ChemSpider Compound API      | `chemspiderapi` Wrapper                   | `chemspiderapi` Help File |
-|:-----------------------------|:------------------------------------------|:-------------------------:|
-| tools-convert-post           | `chemspiderapi::post_convert()`           |            yes            |
-| tools-validate-inchikey-post | `chemspiderapi::post_validate_inchikey()` |            yes            |
+| ChemSpider Compound API      | `chemspiderapi` Wrapper    | `chemspiderapi` Help File |
+|:-----------------------------|:---------------------------|:-------------------------:|
+| tools-convert-post           | `post_convert()`           |            yes            |
+| tools-validate-inchikey-post | `post_validate_inchikey()` |            yes            |
 
 **WRITING (`chemspiderapi` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspiderapi` Wrapper        | `chemspiderapi` Help File |
-|:------------------------|:-------------------------------|:-------------------------:|
-|                         | `chemspiderapi::write_image()` |            yes            |
-|                         | `chemspiderapi::write_mol()`   |            yes            |
+| ChemSpider Compound API | `chemspiderapi` Wrapper | `chemspiderapi` Help File |
+|:------------------------|:------------------------|:-------------------------:|
+|                         | `write_image()`         |            yes            |
+|                         | `write_mol()`           |            yes            |
 
 **FUNCTIONALITY (`chemspiderapi` EXCLUSIVE)**
 
-| ChemSpider Compound API | `chemspiderapi` Wrapper              | `chemspiderapi` Help File |
-|:------------------------|:-------------------------------------|:-------------------------:|
-|                         | `chemspiderapi::set_rate_limit()`    |            yes            |
-|                         | `chemspiderapi::update_rate_limit()` |            yes            |
-|                         | `chemspiderapi::remove_rate_limit()` |            yes            |
+| ChemSpider Compound API | `chemspiderapi` Wrapper | `chemspiderapi` Help File |
+|:------------------------|:------------------------|:-------------------------:|
+|                         | `change_apikey`         |            *no*           |
+|                         | `get_apikey()`          |            *no*           |
+|                         | `save_apikey()`         |            *no*           |
+|                         | `set_rate_limit()`      |            yes            |
+|                         | `update_rate_limit()`   |            yes            |
+|                         | `remove_rate_limit()`   |            yes            |
 
 Best practices for ChemSpider's Compound APIs
 ---------------------------------------------
@@ -248,9 +251,9 @@ In practice, this means the following possivle workflows can be implemented:
 
 <table>
 <colgroup>
-<col width="29%" />
+<col width="27%" />
 <col width="35%" />
-<col width="35%" />
+<col width="36%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -261,59 +264,59 @@ In practice, this means the following possivle workflows can be implemented:
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>chemspiderapi::post_element()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_element()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>chemspiderapi::post_formula()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_formula()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>chemspiderapi::post_formula_batch()</code></td>
-<td align="left"><code>chemspiderapi::get_formula_batch_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_formula_batch_queryId_results()</code></td>
+<td align="left"><code>post_formula_batch()</code></td>
+<td align="left"><code>get_formula_batch_queryId_status()</code></td>
+<td align="left"><code>get_formula_batch_queryId_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>chemspiderapi::post_inchi()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_inchi()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>chemspiderapi::post_inchikey()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_inchikey()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>chemspiderapi::post_intrinsicproperty()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_intrinsicproperty()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>chemspiderapi::post_mass()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_mass()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>chemspiderapi::post_mass_batch()</code></td>
-<td align="left"><code>chemspiderapi::get_mass_batch_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_mass_batch_queryId_results()</code></td>
+<td align="left"><code>post_mass_batch()</code></td>
+<td align="left"><code>get_mass_batch_queryId_status()</code></td>
+<td align="left"><code>get_mass_batch_queryId_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>chemspiderapi::post_mass()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_mass()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>chemspiderapi::post_name()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_name()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>chemspiderapi::post_smiles()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_status()</code></td>
-<td align="left"><code>chemspiderapi::get_queryId_results()</code></td>
+<td align="left"><code>post_smiles()</code></td>
+<td align="left"><code>get_queryId_status()</code></td>
+<td align="left"><code>get_queryId_results()</code></td>
 </tr>
 </tbody>
 </table>
