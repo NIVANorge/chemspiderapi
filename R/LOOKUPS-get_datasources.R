@@ -1,14 +1,15 @@
-#' GET a all external ChemSpider data sources
+#' GET all external ChemSpider data sources
 #'
-#' Returns a listing of all external ChemSpider data sources.
+#' Returns a vectorized list of all external ChemSpider data sources.
 #'
-#' If succesfull, return a character vector listing all available (external) data sources.\cr
+#' If succesfull, returns a character vector listing all available (external) ChemSpider data sources.\cr
 #' \cr
-#' If not succesfull, returns a warning and \code{NA}.\cr
+#' If not succesfull, returns an error.\cr
 #' \cr
-#' This function is most useful for narrowing down \code{dataSources} in other \code{chemspiderapi} functions, e.g., \code{chemspiderapi::get_references()}.
+#' This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, e.g., \code{chemspiderapi::get_references()}.
 #'
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param ... Additional parameters; currently not implemented. 
 #' @return A unnamed character vector, length > 350
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}
 #' @examples
@@ -18,38 +19,34 @@
 #' get_datasources(apikey = apikey)
 #' }
 #' @export
-get_datasources <- function(apikey) {
-
+get_datasources <- function(apikey, ...) {
+  
   if (length(apikey) > 1L) {
-    warning("This function can only handle a single ChemSpider \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_character_)
+    stop("Please provide a single ChemSpider \"apikey\".", call. = FALSE)
   }
-
-  if (typeof(apikey) != "character") {
-    warning("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-    return(NA_character_)
+  
+  if (sum(typeof(apikey) %in% c("character", "factor") < 1L)) {
+    stop("Please provide a 32-character ChemSpider \"apikey\".", call. = FALSE)
+  }
+  
+  if (is.factor(apikey)) {
+    apikey <- as.character(apikey)
   }
 
   if (nchar(apikey) != 32L) {
-    warning("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-    return(NA_character_)
+    stop("Please provide a 32-character ChemSpider \"apikey\".", call. = FALSE)
   }
 
   curlHeader <- list(`Content-Type` = "", apikey = apikey)
-
   curlUrl <- "https://api.rsc.org/compounds/v1/lookups/datasources"
-
   curlHandle <- curl::new_handle()
-
   curl::handle_setopt(curlHandle, customrequest = "GET")
-
   curl::handle_setheaders(curlHandle, .list = curlHeader)
-
   result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
 
   if (result$status_code != 200L) {
     
-    error_message <- "\nNo ChemSpider Error Details were provided."
+    error_message <- "\nNo ChemSpider Response Error Details were provided."
     
     if (result$status_code == 400L) {
       error_message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
@@ -73,16 +70,13 @@ get_datasources <- function(apikey) {
       error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
     }
 
-    message <- paste0("No valid information was retrieved; returning \"NA\".\nCarfully check the validity of the \"apikey\".", error_message)
-
-    warning(message, call. = FALSE)
-    return(NA_character_)
+    message <- paste0("No valid information was retrieved.\nCarfully check the validity of the provided ChemSpider \"apikey\".", error_message)
+    stop(message, call. = FALSE)
   }
 
   result <- rawToChar(result$content)
   result <- jsonlite::fromJSON(result)
   result <- unlist(result)
   result <- unname(result)
-
-  return(result)
+  result
 }

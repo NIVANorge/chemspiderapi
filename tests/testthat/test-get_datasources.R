@@ -2,7 +2,14 @@ library(chemspiderapi)
 
 context("get_datasources")
 
-test_that("get_datasources() returns an NA_character_ vector if apikey is wrong", {
-  expect_equal(suppressWarnings(get_datasources(apikey = "A wrong apikey")), 
-               NA_character_)
+test_that("get_datasources() returns nothing if API key length is wrong.", {
+  expect_error(suppressWarnings(get_datasources(apikey = "A wrong API key")))
+})
+
+test_that("get_datasources() returns nothing if API key type is wrong.", {
+  expect_error(suppressWarnings(get_datasources(apikey = 1234567890L)))
+})
+
+test_that("get_datasources() returns nothing if multiple API keys are provided.", {
+  expect_error(suppressWarnings(get_datasources(apikey = c("A wrong API key", "Another wrong API key"))))
 })

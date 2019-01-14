@@ -2,9 +2,9 @@
 % Please edit documentation in R/TOOLS-post_convert.R
 \name{post_convert}
 \alias{post_convert}
-\title{Convert chemical identifiers}
+\title{Convert between chemical identifiers}
 \usage{
-post_convert(input, inputFormat, outputFormat, apikey)
+post_convert(input, inputFormat, outputFormat, apikey, ...)
 }
 \arguments{
 \item{input}{A character string in the specified \code{inputFormat}.}
@@ -13,7 +13,9 @@ post_convert(input, inputFormat, outputFormat, apikey)
 
 \item{outputFormat}{A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 
-\item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
+\item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{...}{Additional parameters; currently not implemented.}
 }
 \value{
 A character string with the desired converted identifier
@@ -22,23 +24,23 @@ A character string with the desired converted identifier
 Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
 }
 \details{
-Submit an identifier (SMILES, InChI, InChIKey or Mol) as a string and return an identifier in another format (SMILES, InChI, InChIKey or Mol).\cr
+Submit an identifier (SMILES, InChI, InChIKey or Mol) as a character string and return an identifier in another format (SMILES, InChI, InChIKey or Mol).\cr
 \cr
 Allowed conversions:\cr
 \cr
 from \code{InChI} to \code{InChIKey}\cr
 \cr
-from \code{InChI} to \code{Mol} file\cr
+from \code{InChI} to \code{Mol}\cr
 \cr
 from \code{InChI} to \code{SMILES}\cr
 \cr
 from \code{InChIKey} to \code{InChI}\cr
 \cr
-from \code{InChIKey} to \code{Mol} file\cr
+from \code{InChIKey} to \code{Mol}\cr
 \cr
-from \code{Mol} file to \code{InChI}\cr
+from \code{Mol} to \code{InChI}\cr
 \cr
-from \code{Mol} file to \code{InChIKey}\cr
+from \code{Mol} to \code{InChIKey}\cr
 \cr
 from \code{SMILES} to \code{InChI}\cr
 \cr
@@ -46,19 +48,16 @@ Note: The identifier names are NOT case sensitive!\cr
 \cr
 If successful, performs the desired conversion and stores the result as a named ("output") character string.\cr
 \cr
-If not successful, it returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}
+If not successful, returns an error.
 }
 \examples{
 \dontrun{
-## Convert the InChI string of aspirin to a SMILES formula
-input <- "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
+## Convert the InChI string of caffeine to a SMILES formula
+input <- "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3"
 inputFormat <- "InChI"
 outputFormat <- "SMILES"
 apikey <- "A valid 32-character Chemspider API key"
-post_convert(input = input, inputFormat = inputFormat, outputFormat = outputFormat,
-             apikey = apikey)
+post_convert(input = input, inputFormat = inputFormat, outputFormat = outputFormat, apikey = apikey)
 }
 }
 \seealso{
