@@ -7,7 +7,7 @@
 #' To retrieve the ChemSpider API key, the function \code{chemspiderapi::get_apikey()} is provided.
 #' 
 #' @param service The name of the key ring service. Defaults to "ChemSpider API Key".
-#' @param username The username. Defaults to the username as returned by \code{Sys.info()}.
+#' @param username The username. Defaults to the username as returned by \code{base::Sys.info()}.
 #' @return Stores the ChemSpider API key as system key.
 #' @examples 
 #' \dontrun{

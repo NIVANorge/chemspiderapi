@@ -9,7 +9,7 @@ save_apikey(service = "ChemSpider API Key", username = NULL)
 \arguments{
 \item{service}{The name of the key ring service. Defaults to "ChemSpider API Key".}
 
-\item{username}{The username. Defaults to the username as returned by \code{Sys.info()}.}
+\item{username}{The username. Defaults to the username as returned by \code{base::Sys.info()}.}
 }
 \value{
 Stores the ChemSpider API key as system key.
