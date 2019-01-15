@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONALITY-remove_rate_limit.R
 \name{remove_rate_limit}
 \alias{remove_rate_limit}
-\title{Remove a rate limit for chemspiderapi}
+\title{Remove a Rate Limit for chemspiderapi Functions}
 \usage{
 remove_rate_limit()
 }
@@ -10,7 +10,7 @@ remove_rate_limit()
 Removes any rate-limition of chemspiderapi functions.
 }
 \description{
-Functionality to remove a rate limit for chemspiderapi functions
+Functionality to remove all rate limits for chemspiderapi functions interacting with ChemSpider's API services.
 }
 \details{
 This function is useful to remove any rate limitations from chemspiderapi functionalities, as provided by \code{chemspiderapi::set_rate_limit()}.

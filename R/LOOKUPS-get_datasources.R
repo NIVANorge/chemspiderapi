@@ -1,4 +1,4 @@
-#' GET all external ChemSpider data sources
+#' Get External ChemSpider Data Sources
 #'
 #' Returns a vectorized list of all external ChemSpider data sources.
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/LOOKUPS-get_datasources.R
 \name{get_datasources}
 \alias{get_datasources}
-\title{GET all external ChemSpider data sources}
+\title{Get External ChemSpider Data Sources}
 \usage{
 get_datasources(apikey, ...)
 }

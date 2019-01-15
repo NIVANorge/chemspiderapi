@@ -51,7 +51,7 @@ If curl or jsonlite are missing from the R library, all functions of chemspidera
 Coverage
 --------
 
-As of 2019-01-14, the following functionalities are implemented (100% functionality with 100% annotation):
+As of 2019-01-15, the following functionalities are implemented (100% functionality with 100% annotation):
 
 **FILTERING**
 
@@ -227,9 +227,9 @@ As of 2019-01-14, the following functionalities are implemented (100% functional
 
 | ChemSpider Compound API | chemspiderapi Wrapper | chemspiderapi Help File |
 |:------------------------|:----------------------|:-----------------------:|
-|                         | `change_apikey`       |           *no*          |
-|                         | `get_apikey()`        |           *no*          |
-|                         | `save_apikey()`       |           *no*          |
+|                         | `get_apikey()`        |           yes           |
+|                         | `remove_apikey()`     |           yes           |
+|                         | `save_apikey()`       |           yes           |
 |                         | `set_rate_limit()`    |           yes           |
 |                         | `update_rate_limit()` |           yes           |
 |                         | `remove_rate_limit()` |           yes           |

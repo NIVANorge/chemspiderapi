@@ -2,20 +2,20 @@
 % Please edit documentation in R/FUNCTIONALITY-set_rate_limit.R
 \name{set_rate_limit}
 \alias{set_rate_limit}
-\title{Set a rate limit for chemspiderapi}
+\title{Set a Rate Limit for chemspiderapi Functions}
 \usage{
 set_rate_limit(rate, limit)
 }
 \arguments{
-\item{rate}{(Integer) number of calls to make in a specific time limit.}
+\item{rate}{Number (integer) of calls to make within a specific time limit.}
 
-\item{limit}{(Double) Time range over which to apply the limit, in seconds.}
+\item{limit}{Time range (integer) over which to apply the limit, in seconds.}
 }
 \value{
-Creates rate-limited functions of (most) chemspiderapi functions
+Creates rate-limited functions of all chemspiderapi functions interacting with ChemSpider's API services.
 }
 \description{
-Functionality to set a rate limit for (nearly) all chemspiderapi functions
+Functionality to set a rate limit for all chemspiderapi functions interacting with ChemSpider's API services.
 }
 \details{
 This function is useful if you have rate limitations from ChemSpider.\cr
