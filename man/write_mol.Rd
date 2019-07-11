@@ -21,10 +21,6 @@ Convenience function to write a .MOL file, e.g., after downloading with \code{ch
 A convenience function to write .MOL files.\cr
 \cr
 If successful, it writes a .mol file.\cr
-\cr
-If not successful, it returns \code{NA} without writing a file.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
 }
 \examples{
 \dontrun{
@@ -34,4 +30,7 @@ apikey <- "a_valid_ChemSpider_API_key"
 mol <- get_recordId_mol(recordId = recordId, apikey = apikey)
 write_mol(mol = mol, file = "aspirin.mol")
 }
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

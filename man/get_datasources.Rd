@@ -34,3 +34,6 @@ get_datasources(apikey = apikey)
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}
 }
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
+}
