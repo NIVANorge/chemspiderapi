@@ -13,7 +13,9 @@ The aim of this package is to:
 3.  Implement the R functionality in a way that is suitable for both base and tidyverse programming.
 4.  Provide (non-ChemSpider) convenience functions to complement the functionality.
 
-The chemspiderapi package is platform independent, and provides experimental support to securely store and acess API keys via the excellent [keyring](https://github.com/r-lib/keyring) package, as well as functionality to "remember" the results of API queries (i.e., to not ruin the API allowance), based on the equally excellent [memoise](https://github.com/r-lib/memoise) package. Finally, any rate limitations can be created with functionalities from [ratelimitr](https://github.com/tarakc02/ratelimitr).
+The chemspiderapi package is platform independent, and provides experimental support to securely store and acess API keys via the [keyring](https://github.com/r-lib/keyring) package, as well as functionality to impose any rate limitations via the [ratelimitr](https://github.com/tarakc02/ratelimitr) package.
+
+We furthermore recommend the excellent [memoise](https://github.com/r-lib/memoise) package to "remember" the results of API queries (i.e., to not ruin the API allowance).
 
 Installation
 ------------

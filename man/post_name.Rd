@@ -17,7 +17,7 @@ post_name(name, orderBy = "recordId", orderDirection = "ascending",
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-Returns the query ID as character vector.
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST the name of a compound and obtain a ChemSpider query ID for subsequent use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
@@ -27,11 +27,7 @@ Allowed entries for \code{orderBy} are: \code{"recordId"} (default), \code{"mass
 \cr
 Allowed entries for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.\cr
 \cr
-If successful, returns a 36-character \code{queryId} as a character vector. The \code{queryId} can be used in \code{chemspiderapi::get_queryId_status()} and \code{chemspider::get_queryId_results()}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.\cr
+If successful, returns a 36-character \code{queryId} as a character vector. The \code{queryId} can be used in \code{chemspiderapi::get_queryId_status()} and \code{chemspider::get_queryId_results()}.
 }
 \examples{
 \dontrun{

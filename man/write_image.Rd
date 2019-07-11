@@ -12,7 +12,7 @@ write_image(image, file)
 \item{file}{A character string indicating where and under which name to save the image.}
 }
 \value{
-writes a .png image file
+Writes a .png image file
 }
 \description{
 Convenience function to write a .png image file, e.g., after downloading with \code{chemspiderapi::get_recordId_image()}.
@@ -20,11 +20,7 @@ Convenience function to write a .png image file, e.g., after downloading with \c
 \details{
 A convenience function to write downloaded .png images, as obtained from \code{chemspiderapi::get_recordId_image()}.\cr
 \cr
-If successful, it writes a 150 x 150 px .png image (as returned by ChemSpider).\cr
-\cr
-If not successful, returns \code{NA} without writing an image file.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+If successful, it writes a 150 x 150 px .png image (as returned by ChemSpider).
 }
 \examples{
 \dontrun{
@@ -34,4 +30,7 @@ apikey <- "a valid 32-character ChemSpider apikey"
 image <- get_recordId_image(recordId = recordId, apikey = apikey)
 write_image(image = image, file = "aspirin.png")
 }
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

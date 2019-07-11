@@ -22,9 +22,7 @@ If successful (i.e., the InChIKey is valid), returns \code{TRUE}.\cr
 \cr
 If not successful (i.e., the InChIKey is not valid), returns \code{FALSE}.\cr
 \cr
-Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.
 }
 \examples{
 \dontrun{

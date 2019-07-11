@@ -2,7 +2,7 @@
 % Please edit documentation in R/RECORDS-get_recordId_image.R
 \name{get_recordId_image}
 \alias{get_recordId_image}
-\title{GET a .png image of a ChemSpider record ID}
+\title{GET a PNG image of a ChemSpider record ID}
 \usage{
 get_recordId_image(recordId, apikey, png = FALSE)
 }
@@ -14,17 +14,13 @@ get_recordId_image(recordId, apikey, png = FALSE)
 \item{png}{\code{logical}: Should the base64-encoded character string be converted to a (raw) .png image?}
 }
 \value{
-Either a base64-encoded character string (\code{png == FALSE}) or a raw array (\code{png == TRUE}).
+Either a base64-encoded character string (\code{png = FALSE}) or a raw array (\code{png = TRUE}).
 }
 \description{
 This function is used to obtain a .png image file of a ChemSpider record ID, e.g., after \code{chemspiderapi::get_queryID_results()}.
 }
 \details{
-If succesfull, returns either a base64-decoded character vector (\code{png = TRUE}) or a numeric (double) array (\code{png = TRUE}). Either of them can be written to the hard drive using \code{chemspiderapi::write_image()}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+If succesfull, returns either a base64-decoded character vector (\code{png = TRUE}) or a numeric (double) array (\code{png = TRUE}). Either of them can be written to the hard drive using \code{chemspiderapi::write_image()}.
 }
 \examples{
 \dontrun{

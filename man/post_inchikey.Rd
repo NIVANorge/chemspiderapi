@@ -12,7 +12,7 @@ post_inchikey(inchikey, apikey)
 \item{apikey}{A valid 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A 36-character queryId string
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST an InChIKey to obtain a \code{queryId} for use in \code{chemspiderapi::get_status()} and \code{chemspiderapi::get_results()}.
@@ -20,11 +20,7 @@ Functionality to POST an InChIKey to obtain a \code{queryId} for use in \code{ch
 \details{
 The validity criteria for InChIKeys are outlined here: \url{https://www.inchi-trust.org/technical-faq/#13.1}. If certain criteria are not met by the input \code{inchikey}, \code{chemspideR::post_inchikey()} returns a warning message and \code{NA} (and does not perform an API query). In the case of a non-standard \code{inchikey}, a warning is issued but the query will be performed.\cr
 \cr
-If successful, returns the \code{queryId} as character string.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+If successful, returns the \code{queryId} as character string.
 }
 \examples{
 \dontrun{
@@ -36,4 +32,7 @@ post_inchikey(inchikey = inchikey, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchikey}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

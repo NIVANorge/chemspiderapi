@@ -12,17 +12,13 @@ post_smiles(smiles, apikey)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-Returns a query ID character vector
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST a SMILES string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
 If successful, returns the \code{queryId} as character string.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
 }
 \examples{
 \dontrun{

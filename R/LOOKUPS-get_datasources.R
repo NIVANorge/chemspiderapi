@@ -70,7 +70,7 @@ get_datasources <- function(apikey, ...) {
       error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
     }
 
-    message <- paste0("No valid information was retrieved.\nCarfully check the validity of the provided ChemSpider \"apikey\".", error_message)
+    message <- paste0("No valid information was retrieved from the API query.\nCarfully check the validity of the provided ChemSpider \"apikey\".", error_message)
     stop(message, call. = FALSE)
   }
 

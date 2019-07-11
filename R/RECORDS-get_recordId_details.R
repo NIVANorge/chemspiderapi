@@ -14,10 +14,9 @@
 #' @param fields Either a single character string, a character vector, or a character list stating which fields to return. Alternatively, \code{"all"} returns all possible \code{fields}. \code{fields} is NOT case sensitive, but see details for a list of possible entries.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output?
-#' @return A \code{data.frame} if multiple columns are returned, or a named vector of the appropriate type if only one \code{field} is returned.
+#' @return A \code{data.frame} if multiple columns are returned, or a (named) vector of the appropriate type if only one \code{field} is returned.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
 #' ## GET the record details for aspirin
 #' recordId <- 2157L
 #' apikey <- "A valid 32-character Chemspider API key"
@@ -28,19 +27,16 @@
 #' @export
 get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   
-  if (is.na(recordId)) {
-    warning("No valid \"recordId\" provided; returning \"NA\".", call. = FALSE)
-    return(NA)
+  if (is.null(recordId)) {
+    stop("No valid \"recordId\" provided.", call. = FALSE)
   }
   
   if (length(recordId) > 1L) {
-    warning("This function can only handle a single \"recordId\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA)
+    stop("This function can only handle a single \"recordId\" entry.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
   }
 
   if (is.na(as.integer(recordId)) == TRUE) {
-    warning("Please provide a valid (integer) \"recordId\"; returning \"NA\".", call. = FALSE)
-    return(NA)
+    stop("Please provide a valid (integer) \"recordId\".", call. = FALSE)
   }
 
   if (nchar(apikey) != 32L) {

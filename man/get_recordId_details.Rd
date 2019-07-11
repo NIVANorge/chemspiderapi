@@ -16,7 +16,7 @@ get_recordId_details(recordId, fields = "all", apikey, id = TRUE)
 \item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output?}
 }
 \value{
-A \code{data.frame} if multiple columns are returned, or a named vector of the appropriate type if only one \code{field} is returned.
+A \code{data.frame} if multiple columns are returned, or a (named) vector of the appropriate type if only one \code{field} is returned.
 }
 \description{
 This function is used to return record details from ChemSpider.

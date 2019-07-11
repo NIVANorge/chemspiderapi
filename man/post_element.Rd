@@ -26,7 +26,7 @@ post_element(includeElements, excludeElements, includeAll = FALSE,
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-Returns the query ID as character vector
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST up to 15 elements to include and up to 100 elements to exclude to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
@@ -46,11 +46,7 @@ Valid values for \code{complexity} are \code{"any"}, \code{"single"}, or \code{"
 \cr
 Valid values for \code{isotopic} are \code{"any"}, \code{"labeled"}, or \code{"unlabeled"}."\cr
 \cr
-If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \examples{
 \dontrun{
@@ -63,4 +59,7 @@ post_element(includeElements = includeElements, excludeElements = excludeElement
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/element}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }
