@@ -4,7 +4,7 @@
 \alias{post_convert}
 \title{Convert between chemical identifiers}
 \usage{
-post_convert(input, inputFormat, outputFormat, apikey, ...)
+post_convert(input, inputFormat, outputFormat, apikey)
 }
 \arguments{
 \item{input}{A character string in the specified \code{inputFormat}.}
@@ -14,8 +14,6 @@ post_convert(input, inputFormat, outputFormat, apikey, ...)
 \item{outputFormat}{A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{...}{Additional parameters; currently not implemented.}
 }
 \value{
 A character string with the desired converted identifier
@@ -47,8 +45,6 @@ from \code{SMILES} to \code{InChI}\cr
 Note: The identifier names are NOT case sensitive!\cr
 \cr
 If successful, performs the desired conversion and stores the result as a named ("output") character string.\cr
-\cr
-If not successful, returns an error.
 }
 \examples{
 \dontrun{
@@ -62,4 +58,7 @@ post_convert(input = input, inputFormat = inputFormat, outputFormat = outputForm
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/tools/convert}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

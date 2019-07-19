@@ -65,7 +65,7 @@ get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
     fields <- paste(fields, collapse = ",")
   }
 
-  curl_header <- list(`Content-Type` = "", apikey = apikey)
+  curl_header <- list("Content-Type" = "", "apikey" = apikey)
 
   curl_url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/details?fields=", fields)
 

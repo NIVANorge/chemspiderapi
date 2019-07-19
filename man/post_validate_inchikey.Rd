@@ -35,3 +35,6 @@ post_validate_inchikey(inchikey = inchikey, apikey = apikey)
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/tools/validate/inchikey}
 }
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
+}
