@@ -26,7 +26,7 @@ This vignette briefly explains how to visualize and save .mol files as returned 
 ### Downloading the .mol file of caffeine
 
 
-```{r}
+```{r,eval=FALSE}
 library(keyring)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))

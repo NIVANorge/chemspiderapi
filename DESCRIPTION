@@ -12,8 +12,8 @@ Imports:
 Suggests: 
     keyring,
     knitr,
+    magick,
     memoise,
-    png,
     ratelimitr,
     rmarkdown,
     testthat

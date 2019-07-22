@@ -25,29 +25,36 @@ This vignette briefly explains how to visualize and save .png files as returned 
 
 ### Installing the required `png` package
 
-Before downloading an example image for caffein (ChemSpider ID 2424), the `png` package needs to be installed.
+Before downloading an example image for caffein (ChemSpider ID 2424), the `magic` package needs to be installed.
 
 ```{r,eval=FALSE}
-install.packages("png")
+install.packages("magick")
 ```
 
 ### Downloading the .png image of caffeine
 
 
-```{r}
+```{r,eval=FALSE}
 library(keyring)
-library(png)
+library(magick)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
 
 caffein_image_raw <- chemspiderapi::get_recordId_image(recordId = 2424, apikey = apikey)
 
-caffein_png <- png::readPNG(caffein_image_raw)
+caffein_png <- magick::image_read(caffein_image_raw)
 ```
+
+### Viewing the image
+
+```{r,eval=FALSE}
+caffein_png
+```
+
 
 ### Saving the .png image
 
 ```{r,eval=FALSE}
-png::writePNG(caffein_png, target = "caffein.png")
+magick::image_write(caffein_png, path = "caffein.png")
 ```
 
