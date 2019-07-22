@@ -1,0 +1,42 @@
+---
+title: "Saving_MOL_Files_of_Chemicals"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Saving_MOL_Files_of_Chemicals}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chemspiderapi)
+```
+
+
+## Saving .mol files of chemicals
+
+This vignette briefly explains how to visualize and save .mol files as returned by `chemspiderapi::get_recordId_mol()`. 
+
+### Downloading the .mol file of caffeine
+
+
+```{r}
+library(keyring)
+
+apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
+
+caffein_mol <- chemspiderapi::get_recordId_mol(recordId = 2424, apikey = apikey)
+```
+
+### Saving the .mol image
+
+```{r,eval=FALSE}
+writeLines(caffein_mol, con = file("caffein.mol"))
+```
+

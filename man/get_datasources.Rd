@@ -4,12 +4,10 @@
 \alias{get_datasources}
 \title{Get External ChemSpider Data Sources}
 \usage{
-get_datasources(apikey, ...)
+get_datasources(apikey)
 }
 \arguments{
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{...}{Additional parameters; currently not implemented.}
 }
 \value{
 A unnamed character vector, length > 350

@@ -43,112 +43,27 @@
 #' @export    
 post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
-  if (is.null(input)) {
-    stop("Please provide an \"input\".", call. = FALSE)
-  }
+  check_format(input, inputFormat, outputFormat)
   
-  if (is.null(inputFormat)) {
-    stop("Please provide an \"inputFormat\".", call. = FALSE)
-  }
+  check_apikey(apikey)
   
-  if (is.null(outputFormat)) {
-    stop("Please provide an \"outputFormat\".", call. = FALSE)
-  }
+  data <- list("input" = input, "inputFormat" = inputFormat, "outputFormat" = outputFormat)
   
-  if (length(input) > 1) {
-    stop("Please provide a single \"input\" string.\nFor functional programming, try using chemspider::post_convert() in apply() or purrr::map_chr().", call. = FALSE)
-  }
-
-  if (!any(tolower(inputFormat) %in% c("inchi", "inchikey", "smiles", "mol"))) {
-    stop("Please provide a valid \"inputFormat\". See Documentation for details.", call. = FALSE)
-  }
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  if (!any(tolower(outputFormat) %in% c("inchi", "inchikey", "smiles", "mol"))) {
-    stop("Please provide a valid \"outputFormat\". See Documentation for details.", call. = FALSE)
-    }
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  if (tolower(inputFormat) == "inchi" && tolower(substr(input, start = 1L, stop = 7L)) != "inchi=1") {
-    stop("Please provide a valid \"InChI\" as \"input\".\nAn \"InChI\" should start with \"InChI=1\".", call. = FALSE)
-  }
+  url <- "https://api.rsc.org/compounds/v1/tools/convert"
   
-  if (tolower(inputFormat) == "inchi" && tolower(unlist(substr(inchi, start = 8L, stop = 8L))) != "s") {
-    warning("The provided InChI string is not a standard InChI; performing API query regardless.", call. = FALSE)
-  }
+  handle <- curl::new_handle()
   
-  if (tolower(inputFormat) == "inchikey" && nchar(input) != 27L) {
-    stop("Please provide a valid \"InChIKey\" as \"input\".\nAn \"InChIKey\" should be a 27-character vector.", call. = FALSE)
-  }
+  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
   
-  if (tolower(inputFormat) == "inchikey" && length(unlist(strsplit(input, split = "-"))) != 3L) {
-    stop("Please provide a valid \"InChIKey\" as \"input\".\nAn \"InChIKey\" should be hyphen-divided into three parts.", call. = FALSE)
-  }
+  curl::handle_setheaders(handle, .list = header)
   
-  if (tolower(inputFormat) == "inchikey" && nchar(unlist(strsplit(input, split = "-"))[1]) != 14L) {
-    stop("Please provide a valid \"InChIKey\" as \"input\".\nThe first part of an \"InChIKey\" should be a 14-character string.", call. = FALSE)
-  }
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  if (tolower(inputFormat) == "inchikey" && nchar(unlist(strsplit(input, split = "-"))[2]) != 10L) {
-    stop("Please provide a valid \"InChIKey\" as \"input\".\nThe second part of an \"InChIKey\" should be a ten-character string.", call. = FALSE)
-  }
-  
-  if (tolower(inputFormat) == "inchikey" && nchar(unlist(strsplit(input, split = "-"))[3]) != 1L) {
-    stop("Please provide a valid \"InChIKey\" as \"input\".\nThe third part of an \"InChIKey\" should be a one-character string.", call. = FALSE)
-  }
-  
-  if (tolower(inputFormat) == "inchikey" && substr(unlist(strsplit(input, split = "-"))[2], start = 9L, stop = 9L) != "S") {
-    warning("The provided \"InChIKey\" is not a standard \"InChIKey\".", call. = FALSE)
-  }
-  
-  if (typeof(apikey) != "character") {
-    stop("Please provide a 32-character ChemSpider \"apikey\".", call. = FALSE)
-  }
-  
-  if (nchar(apikey) != 32L) {
-    stop("Please provide a 32-character ChemSpider \"apikey\".", call. = FALSE)
-  }
-  
-  curl_data <- list("input" = input, "inputFormat" = inputFormat, "outputFormat" = outputFormat)
-  curl_data <- jsonlite::toJSON(curl_data, auto_unbox = TRUE)
-  curl_header <- list("Content-Type" = "", "apikey" = apikey)
-  curl_url <- "https://api.rsc.org/compounds/v1/tools/convert"
-  curl_handle <- curl::new_handle()
-  curl::handle_setopt(curl_handle, customrequest = "POST", postfields = curl_data)
-  curl::handle_setheaders(curl_handle, .list = curl_header)
-  raw_result <- curl::curl_fetch_memory(url = curl_url, handle = curl_handle)
-  
-  if (raw_result$status_code != 200L) {
-    
-    if (raw_result$status_code == 400L) {
-      error_message <- "ChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
-    }
-    if (raw_result$status_code == 401L) {
-      error_message <- "ChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    if (raw_result$status_code == 404L) {
-      error_message <- "ChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    if (raw_result$status_code == 405L) {
-      error_message <- "ChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    if (raw_result$status_code == 413L) {
-      error_message <- "ChemSpider Response Error Details: \"413: Payload Too Large. The request you sent was too big to handle. Change your request and try again.\"."
-    }
-    if (raw_result$status_code == 429L) {
-      error_message <- "ChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    if (raw_result$status_code == 500L) {
-      error_message <- "ChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    if (raw_result$status_code == 503L) {
-      error_message <- "ChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    if (!any(raw_result$status_code %in% c(400L, 401L, 404L, 405L, 413L, 429L, 500L, 503L))) {
-      error_message <- "No ChemSpider Error Details were provided."
-    }
-    
-    message <- paste0("No valid information was retrieved.\nCarfully check the validity of the provided ChemSpider \"apikey\".\n", error_message)
-    stop(message, call. = FALSE)
-  }
+  check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)

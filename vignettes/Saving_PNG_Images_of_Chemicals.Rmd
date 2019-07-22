@@ -1,0 +1,53 @@
+---
+title: "Saving PNG Images of Chemicals"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Saving_PNG_Images_of_Chemicals}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chemspiderapi)
+```
+
+
+## Visualizing and saving .png images of chemicals
+
+This vignette briefly explains how to visualize and save .png files as returned by `chemspiderapi::get_recordId_image()`. 
+
+### Installing the required `png` package
+
+Before downloading an example image for caffein (ChemSpider ID 2424), the `png` package needs to be installed.
+
+```{r,eval=FALSE}
+install.packages("png")
+```
+
+### Downloading the .png image of caffeine
+
+
+```{r}
+library(keyring)
+library(png)
+
+apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
+
+caffein_image_raw <- chemspiderapi::get_recordId_image(recordId = 2424, apikey = apikey)
+
+caffein_png <- png::readPNG(caffein_image_raw)
+```
+
+### Saving the .png image
+
+```{r,eval=FALSE}
+png::writePNG(caffein_png, target = "caffein.png")
+```
+

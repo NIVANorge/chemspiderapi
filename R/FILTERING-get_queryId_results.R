@@ -30,163 +30,50 @@
 #' get_queryId_results(queryId = queryId, status = status, apikey = apikey)
 #' }
 #' @export
-get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
+get_queryId_results <- function(queryId, status, start, count, apikey) {
   
-  if (is.na(queryId)) {
-    warning("No valid \"queryId\" provided; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
+  check_queryId(queryId)
   
-  if (length(queryId) > 1L) {
-    warning("This function can only handle a single ChemSpider \"queryId\" entry; returning \"NA\".\nMaybe you are looking for chemspideR::get_formula_batch_status() or chemspideR::get_mass_batch_status()?\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_integer_)
-  }
+  check_status(status)
   
-  if (typeof(queryId) != "character") {
-    warning("The ChemSpider \"queryId\" should be a 36-character string; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
+  check_start_and_count(start, count)
   
-  if (nchar(queryId) != 36L) {
-    warning("Please use a valid 36-character ChemSpider \"queryId\"; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
+  check_apikey(apikey)
   
-  if (length(unlist(strsplit(queryId, split = "-"))) != 5L) {
-    warning("The provided ChemSpider \"queryId\" should be hyphen-divided into five parts; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (nchar(unlist(strsplit(queryId, split = "-"))[1]) != 8L) {
-    warning("The first part of the ChemSpider \"queryId\" should be 8 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (nchar(unlist(strsplit(queryId, split = "-"))[2]) != 4L) {
-    warning("The second part of the ChemSpider \"queryId\" should be 4 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (nchar(unlist(strsplit(queryId, split = "-"))[3]) != 4L) {
-    warning("The third part of the ChemSpider \"queryId\" should be 4 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (nchar(unlist(strsplit(queryId, split = "-"))[4]) != 4L) {
-    warning("The fourth part of the ChemSpider \"queryId\" should be 4 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (nchar(unlist(strsplit(queryId, split = "-"))[5]) != 12L) {
-    warning("The fifth part of the ChemSpider \"queryId\" should be 12 characters long; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (is.null(status)) {
-    warning("No ChemSpider query \"status\" provided; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (status != "Complete") {
-    warning("Query computation not yet completet; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (!is.null(start) && is.na(as.integer(start))) {
-    warning("Please use a valid integer \"start\" value; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (!is.null(count) && is.na(as.integer(count))) {
-    warning("Please use a valid integer \"count\" value; returning \"NA\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (length(apikey) > 1L) {
-    warning("This function can only handle a single ChemSpider \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (typeof(apikey) != "character") {
-    warning("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  if (nchar(apikey) != 32L) {
-    warning("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-    return(NA_integer_)
-  }
-  
-  curlHeader <- list(`Content-Type` = "", apikey = apikey)
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   if (is.null(start) && is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results")
+    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results")
   }
   
   if (!is.null(start) && is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start)
+    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start)
   }
   
   if (is.null(start) && !is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?count=", count)
+    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?count=", count)
   }
   
   if (!is.null(start) && !is.null(count)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start, "&count=", count)
+    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start, "&count=", count)
   }
   
-  curlHandle <- curl::new_handle()
+  handle <- curl::new_handle()
   
-  curl::handle_setopt(curlHandle, customrequest = "GET")
+  curl::handle_setopt(handle, customrequest = "GET")
   
-  curl::handle_setheaders(curlHandle, .list = curlHeader)
+  curl::handle_setheaders(handle, .list = header)
   
-  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  if (result$status_code != 200L) {
-    
-    error_message <- "\nNo ChemSpider Error Details were provided."
-    
-    if (result$status_code == 400L) {
-      error_message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
-    }
-    
-    if (result$status_code == 401L) {
-      error_message <- "\nChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    
-    if (result$status_code == 404L) {
-      error_message <- "\nChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    
-    if (result$status_code == 405L) {
-      error_message <- "\nChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    
-    if (result$status_code == 429L) {
-      error_message <- "\nChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    
-    if (result$status_code == 500L) {
-      error_message <- "\nChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    
-    if (result$status_code == 503L) {
-      error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", error_message)
-    
-    warning(message, call. = FALSE)
-    return(NA_integer_)
-  }
+  check_status_code(raw_result$status_code)
   
-  result <- rawToChar(result$content)
-  result <- jsonlite::fromJSON(result)
-  
-  if (result$limitedToMaxAllowed == TRUE) {
+  if (raw_result$limitedToMaxAllowed == TRUE) {
     warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
   }
+  
+  result <- rawToChar(raw_result$content)
+  result <- jsonlite::fromJSON(result)
   
   result <- data.frame(results = result$results, stringsAsFactors = FALSE)
   
@@ -194,5 +81,5 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
     result <- unlist(result)
   }
   
-  return(result)
+  result
 }

@@ -41,19 +41,9 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_intrinsicproperty <- function(property, formula = NULL, complexity = "any", isotopic = "any", mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_intrinsicproperty <- function(property, formula, complexity = "any", isotopic = "any", mass, range, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
-  if (is.null(property)) {
-    stop("No \"property\" provided.", call. = FALSE)
-  }
-  
-  if (length(property) > 1) {
-    stop("This function is meant for single \"property\" entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-  }
-  
-  if (!any(tolower(property) %in% c("formula", "molecularweight", "nominalmass", "averagemass", "monoisotopicmass"))) {
-    stop("The provided property is not supported; please consult the help file for a list of available properties", call. = FALSE)
-  }
+  check_property(property)
   
   if (property != "formula" && is.null(mass) || property != "formula" && is.null(range)) {
     stop("Both \"mass\" and \"range\" need to be provided.", call. = FALSE)
@@ -63,118 +53,57 @@ post_intrinsicproperty <- function(property, formula = NULL, complexity = "any",
     stop("No \"formula\" provided.", call. = )
   }
   
-  if (any(is.na(as.double(mass)))) {
-    stop("The provided \"mass\" is not a valid (double) number.", call. = FALSE)
-  }
+  check_mass_and_range(mass, range)
   
-  if (any(is.na(as.double(range)))) {
-    stop("The provided \"range\" is not a valid (double) number.", call. = FALSE)
-  }
+  check_apikey(apikey)
   
-  if (!is.null(mass) && mass < 1 || !is.null(mass) && mass > 11000) {
-    stop("The provided \"mass\" is outside ChemSpider's settings [1,11000].", call. = FALSE)
-  }
+  check_complexity(complexity)
   
-  if (!is.null(range) && range < 0.0001 || !is.null(range) && range > 100) {
-    stop("The provided \"range\" is outside ChemSpider's settings [0.0001,100].", call. = FALSE)
-  }
+  check_isotopic(isotopic)
   
-  if (length(mass) != length(range)) {
-    stop("Every \"mass\" needs a \"range\", and vice verca. Please provide equal length vectors.", call. = FALSE)
-  }
-  
-  if (typeof(apikey) != "character") {
-    stop("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-  }
-  
-  if (nchar(apikey) != 32L) {
-    stop("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-  }
-  
-  if (!is.null(complexity) && !any(tolower(complexity) %in% c("any", "single", "multiple"))) {
-    stop("Please provide \"complexity\" as either \"any\", \"single\", or \"multiple\".")
-  }
-  
-  if (!is.null(isotopic) && !any(tolower(isotopic) %in% c("any", "labeled", "unlabeled"))) {
-    stop("Please provide \"isotopic\" as either \"any\", \"labeled\", or \"unlabeled\".")
-  }
+  check_order(orderBy, orderDirection)
   
   options <- list("complexity" = complexity, "isotopic" = isotopic)
   
   if (tolower(property) == "formula") {
-    curl_data <- list("formula" = formula, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("formula" = formula, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "molecularweight") {
     molecularWeight <- list("mass" = mass, "range" = range)
-    curl_data <- list("molecularWeight" = molecularWeight, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("molecularWeight" = molecularWeight, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "nominalmass") {
     nominalMass <- list("mass" = mass, "range" = range)
-    curl_data <- list("nominalMass" = nominalMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("nominalMass" = nominalMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "averagemass") {
     averageMass <- list("mass" = mass, "range" = range)
-    curl_data <- list("averageMass" = averageMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("averageMass" = averageMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "monoisotopicmass") {
     monoisotopicMass <- list("mass" = mass, "range" = range)
-    curl_data <- list("monoisotopicMass" = monoisotopicMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("monoisotopicMass" = monoisotopicMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
   }
   
-  curl_data <- jsonlite::toJSON(curl_data, auto_unbox = TRUE)
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  curl_header <- list("Content-Type" = "", "apikey" = apikey)
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  curl_url <- "https://api.rsc.org/compounds/v1/filter/intrinsicproperty"
+  url <- "https://api.rsc.org/compounds/v1/filter/intrinsicproperty"
   
-  curl_handle <- curl::new_handle()
+  handle <- curl::new_handle()
   
-  curl::handle_setopt(curl_handle, customrequest = "POST", postfields = curl_data)
+  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
   
-  curl::handle_setheaders(curl_handle, .list = curl_header)
+  curl::handle_setheaders(handle, .list = header)
   
-  raw_result <- curl::curl_fetch_memory(url = curl_url, handle = curl_handle)
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  if (raw_result$status_code != 200L) {
-    
-    error_message <- "No ChemSpider Error Details were provided."
-    
-    if (raw_result$status_code == 400L) {
-      error_message <- "ChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
-    }
-    
-    if (raw_result$status_code == 401L) {
-      error_message <- "ChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    
-    if (raw_result$status_code == 404L) {
-      error_message <- "ChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 405L) {
-      error_message <- "ChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 429L) {
-      error_message <- "ChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    
-    if (raw_result$status_code == 500L) {
-      error_message <- "ChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    
-    if (raw_result$status_code == 503L) {
-      error_message <- "ChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".\n", error_message)
-    
-    stop(message, call. = FALSE)
-  }
+  check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)

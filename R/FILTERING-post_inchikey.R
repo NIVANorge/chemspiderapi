@@ -19,106 +19,27 @@
 #' @export
 post_inchikey <- function(inchikey, apikey) {
   
-  if (is.null(inchikey)) {
-    stop("No \"inchikey\" provided.", call. = FALSE)
-  }
+  check_inchikey(inchikey)
+  
+  check_apikey(apikey)
 
-  if (length(inchikey) > 1L) {
-    stop("This function can only handle a single \"inchikey\" entry.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-  }
+  data <- list("inchikey" = inchikey)
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
 
-  if (typeof(inchikey) != "character") {
-    stop("The \"inchikey\" should be a 27-character string.", call. = FALSE)
-  }
+  header <- list("Content-Type" = "", "apikey" = apikey)
 
-  if (nchar(inchikey) != 27L) {
-    stop("The provided \"inchikey\" is not a 27-character string.", call. = FALSE)
-  }
+  url <- "https://api.rsc.org/compounds/v1/filter/inchikey"
 
-  if (length(unlist(strsplit(inchikey, split = "-"))) != 3L) {
-    stop("The provided \"inchikey\" must be hyphen-divided into three parts.", call. = FALSE)
-  }
+  handle <- curl::new_handle()
 
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[1]) != 14L) {
-    stop("The first part of the \"inchikey\" should be 14 characters long.", call. = FALSE)
-  }
+  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
 
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[2]) != 10L) {
-    stop("The second part of the \"inchikey\" should be 10 characters long.", call. = FALSE)
-  }
+  curl::handle_setheaders(handle, .list = header)
 
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[3]) != 1L) {
-    stop("The third part of the \"inchikey\" should be 1 character long.", call. = FALSE)
-  }
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
 
-  if (typeof(apikey) != "character") {
-    stop("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-  }
-
-  if (nchar(apikey) != 32L) {
-    stop("Please use a valid 32 character ChemSpider \"apikey\".", call. = FALSE)
-  }
-
-  if (substr(unlist(strsplit(inchikey, split = "-"))[2], start = 9L, stop = 9L) != "S") {
-    warning("This is not a standard \"inchikey\"; performing API query regardless.", call. = FALSE)
-  }
-
-  curl_data <- list("inchikey" = inchikey)
-  curl_data <- jsonlite::toJSON(curl_data, auto_unbox = TRUE)
-
-  curl_header <- list("Content-Type" = "", "apikey" = apikey)
-
-  curl_url <- "https://api.rsc.org/compounds/v1/filter/inchikey"
-
-  curl_handle <- curl::new_handle()
-
-  curl::handle_setopt(curl_handle, customrequest = "POST", postfields = curl_data)
-
-  curl::handle_setheaders(curl_handle, .list = curl_header)
-
-  raw_result <- curl::curl_fetch_memory(url = curl_url, handle = curl_handle)
-
-  if (raw_result$status_code != 200L) {
-    
-    error_message <- "\nNo ChemSpider Error Details were provided."
-    
-    if (raw_result$status_code == 400L) {
-      error_message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
-    }
-    
-    if (raw_result$status_code == 401L) {
-      error_message <- "\nChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    
-    if (raw_result$status_code == 404L) {
-      error_message <- "\nChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 405L) {
-      error_message <- "\nChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 413L) {
-      error_message <- "\nChemSpider Response Error Details: \"413: Payload Too Large. The request you sent was too big to handle. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 429L) {
-      error_message <- "\nChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    
-    if (raw_result$status_code == 500L) {
-      error_message <- "\nChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    
-    if (raw_result$status_code == 503L) {
-      error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", error_message)
-
-    stop(message, call. = FALSE)
-  }
-
+  check_status_code(raw_result$status_code)
+  
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- unlist(result)

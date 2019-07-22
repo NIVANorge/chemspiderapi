@@ -34,61 +34,13 @@
 #' @export
 post_mass <- function(mass, range, dataSources, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
-  if (is.null(mass)) {
-    stop("No \"mass\" provided.", call. = FALSE)
-  }
+  check_mass_and_range(mass, range)
   
-  if (length(mass) > 1) {
-    stop("This function can only handle a single \"mass\" entry.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-  }
+  check_dataSources(dataSources)
   
-  if (is.na(as.double(mass))) {
-    stop("The provided \"mass\" is not a valid (double) number.", call. = FALSE)
-  }
+  check_order(orderBy, orderDirection)
   
-  if (mass < 1 || mass > 11000) {
-    stop("The provided \"mass\" is outside ChemSpider's settings [1,11000].", call. = FALSE)
-  }
-  
-  if (length(range) > 1) {
-    stop("This function can only handle a single \"range\" entry.", call. = FALSE)
-  }
-  
-  if (is.na(as.double(range))) {
-    stop("The provided \"range\" is not a valid (double) number.", call. = FALSE)
-  }
-  
-  if (range < 0.0001 || range > 100) {
-    stop("The provided \"range\" is outside ChemSpider's settings [0.0001,100].", call. = FALSE)
-  }
-  
-  if (!is.null(dataSources) && length(dataSources) > 20) {
-    stop("Only up to 20 different \"dataSources\" are allowed.", call. = FALSE)
-  }
-  
-  if (length(orderBy) > 1) {
-    stop("Only a single \"orderBy\" entry is supported.", call. = FALSE)
-  }
-  
-  if (!any(tolower(orderBy) %in% c("recordid", "massdefect", "molecularweight", "referencecount", "datasourcecount", "pubmedcount", "rsccount"))) {
-    stop("Please provide a valid input for \"orderBy\".", call. = FALSE)
-  }
-  
-  if (length(orderDirection) > 1) {
-    stop("Only a single \"orderDirection\" entry is supported.", call. = FALSE)
-  }
-  
-  if (!any(tolower(orderDirection) %in% c("ascending", "descending"))) {
-    stop("Please use either \"ascending\" or \"descending\" as input for \"orderDirection\".", call. = FALSE)
-  }
-  
-  if (typeof(apikey) != "character") {
-    stop("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-  }
-  
-  if (nchar(apikey) != 32L) {
-    stop("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-  }
+  check_apikey(apikey)
   
   if (!is.null(dataSources)) {
     if (length(dataSources) == 1) {
@@ -96,61 +48,26 @@ post_mass <- function(mass, range, dataSources, orderBy = "recordId", orderDirec
     } else {
       dataSources <- paste(dataSources, collapse = ",")
     }
-    curl_data <- list("mass" = mass, "range" = range, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("mass" = mass, "range" = range, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
   } else {
-    curl_data <- list("mass" = mass, "range" = range, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("mass" = mass, "range" = range, "orderBy" = orderBy, "orderDirection" = orderDirection)
   }
   
-  curl_data <- jsonlite::toJSON(curl_data, auto_unbox = TRUE)
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  curl_header <- list("Content-Type" = "", "apikey" = apikey)
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  curl_url <- "https://api.rsc.org/compounds/v1/filter/mass"
+  url <- "https://api.rsc.org/compounds/v1/filter/mass"
   
-  curl_handle <- curl::new_handle()
+  handle <- curl::new_handle()
   
-  curl::handle_setopt(curl_handle, customrequest = "POST", postfields = curl_data)
+  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
   
-  curl::handle_setheaders(curl_handle, .list = curl_header)
+  curl::handle_setheaders(handle, .list = header)
   
-  raw_result <- curl::curl_fetch_memory(url = curl_url, handle = curl_handle)
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  if (raw_result$status_code != 200L) {
-    
-    error_message <- "No ChemSpider Error Details were provided."
-    
-    if (raw_result$status_code == 400L) {
-      error_message <- "ChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
-    }
-    
-    if (raw_result$status_code == 401L) {
-      error_message <- "ChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    
-    if (raw_result$status_code == 404L) {
-      error_message <- "ChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 405L) {
-      error_message <- "ChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    
-    if (raw_result$status_code == 429L) {
-      error_message <- "ChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    
-    if (raw_result$status_code == 500L) {
-      error_message <- "ChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    
-    if (raw_result$status_code == 503L) {
-      error_message <- "ChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".\n", error_message)
-    
-    stop(message, call. = FALSE)
-  }
+  check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)

@@ -1,0 +1,86 @@
+---
+title: "Rate-Limiting_API_Queries"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Rate-Limiting_API_Queries}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chemspiderapi)
+```
+
+## Rate-limiting API queries for `chemspiderapi`
+
+Most users of ChemSpider's API services will have to apply rate limiting conditions. Such a rate limit could be, for example, "no more than 15 queries per minute". The following two paragraph describe how to rate-limit any `chemspiderapi` function; both in `base` R (using `ratelimitr`) and `tidyverse` coding styles.
+
+### A `base` R example
+
+### A `tidyverse` example
+
+In the tidyverse ecosystem, all relevant chemspiderapi functions can be used in functional programming approaches using the purrr::map() family of functions. purrr::slowly() can be used to limit the number of calls of chemspiderapi functions in a given time interval.
+
+```{r,eval=FALSE}
+## Installing the necessary packages if necessary
+# install.packages(c("chemspiderapi", "tidyverse"))
+
+## Loading the tidyverse package family and chemspiderapi
+library(tidyverse)
+library(keyring)
+library(chemspiderapi)
+
+## Storing the API key as temporary object via the keyring package
+## See separate vignette for explanations on how to store security tokens using keyring
+
+apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("LOGNAME"))
+
+slowly_post_inchikey <- purrr::slowly(chemspiderapi::post_inchikey, rate = purrr::rate_delay(pause = 4), quiet = FALSE)
+
+tidyverse_rl <- demo_data %>% 
+  dplyr::select(InChIKey) %>% 
+  dplyr::mutate(queryId = purrr::map_chr(InChIKey, ~ slowly_post_inchikey(inchikey = .x, apikey = apikey)))
+
+tidyverse_rl
+```
+
+```{r,eval=FALSE}
+slowly_get_queryId_status <- purrr::slowly(chemspiderapi::get_queryId_status, rate = rate_delay(pause = 4), quiet = FALSE)
+
+tidyverse_rl <- tidyverse_rl %>% 
+  dplyr::mutate(status = purrr::map(queryId, ~ slowly_get_queryId_status(queryId = .x, apikey = apikey)))
+
+tidyverse_rl %>% 
+  tidyr::unnest(status)
+
+tidyverse_rl <- tidyverse_rl %>% 
+  tidyr::unnest(status) %>% 
+  dplyr::select(InChIKey, queryId, status)
+```
+
+```{r,eval=FALSE}
+slowly_get_queryId_results <- slowly(chemspiderapi::get_queryId_results, rate = rate_delay(pause = 4), quiet = FALSE)
+
+tidyverse_rl <- tidyverse_rl %>% 
+  dplyr::mutate(id = purrr::map2_int(queryId, status, ~ slowly_get_queryId_results(queryId = .x, status = .y, apikey = apikey)))
+
+tidyverse_rl
+```
+
+```{r,eval=FALSE}
+slowly_get_recordId_details <- purrr::slowly(get_recordId_details, rate = rate_delay(pause = 4), quiet = FALSE)
+
+tidyverse_rl <- tidyverse_rl %>% 
+  dplyr::mutate(details = purrr::map(id, ~ slowly_get_recordId_details(id = .x, apikey = apikey, id = FALSE)))
+
+tidyverse_rl %>% 
+  tidyr::unnest(details)
+
+```
