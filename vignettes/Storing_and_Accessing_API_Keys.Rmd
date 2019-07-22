@@ -1,0 +1,38 @@
+---
+title: "Storing and Accessing API Keys"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Storing_and_Accessing_API_Keys}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Storing an API key using `keyring`
+
+The following command will open a pop-up window in which the ChemSpider API key can be pasted in.
+
+```{r,eval=FALSE}
+library(keyring)
+
+keyring::key_set(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
+
+```
+
+The name of the stored key is "ChemSpider API key", and the username is set to be the one currently operating R; this can of course be modified. 
+
+## Accessing the API key
+
+The stored API key can be accessed dynamically. 
+
+```{r,eval=FALSE}
+apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
+```
+
+For further functionalities of `keyring`, including real keyrings and password protection of the ChemSpider API key, we recommend the documentation of `keyring`, available [here](https://cran.r-project.org/package=keyring).

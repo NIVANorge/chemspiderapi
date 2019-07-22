@@ -1,5 +1,5 @@
 ---
-title: "Rate-Limiting_API_Queries"
+title: "Rate-Limiting API Queries"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Rate-Limiting_API_Queries}
