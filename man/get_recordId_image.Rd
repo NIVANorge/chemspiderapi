@@ -2,29 +2,23 @@
 % Please edit documentation in R/RECORDS-get_recordId_image.R
 \name{get_recordId_image}
 \alias{get_recordId_image}
-\title{GET a .png image of a ChemSpider record ID}
+\title{GET a PNG image of a ChemSpider record ID}
 \usage{
-get_recordId_image(recordId, apikey, png = FALSE)
+get_recordId_image(recordId, apikey)
 }
 \arguments{
 \item{recordId}{A valid (integer) ChemSpider ID.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{png}{\code{logical}: Should the base64-encoded character string be converted to a (raw) .png image?}
 }
 \value{
-Either a base64-encoded character string (\code{png == FALSE}) or a raw array (\code{png == TRUE}).
+A raw array.
 }
 \description{
 This function is used to obtain a .png image file of a ChemSpider record ID, e.g., after \code{chemspiderapi::get_queryID_results()}.
 }
 \details{
-If succesfull, returns either a base64-decoded character vector (\code{png = TRUE}) or a numeric (double) array (\code{png = TRUE}). Either of them can be written to the hard drive using \code{chemspiderapi::write_image()}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+If succesfull, returns a numeric (double) array.
 }
 \examples{
 \dontrun{
@@ -32,7 +26,6 @@ This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr
 recordId <- 2157L
 apikey <- "a_valid_ChemSpider_API_key"
 get_recordId_image(recordId = recordId, apikey = apikey)
-get_recordId_image(recordId = recordId, apikey = apikey, png = TRUE)
 }
 }
 \seealso{

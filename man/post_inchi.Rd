@@ -12,7 +12,7 @@ post_inchi(inchi, apikey)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-Return a query ID as character vector.
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST an InChI string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
@@ -20,11 +20,7 @@ Functionality to POST an InChI string to obtain a \code{queryId} for use in \cod
 \details{
 The validity criteria for InChI strings are outlined here: \url{https://www.inchi-trust.org/technical-faq/#2.8}. If certain criteria are not met by the input \code{inchi}, \code{chemspiderapi::post_inchi()} returns a warning message and \code{NA}, and does not perform an API query.\cr
 \cr
-If successful, returns the \code{queryId} as character string.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+If successful, returns the \code{queryId} as character string.
 }
 \examples{
 \dontrun{
@@ -35,4 +31,7 @@ post_inchi(inchi = inchi, apikey = apikey)}
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchi}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

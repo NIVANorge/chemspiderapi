@@ -27,109 +27,50 @@
 #' get_recordId_externalreferences(recordId = recordId, dataSources = dataSources, apikey = apikey)
 #' }
 #' @export 
-get_recordId_externalreferences <- function(recordId, dataSources = NULL, apikey, source = TRUE, sourceUrl = TRUE, externalUrl = TRUE) {
-  if (is.na(recordId)) {
-    warning("No \"recordId\" provided; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
-  }
+get_recordId_externalreferences <- function(recordId, dataSources, apikey, source = TRUE, sourceUrl = TRUE, externalUrl = TRUE) {
   
-  if (length(recordId) > 1) {
-    warning("This function can only handle a single \"recordId\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_character_)
-  }
+  check_recordId(recordId)
   
-  if (is.na(as.integer(recordId))) {
-    warning("Please use a valid \"recordId\"; returning NA.", call. = FALSE)
-    return(NA_character_)
-  }
+  check_dataSources(dataSources)
   
-  if (length(apikey) > 1L) {
-    warning("This function can only handle a single ChemSpider \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_character_)
-  }
-  
-  if (typeof(apikey) != "character") {
-    warning("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-    return(NA_character_)
-  }
-  
-  if (nchar(apikey) != 32L) {
-    warning("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-    return(NA_character_)
-  }
+  check_apikey(apikey)
   
   if (!is.null(dataSources)) {
-    dataSources <- paste(dataSources, collapse = ",")
+    if (length(dataSources) == 1) {
+      dataSources <- I(dataSources)
+    } else {
+      dataSources <- paste(dataSources, collapse = ",")
+    }
+    url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences?dataSources=", dataSources)
+  } else {
+    url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences")
   }
+
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  curlHeader <- list(`Content-Type` = "", apikey = apikey)
-  if (!is.null(dataSources)) {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences?dataSources=", dataSources)
-  }
+  handle <- curl::new_handle()
   
-  else {
-    curlUrl <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences")
-  }
+  curl::handle_setopt(handle, customrequest = "GET")
   
-  curlHandle <- curl::new_handle()
+  curl::handle_setheaders(handle, .list = header)
   
-  curl::handle_setopt(curlHandle, customrequest = "GET")
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  curl::handle_setheaders(curlHandle, .list = curlHeader)
+  check_status_code(raw_result$status_code)
   
-  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
-  
-  if (result$status_code != 200L) {
-    
-    error_message <- "\nNo ChemSpider Error Details were provided."
-    
-    if (result$status_code == 400L) {
-      error_message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
-    }
-    
-    if (result$status_code == 401L) {
-      error_message <- "\nChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    
-    if (result$status_code == 404L) {
-      error_message <- "\nChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    
-    if (result$status_code == 405L) {
-      error_message <- "\nChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    
-    if (result$status_code == 429L) {
-      error_message <- "\nChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    
-    if (result$status_code == 500L) {
-      error_message <- "\nChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    
-    if (result$status_code == 503L) {
-      error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", error_message)
-    
-    warning(message, call. = FALSE)
-    return(NA_character_)
-  }
-  
-  result <- rawToChar(result$content)
+  result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- unlist(result)
   
-  if (source == FALSE) {
+  if (isFALSE(source)) {
     result$source <- NULL
   }
   
-  if (sourceUrl == FALSE) {
+  if (isFALSE(sourceUrl)) {
     result$sourceUrl <- NULL
   }
   
-  if (externalUrl == FALSE) {
+  if (isFALSE(externalUrl)) {
     result$externalUrl <- NULL
   }
   
@@ -137,5 +78,5 @@ get_recordId_externalreferences <- function(recordId, dataSources = NULL, apikey
     result <- unlist(result)
   }
   
-  return(result)
+  result
 }

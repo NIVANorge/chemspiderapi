@@ -4,9 +4,9 @@
 \alias{post_intrinsicproperty}
 \title{POST an intrinsic property}
 \usage{
-post_intrinsicproperty(property, formula = NULL, complexity = "any",
-  isotopic = "any", mass = NULL, range = NULL,
-  orderBy = "recordId", orderDirection = "ascending", apikey)
+post_intrinsicproperty(property, formula, complexity = "any",
+  isotopic = "any", mass, range, orderBy = "recordId",
+  orderDirection = "ascending", apikey)
 }
 \arguments{
 \item{property}{See Details.}
@@ -28,7 +28,7 @@ post_intrinsicproperty(property, formula = NULL, complexity = "any",
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-Returns a query ID as character vector
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST an intrinsic property to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
@@ -46,11 +46,7 @@ You can use \code{orderBy} and \code{orderDirection} to specify the sort order f
 \cr
 Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}\cr
 \cr
-If successful, returns the \code{queryId} as character vector.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+If successful, returns the \code{queryId} as character vector.
 }
 \examples{
 \dontrun{
@@ -69,4 +65,7 @@ post_intrinsicproperty(property = property, mass = mass, range = range, apikey =
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/intrinsicproperty}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

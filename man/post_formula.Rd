@@ -4,7 +4,7 @@
 \alias{post_formula}
 \title{POST a chemical formula to obtain a query ID}
 \usage{
-post_formula(formula, dataSources = NULL, orderBy = "recordId",
+post_formula(formula, dataSources, orderBy = "recordId",
   orderDirection = "ascending", apikey)
 }
 \arguments{
@@ -19,7 +19,7 @@ post_formula(formula, dataSources = NULL, orderBy = "recordId",
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A character vector containing the query ID
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST a formula to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
@@ -33,11 +33,7 @@ Says ChemSpider:\cr
 \cr
 \emph{"If dataSources is not specified, all known sources are searched. This will take longer."}\cr
 \cr
-If successful, returns the \code{queryId} as character string.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+If successful, returns the \code{queryId} as character string.
 }
 \examples{
 \dontrun{
@@ -49,4 +45,7 @@ post_formula(formula = formula, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/formula}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

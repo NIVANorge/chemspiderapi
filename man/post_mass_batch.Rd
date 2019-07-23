@@ -4,7 +4,7 @@
 \alias{post_mass_batch}
 \title{POST a batch of monoisotopic masses and their ranges to obtain a query ID}
 \usage{
-post_mass_batch(mass, range, dataSources = NULL, orderBy = "recordId",
+post_mass_batch(mass, range, dataSources, orderBy = "recordId",
   orderDirection = "ascending", apikey)
 }
 \arguments{
@@ -21,7 +21,7 @@ post_mass_batch(mass, range, dataSources = NULL, orderBy = "recordId",
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-Returns a query ID as character vector
+Returns the queryId string as (named) character vector.
 }
 \description{
 Functionality to POST up to 20 monoisotopic masses and their range to obtain a \code{queryId} for use in \code{chemspiderapi::get_mass_batch_queryId_status()} and \code{chemspiderapi::get_mass_batch_queryId_results()}.
@@ -37,11 +37,7 @@ Valid values for \code{orderBy} are \code{recordId}, \code{massDefect}, \code{mo
 \cr
 Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}\cr
 \cr
-If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspider::get_mass_batch_queryId_status()} and \code{chemspideR::get_mass_batch_queryId_results()}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspider::get_mass_batch_queryId_status()} and \code{chemspideR::get_mass_batch_queryId_results()}.
 }
 \examples{
 \dontrun{
@@ -54,4 +50,7 @@ post_mass_batch(mass = mass, range = range, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/filter/mass/batch}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

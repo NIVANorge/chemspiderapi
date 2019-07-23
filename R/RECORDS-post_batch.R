@@ -27,102 +27,46 @@
 #' }
 #' @export
 post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
-  if (is.na(recordIds)) {
-    warning("No \"recordIds\" provided; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
-  }
   
-  if (length(recordIds) == 1) {
-    warning("This function is meant for handling multiple \"recordIds\"; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
-  }
+  check_recordIds(recordIds)
   
-  if (length(recordIds) > 100) {
-    warning("Only up to 100 \"recordIds\" are allowed; returning \"NA\".", call. = FALSE)
-    return(NA_character_)
-  }
+  check_fields(fields)
   
-  if (length(apikey) > 1L) {
-    warning("This function can only handle a single ChemSpider \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA_character_)
-  }
+  check_apikey(apikey)
   
-  if (typeof(apikey) != "character") {
-    warning("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-    return(NA_character_)
-  }
-  
-  if (nchar(apikey) != 32L) {
-    warning("Please use a valid 32-character ChemSpider \"apikey\".", call. = FALSE)
-    return(NA_character_)
-  }
-  
-  if (length(fields) == 1 && fields == "all") {
-    fields <- c("SMILES", "Formula", "AverageMass", "MolecularWeight", "MonoisotopicMass", "NominalMass", "CommonName", "ReferenceCount", "DataSourceCount", "PubMedCount", "RSCCount", "Mol2D", "Mol3D")
-  }
-  
-  if (length(fields) == 1) {
-    fields <- I(fields)
-  }
-  
-  curlData <- list(recordIds = recordIds, fields = fields)
-  curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  
-  curlHeader <- list(`Content-Type` = "", apikey = apikey)
-  
-  curlUrl <- "https://api.rsc.org/compounds/v1/records/batch"
-  
-  curlHandle <- curl::new_handle()
-  
-  curl::handle_setopt(curlHandle, customrequest = "POST", postfields = curlData)
-  
-  curl::handle_setheaders(curlHandle, .list = curlHeader)
-  
-  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
-  
-  if (result$status_code != 200L) {
-    
-    error_message <- "\nNo ChemSpider Error Details were provided."
-    
-    if (result$status_code == 400L) {
-      error_message <- "\nChemSpider Response Error Details: \"400: Bad Request. Check the request you sent and try again.\"."
+  if (length(fields) == 1L) {
+    if (fields == "all") {
+      fields <- I("SMILES,Formula,InChI,InChIKey,StdInChI,StdInChIKey,AverageMass,MolecularWeight,MonoisotopicMass,NominalMass,CommonName,ReferenceCount,DataSourceCount,PubMedCount,RSCCount,Mol2D,Mol3D")
+    } else {
+      fields <- I(fields)
     }
-    
-    if (result$status_code == 401L) {
-      error_message <- "\nChemSpider Response Error Details: \"401: Unauthorized. Check you have supplied the correct API key and that you have sent it as an HTTP Header called 'apikey'.\"."
-    }
-    
-    if (result$status_code == 404L) {
-      error_message <- "\nChemSpider Response Error Details: \"404: Not Found. The requested endpoint URL is not recognized. Change your request and try again.\"."
-    }
-    
-    if (result$status_code == 405L) {
-      error_message <- "\nChemSpider Response Error Details: \"405: Method Not Allowed. The verb is incorrect for the endpoint. Change your request and try again.\"."
-    }
-    
-    if (result$status_code == 429L) {
-      error_message <- "\nChemSpider Response Error Details: \"429: Too Many Requests. Send fewer requests, or use rate-limiting to slow them down, then try again.\"."
-    }
-    
-    if (result$status_code == 500L) {
-      error_message <- "\nChemSpider Response Error Details: \"500: Internal Server Error. Wait and try again.\"."
-    }
-    
-    if (result$status_code == 503L) {
-      error_message <- "\nChemSpider Response Error Details: \"503: Service Unavailable. Wait and try again.\"."
-    }
-    
-    message <- paste0("No valid results were obtained; returning \"NA\".\nCarefully check the \"inchikey\" and the validity of the \"apikey\".", error_message)
-    
-    warning(message, call. = FALSE)
-    return(NA_character_)
+  } else {
+    fields <- paste(fields, collapse = ",")
   }
   
-  result <- rawToChar(result$content)
+  data <- list("recordIds" = recordIds, "fields" = fields)
+  
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  
+  header <- list("Content-Type" = "", "apikey" = apikey)
+  
+  url <- "https://api.rsc.org/compounds/v1/records/batch"
+  
+  handle <- curl::new_handle()
+  
+  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
+  
+  curl::handle_setheaders(handle, .list = header)
+  
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
+  
+  check_status_code(raw_result$status_code)
+  
+  result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(unlist(result), stringsAsFactors = FALSE)
   
-  if (id == FALSE) {
+  if (isFALSE(id)) {
     result$id <- NULL
   }
   
@@ -130,5 +74,6 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
     result <- unlist(result)
     result <- unname(result)
   }
-  return(result)
+  
+  result
 }

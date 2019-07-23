@@ -16,7 +16,7 @@ get_recordId_details(recordId, fields = "all", apikey, id = TRUE)
 \item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output?}
 }
 \value{
-A \code{data.frame} if multiple columns are returned, or a named vector of the appropriate type if only one \code{field} is returned.
+A \code{data.frame} if multiple columns are returned, or a (named) vector of the appropriate type if only one \code{field} is returned.
 }
 \description{
 This function is used to return record details from ChemSpider.
@@ -24,11 +24,7 @@ This function is used to return record details from ChemSpider.
 \details{
 The available options for \code{fields} are: \code{"SMILES"}, \code{"Formula"}, \code{"AverageMass"}, \code{"MolecularWeight"}, \code{"MonoisotopicMass"}, \code{"NominalMass"}, \code{"CommonName"}, \code{"ReferenceCount"}, \code{"DataSourceCount"}, \code{"PubMedCount"}, \code{"RSCCount"}, \code{"Mol2D"}, \code{"Mol3D"}, and \code{"all"}.\cr
 \cr
-If successful, returns either a \code{data.frame} of results from the query with the requested fields; if only one paraemeter is returned, this is then transformed into a vector.\cr
-\cr
-If not successful, it returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_*()}.
+If successful, returns either a \code{data.frame} of results from the query with the requested fields; if only one paraemeter is returned, this is then transformed into a vector.
 }
 \examples{
 \dontrun{
@@ -42,4 +38,7 @@ get_recordId_details(recordId = recordId,
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

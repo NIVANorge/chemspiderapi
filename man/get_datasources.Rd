@@ -2,7 +2,7 @@
 % Please edit documentation in R/LOOKUPS-get_datasources.R
 \name{get_datasources}
 \alias{get_datasources}
-\title{GET a all external ChemSpider data sources}
+\title{Get External ChemSpider Data Sources}
 \usage{
 get_datasources(apikey)
 }
@@ -13,14 +13,14 @@ get_datasources(apikey)
 A unnamed character vector, length > 350
 }
 \description{
-Returns a listing of all external ChemSpider data sources.
+Returns a vectorized list of all external ChemSpider data sources.
 }
 \details{
-If succesfull, return a character vector listing all available (external) data sources.\cr
+If succesfull, returns a character vector listing all available (external) ChemSpider data sources.\cr
 \cr
-If not succesfull, returns a warning and \code{NA}.\cr
+If not succesfull, returns an error.\cr
 \cr
-This function is most useful for narrowing down \code{dataSources} in other \code{chemspiderapi} functions, e.g., \code{chemspiderapi::get_references()}.
+This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, e.g., \code{chemspiderapi::get_references()}.
 }
 \examples{
 \dontrun{
@@ -31,4 +31,7 @@ get_datasources(apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

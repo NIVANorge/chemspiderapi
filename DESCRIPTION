@@ -1,22 +1,31 @@
 Package: chemspiderapi
 Type: Package
-Title: R wrapper for ChemSpider's new API services
-Version: 0.0.1.0000
+Title: R Wrapper for ChemSpider's New API Services
+Version: 0.0.1.0005
 Authors@R: person("Raoul", "Wolf", email = "raoul.wolf@niva.no", role = c("aut", "cre"))
 Description: ChemSpider has announced a fundamental change to the syntax of their API services in late 2018.
-    This package provides convenience wrappers for the new API functionalities of ChemSpider, as well as complementary functions, e.g., to save pictures or MOL files.
+    This package provides convenience wrappers for the new API functionalities of ChemSpider, as well as complementary functions, e.g., to save .png pictures or .mol/.sdf files.
 License: MIT + file LICENSE
+Depends: R (>= 3.5.0)
 Imports: 
     curl, 
-    jsonlite,
-    png
+    jsonlite
 Suggests: 
+    dplyr,
     keyring,
+    knitr,
+    magick,
+    magrittr,
     memoise,
+    purrr,
     ratelimitr,
-    testthat
+    rmarkdown,
+    testthat,
+    tibble,
+    tidyr
 URL: https://github.com/NIVANorge/chemspiderapi
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr

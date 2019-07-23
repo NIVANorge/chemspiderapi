@@ -1,103 +1,49 @@
-#' Validate an InChIKey
-#' 
-#' Functionality to check the validity of an InChIKey.
-#' 
-#' If successful (i.e., the InChIKey is valid), returns \code{TRUE}.\cr
+#' @title Validate an InChIKey
+#' @description Functionality to check the validity of an InChIKey.
+#' @details If successful (i.e., the InChIKey is valid), returns \code{TRUE}.\cr
 #' \cr
 #' If not successful (i.e., the InChIKey is not valid), returns \code{FALSE}.\cr
 #' \cr
-#' Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.\cr
-#' \cr
-#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
-#' 
+#' Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.
 #' @param inchikey A 27-character InChIKey to be validated.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @return A logical indicating the validity of the POSTed InChIKey
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/tools/validate/inchikey}
-#' @examples
-#' \dontrun{
+#' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
+#' @examples \dontrun{
 #' ## validate the InChIKey of aspirin
 #' inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
 #' apikey <- "a_valid_ChemSpider_API_key"
 #' post_validate_inchikey(inchikey = inchikey, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON toJSON
 #' @export
 post_validate_inchikey <- function(inchikey, apikey) {
   
-  if (is.na(inchikey)) {
-    warning("\"input\" is missing; returning \"NA\".", call. = FALSE)
-    return(NA)
-  }
+  check_inchikey(inchikey)
   
-  if (length(inchikey) > 1) {
-    warning("This function can only handle a single \"inchikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA)
-  }
+  check_apikey(apikey)
   
-  if (nchar(inchikey) != 27) {
-    warning("The provided \"inchikey\" should be a 27-character vector; not performing API query.", call. = FALSE)
-    return(FALSE)
-  }
+  data <- list("inchikey" = inchikey)
   
-  if (length(unlist(strsplit(inchikey, split = "-"))) != 3) {
-    warning("The provided \"inchikey\" should be hyphen-divided into three parts; not performing API query.", call. = FALSE)
-    return(FALSE)
-  }
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[1]) != 14) {
-    warning("The first part of the \"inchikey\" should be 14 characters long; not performing API query.", call. = FALSE)
-    return(FALSE)
-  }
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[2]) != 10) {
-    warning("The first part of the \"inchikey\" should be 10 characters long; not performing API query.", call. = FALSE)
-    return(FALSE)
-  }
+  url <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
   
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[3]) != 1) {
-    warning("The third part of the \"inchikey\" should be 1 character long; not performing API query.", call. = FALSE)
-    return(FALSE)
-  }
+  handle <- curl::new_handle()
   
-  if (length(apikey) > 1L) {
-    warning("This function can only handle a single \"apikey\" entry; returning \"NA\".\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
-    return(NA)
-  }
+  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
   
-  if (typeof(apikey) != "character") {
-    warning("The ChemSpider \"apikey\" should be a 32-character string.", call. = FALSE)
-    return(NA)
-  }
+  curl::handle_setheaders(handle, .list = header)
   
-  if (nchar(apikey) != 32L) {
-    warning("Please use a valid 32 character ChemSpider \"apikey\".", call. = FALSE)
-    return(NA)
-  }
-  
-  if (substr(unlist(strsplit(inchikey, split = "-"))[2], start = 9L, stop = 9L) != "S") {
-    warning("This is not a standard \"inchikey\"; performing query regardless.", call. = FALSE)
-  }
-  
-  curlData <- list(inchikey = inchikey)
-  curlData <- jsonlite::toJSON(curlData, auto_unbox = TRUE)
-  
-  curlHeader <- list(`Content-Type` = "", apikey = apikey)
-  
-  curlUrl <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
-  
-  curlHandle <- curl::new_handle()
-  
-  curl::handle_setopt(curlHandle, customrequest = "POST", postfields = curlData)
-  
-  curl::handle_setheaders(curlHandle, .list = curlHeader)
-  
-  result <- curl::curl_fetch_memory(url = curlUrl, handle = curlHandle)
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
   if (result$status_code == 200) {
-    return(TRUE)
-  }
-  
-  else {
-    return(FALSE)
+    TRUE
+  } else {
+    FALSE
   }
 }
