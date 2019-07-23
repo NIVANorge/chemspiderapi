@@ -31,7 +31,7 @@ get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
 
   if (length(fields) == 1L) {
     if (fields == "all") {
-      fields <- "SMILES,Formula,AverageMass,MolecularWeight,MonoisotopicMass,NominalMass,CommonName,ReferenceCount,DataSourceCount,PubMedCount,RSCCount,Mol2D,Mol3D"
+      fields <- "SMILES,Formula,InChI,InChIKey,StdInChI,StdInChIKey,AverageMass,MolecularWeight,MonoisotopicMass,NominalMass,CommonName,ReferenceCount,DataSourceCount,PubMedCount,RSCCount,Mol2D,Mol3D"
     } else {
       fields <- fields
     }

@@ -36,15 +36,15 @@ post_batch <- function(recordIds, fields = "all", apikey, id = TRUE) {
   
   if (length(fields) == 1L) {
     if (fields == "all") {
-      fields <- "SMILES,Formula,AverageMass,MolecularWeight,MonoisotopicMass,NominalMass,CommonName,ReferenceCount,DataSourceCount,PubMedCount,RSCCount,Mol2D,Mol3D"
+      fields <- I("SMILES,Formula,InChI,InChIKey,StdInChI,StdInChIKey,AverageMass,MolecularWeight,MonoisotopicMass,NominalMass,CommonName,ReferenceCount,DataSourceCount,PubMedCount,RSCCount,Mol2D,Mol3D")
     } else {
-      fields <- fields
+      fields <- I(fields)
     }
   } else {
     fields <- paste(fields, collapse = ",")
   }
   
-  data <- list(recordIds = recordIds, fields = fields)
+  data <- list("recordIds" = recordIds, "fields" = fields)
   
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   

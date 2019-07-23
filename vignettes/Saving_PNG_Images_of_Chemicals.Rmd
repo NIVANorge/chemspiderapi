@@ -14,16 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(chemspiderapi)
-```
+ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the` get_recordId_image()` function. These image files can also be stored straight from R.
 
-
-## Visualizing and saving .png images of chemicals
-
-This vignette briefly explains how to visualize and save .png files as returned by `chemspiderapi::get_recordId_image()`. 
-
-### Installing the required `png` package
+### Installing the required `magick` package
 
 Before downloading an example image for caffein (ChemSpider ID 2424), the `magic` package needs to be installed.
 
@@ -31,30 +24,42 @@ Before downloading an example image for caffein (ChemSpider ID 2424), the `magic
 install.packages("magick")
 ```
 
-### Downloading the .png image of caffeine
+### Downloading the PNG image of caffeine
 
+First, the `chemspiderapi` package needs to be loaded and the apikey needs to be retrieved.
 
-```{r,eval=FALSE}
-library(keyring)
-library(magick)
+```{r setup}
+library(chemspiderapi)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
-
-caffein_image_raw <- chemspiderapi::get_recordId_image(recordId = 2424, apikey = apikey)
-
-caffein_png <- magick::image_read(caffein_image_raw)
 ```
+
+Now, the "raw" image file is downloaded using `get_recordId_image()`.
+```{r,eval=FALSE}
+caffein_image_raw <- get_recordId_image(recordId = 2424, apikey = apikey)
+```
+
+Next, the image needs to be read in using the `magick::image_read()` functionality.
+```{r,eval=FALSE}
+library(magick)
+
+caffein_png <- image_read(caffein_image_raw)
+```
+
 
 ### Viewing the image
 
+The loaded image can be viewed by calling the object. 
 ```{r,eval=FALSE}
 caffein_png
 ```
 
 
-### Saving the .png image
+### Saving the PNG image
+
+Saving the image is possible using the `magick::image_write()` function.
 
 ```{r,eval=FALSE}
-magick::image_write(caffein_png, path = "caffein.png")
+image_write(caffein_png, path = "caffein.png")
 ```
 

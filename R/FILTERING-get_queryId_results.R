@@ -30,7 +30,7 @@
 #' get_queryId_results(queryId = queryId, status = status, apikey = apikey)
 #' }
 #' @export
-get_queryId_results <- function(queryId, status, start, count, apikey) {
+get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
   
   check_queryId(queryId)
   
@@ -68,9 +68,9 @@ get_queryId_results <- function(queryId, status, start, count, apikey) {
   
   check_status_code(raw_result$status_code)
   
-  if (raw_result$limitedToMaxAllowed == TRUE) {
-    warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
-  }
+  # if (isTRUE(raw_result$limitedToMaxAllowed)) {
+  #   warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
+  # }
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
