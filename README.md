@@ -7,6 +7,8 @@ chemspiderapi
 status](https://ci.appveyor.com/api/projects/status/github/RaoulWolf/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/RaoulWolf/chemspiderapi)
 [![Travis build
 status](https://travis-ci.org/RaoulWolf/chemspiderapi.svg?branch=master)](https://travis-ci.org/RaoulWolf/chemspiderapi)
+[![Codecov test
+coverage](https://codecov.io/gh/RaoulWolf/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/RaoulWolf/chemspiderapi?branch=master)
 <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -189,4 +191,4 @@ Mixtures and Multiple Stressors
 
 ## License
 
-MIT © Raoul Wolf
+MIT Â© Raoul Wolf
