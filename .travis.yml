@@ -7,3 +7,4 @@ addons:
   apt:
     packages:
       - libsodium-dev
+      - libmagick++-dev
