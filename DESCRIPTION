@@ -11,6 +11,7 @@ Imports:
     curl, 
     jsonlite
 Suggests: 
+    covr,
     keyring,
     knitr,
     magick,
