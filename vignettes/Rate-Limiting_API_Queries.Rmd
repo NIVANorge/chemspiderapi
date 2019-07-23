@@ -100,14 +100,9 @@ demo_chemicals
 
 In the `tidyverse` ecosystem, all relevant `chemspiderapi` functions can be used in functional programming approaches using the `purrr::map()` family. `purrr::slowly()` can be used to limit the number of calls of `chemspiderapi` functions in a given time interval.
 
-```{r}
+```{r,eval=FALSE}
 ## Loading the tidyverse package family
-# library(tidyverse)
-library(magrittr)
-library(tibble)
-library(dplyr)
-library(purrr)
-library(tidyr)
+library(tidyverse)
 
 ## Note that the API key is already available from the previous example!
 
