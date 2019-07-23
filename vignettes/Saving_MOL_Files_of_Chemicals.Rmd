@@ -20,7 +20,7 @@ MOL files are returned by multiple possible API queries. Most obivously by `get_
 
 For demonstration purposes, we will work with the MOL file for caffeine. Before starting, we need to load the `chemspiderapi` package and retrieve the API key. See the seperate vignette "Storing and Accessing API Keys" for details on handling API keys using the `keyring` package.
 
-```{r setup}
+```{r,eval=FALSE}
 library(chemspiderapi)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))

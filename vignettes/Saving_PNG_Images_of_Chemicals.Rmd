@@ -28,7 +28,7 @@ install.packages("magick")
 
 First, the `chemspiderapi` package needs to be loaded and the apikey needs to be retrieved.
 
-```{r setup}
+```{r,eval=FALSE}
 library(chemspiderapi)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))

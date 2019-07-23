@@ -2,9 +2,22 @@
 
 language: R
 cache: packages
+latex: false
+fortran: false
+
+matrix:
+  include: 
+    - dist: trusty
+    - dist: xenial
+    - dist: bionic
+    - os: osx
+      brew_packages: imagemagick libsodium
+    - os: osx
+      brew_packages: imagemagick@6 libsodium
 
 addons:
   apt:
+    update: true
     packages:
       - libsodium-dev
       - libmagick++-dev

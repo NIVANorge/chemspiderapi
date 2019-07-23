@@ -41,7 +41,7 @@ demo_chemicals
 
 In `base` R, the the functionalities from the `ratelimitr` package will be used to rate-limit `chemspiderapi` functions. These rate-limited functions can then be used in, for example, the `apply()` family . Before diving into the rate-limiting, the API key needs to be retrieved.
 
-```{r}
+```{r,eval=FALSE}
 ## Retrieving the API key from the keyring package.
 ## Note that the keyring package is not loaded, but only the keyring::key_get() function is called.
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
