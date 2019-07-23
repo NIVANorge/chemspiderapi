@@ -1,6 +1,14 @@
 chemspiderapi
 ================
 
+<!-- badges: start -->
+
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/RaoulWolf/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/RaoulWolf/chemspiderapi)
+[![Travis build
+status](https://travis-ci.org/RaoulWolf/chemspiderapi.svg?branch=master)](https://travis-ci.org/RaoulWolf/chemspiderapi)
+<!-- badges: end -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 > R functionalities for ChemSpider’s new API services
@@ -78,7 +86,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of
 
 ## Coverage
 
-As of 2019-07-22, the following functionalities are implemented (100%
+As of 2019-07-23, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 
@@ -181,4 +189,4 @@ Mixtures and Multiple Stressors
 
 ## License
 
-MIT © Raoul Wolf
+MIT Â© Raoul Wolf
