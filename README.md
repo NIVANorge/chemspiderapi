@@ -189,4 +189,4 @@ Mixtures and Multiple Stressors
 
 ## License
 
-MIT Â© Raoul Wolf
+MIT © Raoul Wolf
