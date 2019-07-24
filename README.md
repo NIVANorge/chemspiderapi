@@ -55,14 +55,14 @@ installed alongside [devtools](https://github.com/r-lib/devtools)):
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("NIVANorge/chemspiderapi")
+remotes::install_github("RaoulWolf/chemspiderapi")
 ```
 
 The development version can be installed with:
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
+remotes::install_github("RaoulWolf/chemspiderapi", ref = "dev")
 ```
 
 Currently the only tested environment for `chemspiderapi` is Windows 10
@@ -88,7 +88,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of
 
 ## Coverage
 
-As of 2019-07-23, the following functionalities are implemented (100%
+As of 2019-07-24, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 
