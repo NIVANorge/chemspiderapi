@@ -2,9 +2,10 @@
 % Please edit documentation in R/RECORDS-post_batch.R
 \name{post_batch}
 \alias{post_batch}
-\title{POST a batch of ChemSpider IDs}
+\title{Post a batch of ChemSpider record IDs}
 \usage{
-post_batch(recordIds, fields = "all", apikey, id = TRUE)
+post_batch(recordIds, fields = "all", apikey, id = TRUE,
+  simplify_formula = TRUE)
 }
 \arguments{
 \item{recordIds}{A vector of integer ChemSpider IDs.}
@@ -13,33 +14,32 @@ post_batch(recordIds, fields = "all", apikey, id = TRUE)
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
-\item{id}{\code{logical}: Should the record ID be returned (ChemSpider default)?}
+\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{FALSE}.}
+
+\item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.}
 }
 \value{
 A data frame (if multiple fields are returned), or a vector of adequate type if only one field is requiered.
 }
 \description{
-POST a batch query of up to 100 ChemSpider record IDs.
+Post a batch query of up to 100 ChemSpider record IDs.
 }
 \details{
-The available options for \code{fields} are: \code{"SMILES"}, \code{"Formula"}, \code{"AverageMass"}, \code{"MolecularWeight"}, \code{"MonoisotopicMass"}, \code{"NominalMass"}, \code{"CommonName"}, \code{"ReferenceCount"}, \code{"DataSourceCount"}, \code{"PubMedCount"}, \code{"RSCCount"}, \code{"Mol2D"}, \code{"Mol3D"}, and \code{"all"} (default).\cr
+"The available fields are: SMILES, Formula, InChI, InChIKey, StdInChI, StdInChIKey, AverageMass, MolecularWeight, MonoisotopicMass, NominalMass, CommonName, ReferenceCount, DataSourceCount, PubMedCount, RSCCount, Mol2D, Mol3D."\cr
 \cr
-If a \code{recordId} is not found, it is silently dropped.\cr
-\cr
-If successful, returns a data frame with each row being a \code{recordId} and each column being one of \code{fields}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+If a \code{recordId} is not found, it is silently dropped.
 }
 \examples{
 \dontrun{
-## POST a query for the first 50 ChemSpider entries.
+## Post a query for the first 50 ChemSpider entries.
 recordIds <- 1:50
 apikey <- "a valid 32-character ChemSpider apikey"
-post_batch(recordIds = recordIds, apikey = apikey, id = FALSE)
+post_batch(recordIds = recordIds, apikey = apikey)
 }
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/post/records/batch}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

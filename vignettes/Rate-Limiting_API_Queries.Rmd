@@ -150,7 +150,7 @@ The id column contains the ChemSpider IDs for the five chemicals; or rather thei
 slowly_get_recordId_details <- slowly(get_recordId_details, rate = rate_delay(pause = 4), quiet = FALSE)
 
 tidyverse_demo <- tidyverse_demo %>% 
-  mutate(details = map(id, ~ slowly_get_recordId_details(id = .x, apikey = apikey, id = FALSE))) %>% 
+  mutate(details = map(id, ~ slowly_get_recordId_details(recordId = .x, apikey = apikey, id = FALSE))) %>% 
   unnest(details)
 
 tidyverse_demo

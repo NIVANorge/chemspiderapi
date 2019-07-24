@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-post_mass_batch.R
 \name{post_mass_batch}
 \alias{post_mass_batch}
-\title{POST a batch of monoisotopic masses and their ranges to obtain a query ID}
+\title{Post a batch of monoisotopic masses and their ranges to obtain a query ID}
 \usage{
 post_mass_batch(mass, range, dataSources, orderBy = "recordId",
   orderDirection = "ascending", apikey)
@@ -24,25 +24,21 @@ post_mass_batch(mass, range, dataSources, orderBy = "recordId",
 Returns the queryId string as (named) character vector.
 }
 \description{
-Functionality to POST up to 20 monoisotopic masses and their range to obtain a \code{queryId} for use in \code{chemspiderapi::get_mass_batch_queryId_status()} and \code{chemspiderapi::get_mass_batch_queryId_results()}.
+Functionality to post up to 20 monoisotopic masses and their range to obtain a \code{queryId} for use in \code{chemspiderapi::get_mass_batch_queryId_status()} and \code{chemspiderapi::get_mass_batch_queryId_results()}.
 }
 \details{
-Says Chemspider:\cr
-\cr
 \emph{"If \code{dataSources} is not specified, all known sources are searched. This will take longer.\cr
 \cr
 Optionally, you can also submit \code{orderBy} and \code{orderDirection} to specify the sort order for the results. If you do not specify a value for \code{orderBy}, results are sorted by \code{recordId} by default.\cr
 \cr
 Valid values for \code{orderBy} are \code{recordId}, \code{massDefect}, \code{molecularWeight}, \code{referenceCount}, \code{dataSourceCount}, \code{pubMedCount}, \code{rscCount}.\cr
 \cr
-Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}\cr
-\cr
-If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspider::get_mass_batch_queryId_status()} and \code{chemspideR::get_mass_batch_queryId_results()}.
+Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}
 }
 \examples{
 \dontrun{
-## POST two atomic (monoisotopic) masses and their ranges
-mass <- c(180, 246)
+## Post two atomic (monoisotopic) masses and their ranges
+mass <- c(194, 303)
 range <- c(0.0005, 0.001)
 apikey <- "a valid 32-character ChemSpider apikey"
 post_mass_batch(mass = mass, range = range, apikey = apikey)

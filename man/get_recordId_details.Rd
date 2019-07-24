@@ -2,9 +2,10 @@
 % Please edit documentation in R/RECORDS-get_recordId_details.R
 \name{get_recordId_details}
 \alias{get_recordId_details}
-\title{GET the record details for a compound from ChemSpider}
+\title{Get details for a ChemSpider record}
 \usage{
-get_recordId_details(recordId, fields = "all", apikey, id = TRUE)
+get_recordId_details(recordId, fields = "all", apikey, id = FALSE,
+  simplify_formula = TRUE)
 }
 \arguments{
 \item{recordId}{A valid (integer) ChemSpider ID.}
@@ -13,23 +14,25 @@ get_recordId_details(recordId, fields = "all", apikey, id = TRUE)
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
-\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output?}
+\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{FALSE}.}
+
+\item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.}
 }
 \value{
-A \code{data.frame} if multiple columns are returned, or a (named) vector of the appropriate type if only one \code{field} is returned.
+A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.
 }
 \description{
-This function is used to return record details from ChemSpider.
+This function returns record details from ChemSpider.
 }
 \details{
-The available options for \code{fields} are: \code{"SMILES"}, \code{"Formula"}, \code{"AverageMass"}, \code{"MolecularWeight"}, \code{"MonoisotopicMass"}, \code{"NominalMass"}, \code{"CommonName"}, \code{"ReferenceCount"}, \code{"DataSourceCount"}, \code{"PubMedCount"}, \code{"RSCCount"}, \code{"Mol2D"}, \code{"Mol3D"}, and \code{"all"}.\cr
+"Call this endpoint with a Record ID as an integer.\cr
 \cr
-If successful, returns either a \code{data.frame} of results from the query with the requested fields; if only one paraemeter is returned, this is then transformed into a vector.
+The available fields are: SMILES, Formula, InChI, InChIKey, StdInChI, StdInChIKey, AverageMass, MolecularWeight, MonoisotopicMass, NominalMass, CommonName, ReferenceCount, DataSourceCount, PubMedCount, RSCCount, Mol2D, Mol3D."
 }
 \examples{
 \dontrun{
-## GET the record details for aspirin
-recordId <- 2157L
+## Get the record details for caffeine
+recordId <- 2424L
 apikey <- "A valid 32-character Chemspider API key"
 get_recordId_details(recordId = recordId, 
                      fields = c("SMILES", "Formula", "MolecularWeight", "CommonName"), 

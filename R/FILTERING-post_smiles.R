@@ -1,13 +1,13 @@
-#' @title POST a SMILES string
-#' @description Functionality to POST a SMILES string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
+#' @title Post a SMILES string
+#' @description Functionality to post a SMILES string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
 #' @details If successful, returns the \code{queryId} as character string.\cr
 #' @param smiles A SMILES character string.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/smiles}
 #' @examples \dontrun{
-#' ## POST the SMILES string of aspirin to get a queryId
-#' smiles <- "CC(=O)OC1=CC=CC=C1C(=O)O"
+#' ## post the SMILES string of caffeine to get a queryId
+#' smiles <- "Cn1cnc2c1c(=O)n(c(=O)n2C)C"
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_smiles(smiles = smiles, apikey = apikey)
 #' }
@@ -39,7 +39,9 @@ post_smiles <- function(smiles, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

@@ -1,18 +1,14 @@
 #' @title Validate an InChIKey
 #' @description Functionality to check the validity of an InChIKey.
-#' @details If successful (i.e., the InChIKey is valid), returns \code{TRUE}.\cr
-#' \cr
-#' If not successful (i.e., the InChIKey is not valid), returns \code{FALSE}.\cr
-#' \cr
-#' Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.
-#' @param inchikey A 27-character InChIKey to be validated.
+#' @details Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.
+#' @param inchikey A 25- or 27-character InChIKey to be validated.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @return A logical indicating the validity of the POSTed InChIKey
+#' @return A logical indicating the validity of the InChIKey
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/tools/validate/inchikey}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## validate the InChIKey of aspirin
-#' inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
+#' ## validate the InChIKey of caffeine
+#' inchikey <- "RYYVLZVUVIJVGH-UHFFFAOYSA-N"
 #' apikey <- "a_valid_ChemSpider_API_key"
 #' post_validate_inchikey(inchikey = inchikey, apikey = apikey)
 #' }
@@ -41,7 +37,7 @@ post_validate_inchikey <- function(inchikey, apikey) {
   
   result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  if (result$status_code == 200) {
+  if (result$status_code == 200L) {
     TRUE
   } else {
     FALSE

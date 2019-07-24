@@ -2,7 +2,7 @@
 % Please edit documentation in R/RECORDS-get_recordId_externalreferences.R
 \name{get_recordId_externalreferences}
 \alias{get_recordId_externalreferences}
-\title{GET external references of a record ID}
+\title{Get external references of a record ID}
 \usage{
 get_recordId_externalreferences(recordId, dataSources, apikey,
   source = TRUE, sourceUrl = TRUE, externalUrl = TRUE)
@@ -27,18 +27,12 @@ Either a data frame (if no options are dropped) or a character/integer vector, d
 GET a list of external references for a ChemSpider ID.
 }
 \details{
-It is recommended to specify which \code{dataSources} to load, as some substances have a substantial amount of references (>10'000). Use \code{chemspiderapi::get_datasources()} for a complete list of the >300 \code{dataSources}.\cr
-\cr
-If successful, returns a data frame with four columns: \code{source}, \code{sourceUrl}, \code{externalId}, and \code{externalUrl}; unless any of them are removed by setting them to \code{FALSE} in the function call. In case only one parameter, e.g. the external ID, is returned, the result is a vector.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
+It is recommended to specify which \code{dataSources} to load, as some substances have a substantial amount of references (>10'000). Use \code{chemspiderapi::get_datasources()} for a complete list of the >350 \code{dataSources}.
 }
 \examples{
 \dontrun{
-## GET the PubChem external reference for aspirin
-recordId <- 2157L
+## Get the PubChem external reference for caffeine
+recordId <- 2424L
 dataSources <- "PubChem"
 apikey <- "a valid 32-character ChemSpider apikey"
 get_recordId_externalreferences(recordId = recordId, dataSources = dataSources, apikey = apikey)

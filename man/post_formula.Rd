@@ -37,8 +37,8 @@ If successful, returns the \code{queryId} as character string.
 }
 \examples{
 \dontrun{
-## POST the formula of Aspirin to get a query ID
-formula <- "C9H8O4"
+## POST the formula of caffeine to get a query ID
+formula <- "C8H10N4O2"
 apikey <- "a valid 32-character ChemSpider apikey"
 post_formula(formula = formula, apikey = apikey)
 }

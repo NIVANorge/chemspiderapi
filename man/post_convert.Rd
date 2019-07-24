@@ -22,29 +22,9 @@ A character string with the desired converted identifier
 Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
 }
 \details{
-Submit an identifier (SMILES, InChI, InChIKey or Mol) as a character string and return an identifier in another format (SMILES, InChI, InChIKey or Mol).\cr
+"Specify the input format as a string called 'inputFormat', and the output as a string called 'outputFormat'. Allowed conversions: from InChI to InChI Key, from InChI to Mol file, from InChI to SMILES, from InChIKey to InChI, from InChI Key to Mol file, from Mol file to InChI, from Mol file to InChI Key, from SMILES to InChI."\cr
 \cr
-Allowed conversions:\cr
-\cr
-from \code{InChI} to \code{InChIKey}\cr
-\cr
-from \code{InChI} to \code{Mol}\cr
-\cr
-from \code{InChI} to \code{SMILES}\cr
-\cr
-from \code{InChIKey} to \code{InChI}\cr
-\cr
-from \code{InChIKey} to \code{Mol}\cr
-\cr
-from \code{Mol} to \code{InChI}\cr
-\cr
-from \code{Mol} to \code{InChIKey}\cr
-\cr
-from \code{SMILES} to \code{InChI}\cr
-\cr
-Note: The identifier names are NOT case sensitive!\cr
-\cr
-If successful, performs the desired conversion and stores the result as a named ("output") character string.\cr
+The identifier names are NOT case sensitive!
 }
 \examples{
 \dontrun{

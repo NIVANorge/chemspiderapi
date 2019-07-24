@@ -1,16 +1,14 @@
 #' @title POST an InChI string
 #' @description Functionality to POST an InChI string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
-#' @details The validity criteria for InChI strings are outlined here: \url{https://www.inchi-trust.org/technical-faq/#2.8}. If certain criteria are not met by the input \code{inchi}, \code{chemspiderapi::post_inchi()} returns a warning message and \code{NA}, and does not perform an API query.\cr
-#' \cr
-#' If successful, returns the \code{queryId} as character string.
+#' @details The validity criteria for InChI strings are outlined here: \url{https://www.inchi-trust.org/technical-faq/#2.8}. If certain criteria are not met by the input \code{inchi}, \code{chemspiderapi::post_inchi()} returns an error message and does not perform an API query.
 #' @param inchi A valid InChI string; see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchi} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## POST the InChI string of Aspirin to get a queryId
-#' inchi <- "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
+#' ## Post the InChI string of caffeine to get a queryId
+#' inchi <- "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3"
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_inchi(inchi = inchi, apikey = apikey)}
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
@@ -40,7 +38,9 @@ post_inchi <- function(inchi, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

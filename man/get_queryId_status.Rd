@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-get_queryId_status.R
 \name{get_queryId_status}
 \alias{get_queryId_status}
-\title{GET the status of a ChemSpider query}
+\title{Get the status of a ChemSpider query}
 \usage{
 get_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
 }
@@ -16,7 +16,7 @@ get_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A character vector indicating the status of the query; see Details.
+A character vector indicating the status of the query
 }
 \description{
 This function is used to return the status of a query from ChemSpider before \code{chemspiderapi::get_results()} is called.
@@ -28,19 +28,11 @@ If the query is still ongoing, returns a warning and a character vector of the q
 \cr
 If the query is finalized, returns a data frame of the query status with \code{status}, \code{count} and \code{message}. The \code{status} can be either \code{Complete}, \code{Suspended}, \code{Failed}, or \code{Not Found}.\cr
 \cr
-Says ChemSpider:\cr
-\cr
 \emph{A status of Suspended can be caused if the results could not be compiled within a reasonable amount of time. Create a new filter request with more restrictive parameters.}\cr
 \cr
 \emph{A status of Failed can be caused if the backend system could not compile the results. Create a new filter request and, if the same outcome occurs, apply more restrictive parameters.}\cr
 \cr
-\emph{A status of Not Found can be caused if the Query ID has not been registered or has expired. Create a new filter request.}\cr
-\cr
-If both \code{count} and \code{message} are set to \code{FALSE}, \code{chemspiderapi::get_status()} returns the \code{status} as character vector. This is recommended for functional programming approaches.\cr
-\cr
-If the status is \code{Complete}, the results of the query can be obtained from \code{chemspiderapi::get_results()}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+\emph{A status of Not Found can be caused if the Query ID has not been registered or has expired. Create a new filter request.}
 }
 \examples{
 \dontrun{
@@ -52,4 +44,7 @@ get_queryId_status(queryId = queryId, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/status}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

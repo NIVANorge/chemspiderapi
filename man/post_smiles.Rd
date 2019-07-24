@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-post_smiles.R
 \name{post_smiles}
 \alias{post_smiles}
-\title{POST a SMILES string}
+\title{Post a SMILES string}
 \usage{
 post_smiles(smiles, apikey)
 }
@@ -15,15 +15,15 @@ post_smiles(smiles, apikey)
 Returns the queryId string as (named) character vector.
 }
 \description{
-Functionality to POST a SMILES string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
+Functionality to post a SMILES string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
 If successful, returns the \code{queryId} as character string.\cr
 }
 \examples{
 \dontrun{
-## POST the SMILES string of aspirin to get a queryId
-smiles <- "CC(=O)OC1=CC=CC=C1C(=O)O"
+## post the SMILES string of caffeine to get a queryId
+smiles <- "Cn1cnc2c1c(=O)n(c(=O)n2C)C"
 apikey <- "a valid 32-character ChemSpider apikey"
 post_smiles(smiles = smiles, apikey = apikey)
 }

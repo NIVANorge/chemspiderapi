@@ -2,7 +2,7 @@
 % Please edit documentation in R/LOOKUPS-get_datasources.R
 \name{get_datasources}
 \alias{get_datasources}
-\title{Get External ChemSpider Data Sources}
+\title{Get external ChemSpider data sources}
 \usage{
 get_datasources(apikey)
 }
@@ -10,21 +10,21 @@ get_datasources(apikey)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A unnamed character vector, length > 350
+A character vector, length > 350.
 }
 \description{
-Returns a vectorized list of all external ChemSpider data sources.
+Returns a vector of all external ChemSpider data sources.
 }
 \details{
-If succesfull, returns a character vector listing all available (external) ChemSpider data sources.\cr
+"Many other endpoints let you restrict which sources are used to lookup the requested query. Restricting the sources makes queries faster."\cr
 \cr
-If not succesfull, returns an error.\cr
+Returns a character vector with all available external ChemSpider data sources.\cr
 \cr
-This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, e.g., \code{chemspiderapi::get_references()}.
+This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, e.g., \code{chemspiderapi::get_recordId_externalreferences()}.
 }
 \examples{
 \dontrun{
-## GET the external data sources of ChemSpider
+## Get external data sources of ChemSpider
 apikey <- "A valid 32-character Chemspider API key"
 get_datasources(apikey = apikey)
 }

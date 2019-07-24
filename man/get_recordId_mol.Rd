@@ -2,7 +2,7 @@
 % Please edit documentation in R/RECORDS-get_recordId_mol.R
 \name{get_recordId_mol}
 \alias{get_recordId_mol}
-\title{GET the .MOL of a ChemSpider record}
+\title{Get the MOL file of a ChemSpider record}
 \usage{
 get_recordId_mol(recordId, apikey)
 }
@@ -18,22 +18,21 @@ A character string containing the (human-readable) .MOL file.
 This function is used to download a single .MOL file from ChemSpider.
 }
 \details{
-Call this endpoint with \code{recordId} as an integer.\cr
-\cr
-If successful, returns a character vector of result of the query, i.e., a .MOL file. This character vector can be written to the hard drive using \code{chemspiderapi::write_mol()}.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+"If successful, returns a SDF file containing the single record for the matching record."\cr
+\cr 
+Call this endpoint with \code{recordId} as an integer. To save the MOL/SDF file, see the vignette "Saving MOL Files of Chemicals".
 }
 \examples{
 \dontrun{
-## GET the .MOL file for aspirin
-recordId <- 2157L
+## Get the MOL file for caffeine
+recordId <- 2424L
 apikey <- "a valid 32-character ChemSpider apikey"
 get_recordId_mol(recordId = recordId, apikey = apikey)
 }
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/mol}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

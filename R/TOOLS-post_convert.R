@@ -1,28 +1,8 @@
 #' @title Convert between chemical identifiers
 #' @description Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
-#' @details Submit an identifier (SMILES, InChI, InChIKey or Mol) as a character string and return an identifier in another format (SMILES, InChI, InChIKey or Mol).\cr
+#' @details "Specify the input format as a string called 'inputFormat', and the output as a string called 'outputFormat'. Allowed conversions: from InChI to InChI Key, from InChI to Mol file, from InChI to SMILES, from InChIKey to InChI, from InChI Key to Mol file, from Mol file to InChI, from Mol file to InChI Key, from SMILES to InChI."\cr
 #' \cr
-#' Allowed conversions:\cr
-#' \cr
-#' from \code{InChI} to \code{InChIKey}\cr
-#' \cr
-#' from \code{InChI} to \code{Mol}\cr
-#' \cr
-#' from \code{InChI} to \code{SMILES}\cr
-#' \cr
-#' from \code{InChIKey} to \code{InChI}\cr
-#' \cr
-#' from \code{InChIKey} to \code{Mol}\cr
-#' \cr
-#' from \code{Mol} to \code{InChI}\cr
-#' \cr
-#' from \code{Mol} to \code{InChIKey}\cr
-#' \cr
-#' from \code{SMILES} to \code{InChI}\cr
-#' \cr
-#' Note: The identifier names are NOT case sensitive!\cr
-#' \cr
-#' If successful, performs the desired conversion and stores the result as a named ("output") character string.\cr
+#' The identifier names are NOT case sensitive!
 #' @param input A character string in the specified \code{inputFormat}.
 #' @param inputFormat A character string indicating which format the input has. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.
 #' @param outputFormat A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.
@@ -68,6 +48,7 @@ post_convert <- function(input, inputFormat, outputFormat, apikey) {
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- unlist(result)
+  result <- unname(result)
   
   result
 }

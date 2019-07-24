@@ -1,8 +1,6 @@
-#' @title POST a monoisotopic mass and its range to obtain a query ID
+#' @title Post a monoisotopic mass and its range to obtain a query ID
 #' @description Functionality to POST an atomic mass and its range to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
-#' @details Says Chemspider:\cr
-#' \cr
-#' \emph{"Submit mass as a double between 1 and 11000 Atomic Mass Units, and a range between 0.0001 and 100 via POST. For example, if you specify a mass of 40 and a range of 5, all monoisotopic masses between 35 and 45 are searched.\cr
+#' @details \emph{"Submit mass as a double between 1 and 11000 Atomic Mass Units, and a range between 0.0001 and 100 via POST. For example, if you specify a mass of 40 and a range of 5, all monoisotopic masses between 35 and 45 are searched.\cr
 #' \cr
 #' [...] If \code{dataSources} is not specified, all known sources are searched. This will take longer.\cr
 #' \cr
@@ -10,9 +8,7 @@
 #' \cr
 #' Valid values for \code{orderBy} are \code{recordId}, \code{massDefect}, \code{molecularWeight}, \code{referenceCount}, \code{dataSourceCount}, \code{pubMedCount}, \code{rscCount}.\cr
 #' \cr
-#' Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}\cr
-#' \cr
-#' If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspideR::get_queryId_results()}.
+#' Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}
 #' @param mass A (double) number corresponding to the atomic mass (Da or g/mol) you are inquiring. Has to be within the range of [1,11000].
 #' @param range The range for the above mass, also as (double) number. Has to be within the range of [0.0001,100].
 #' @param dataSources Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.
@@ -23,16 +19,16 @@
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/mass}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## Post the approximate atomic mass of aspirin and a sensible range
-#' mass <- 180
-#' range = 0.2
+#' ## Post the approximate atomic mass of caffeine and a sensible range
+#' mass <- 194
+#' range <- 0.002
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_mass(mass = mass, range = range, apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_mass <- function(mass, range, dataSources, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_mass <- function(mass, range, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
   check_mass_and_range(mass, range)
   
@@ -45,9 +41,7 @@ post_mass <- function(mass, range, dataSources, orderBy = "recordId", orderDirec
   if (!is.null(dataSources)) {
     if (length(dataSources) == 1) {
       dataSources <- I(dataSources)
-    } else {
-      dataSources <- paste(dataSources, collapse = ",")
-    }
+    } 
     data <- list("mass" = mass, "range" = range, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
   } else {
     data <- list("mass" = mass, "range" = range, "orderBy" = orderBy, "orderDirection" = orderDirection)
@@ -71,7 +65,9 @@ post_mass <- function(mass, range, dataSources, orderBy = "recordId", orderDirec
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

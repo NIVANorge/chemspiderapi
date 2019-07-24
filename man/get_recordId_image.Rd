@@ -2,7 +2,7 @@
 % Please edit documentation in R/RECORDS-get_recordId_image.R
 \name{get_recordId_image}
 \alias{get_recordId_image}
-\title{GET a PNG image of a ChemSpider record ID}
+\title{Get a PNG image of a ChemSpider record}
 \usage{
 get_recordId_image(recordId, apikey)
 }
@@ -12,22 +12,25 @@ get_recordId_image(recordId, apikey)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A raw array.
+A numeric array.
 }
 \description{
-This function is used to obtain a .png image file of a ChemSpider record ID, e.g., after \code{chemspiderapi::get_queryID_results()}.
+This function is used to obtain a 250 x 250 pixel PNG image file of a ChemSpider record ID, e.g., after \code{chemspiderapi::get_queryID_results()}.
 }
 \details{
-If succesfull, returns a numeric (double) array.
+Returns a numeric (double) array. To save the picture, see the vignette "Saving PNG Images of Chemicals".
 }
 \examples{
 \dontrun{
-## GET the .png image for aspirin
-recordId <- 2157L
+## Get the PNG image for caffeine
+recordId <- 2424L
 apikey <- "a_valid_ChemSpider_API_key"
 get_recordId_image(recordId = recordId, apikey = apikey)
 }
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/image}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

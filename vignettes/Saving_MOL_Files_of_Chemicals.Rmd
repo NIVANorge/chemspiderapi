@@ -39,6 +39,32 @@ Saving the file is done using the `writeLines()` function.
 
 ```{r,eval=FALSE}
 ## Writing the MOL file. Note that the file is specified as a connection.
-writeLines(caffein_mol, con = file("caffein.mol"))
+con <- file("caffein.mol")
+
+writeLines(caffein_mol, con = con)
+
+close(con)
+```
+
+### Saving SDF files
+
+Similar to the above procedure, bulk files SDF files containing multiple MOL entries can be stored. SDF files would be the result of queries by, for example, `post_mass()`. Accordingly, only the file connection needs to be changed. The below example is looking at chemicals
+
+```{r,eval=FALSE}
+## First the queryId is obtained
+queryId <- post_mass(mass = 194, range = 0.002, apikey = apikey)
+
+## Next, the status is controlled
+status <- get_queryId_status(queryId = queryId, count = FALSE, message = FALSE, apikey = apikey)
+
+## Note that per default, the MOL file is decompressed.
+caffeine_sdf <- get_queryId_results_sdf(queryId = queryId, status = status, apikey = apikey)
+
+## The file can now be written.
+con <- file("caffein.sdf")
+
+writeLines(caffeine_sdf, con = con)
+
+close(con)
 ```
 

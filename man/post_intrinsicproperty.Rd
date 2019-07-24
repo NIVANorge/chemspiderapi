@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-post_intrinsicproperty.R
 \name{post_intrinsicproperty}
 \alias{post_intrinsicproperty}
-\title{POST an intrinsic property}
+\title{Post an intrinsic property}
 \usage{
 post_intrinsicproperty(property, formula, complexity = "any",
   isotopic = "any", mass, range, orderBy = "recordId",
@@ -31,7 +31,7 @@ post_intrinsicproperty(property, formula, complexity = "any",
 Returns the queryId string as (named) character vector.
 }
 \description{
-Functionality to POST an intrinsic property to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+Functionality to post an intrinsic property to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
 Valid entries for property are: \code{formula}, \code{molecularWeight}, \code{nominalMass}, \code{averageMass}, or \code{monoisotopicMass}.\cr
@@ -50,14 +50,14 @@ If successful, returns the \code{queryId} as character vector.
 }
 \examples{
 \dontrun{
-## POST an intrinsic property for Aspirin to get a query ID
+## Post an intrinsic property for caffeine to get a query ID
 property = "Formula"
-formula = "C9H8O4"
+formula = "C8H10N4O2"
 apikey <- "a valid 32-character ChemSpider apikey"
 post_intrinsicproperty(property = property, formula = formula, apikey = apikey)
 
 property <- "MolecularWeight"
-mass <- 180
+mass <- 194
 range <- 0.5
 apikey <- "a valid 32-character ChemSpider apikey"
 post_intrinsicproperty(property = property, mass = mass, range = range, apikey = apikey)

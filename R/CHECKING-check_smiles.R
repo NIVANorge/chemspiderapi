@@ -12,4 +12,8 @@ check_smiles <- function(smiles) {
     stop("The provided \"smiles\" is not a character vector.", call. = FALSE)
   }
   
+  if (grepl(pattern = "J", x = smiles, ignore.case = TRUE)) {
+    stop("The \"smiles\" string contains the letter J, which is not a valid element.",call. = FALSE)
+  }
+  
 }

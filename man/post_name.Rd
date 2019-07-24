@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-post_name.R
 \name{post_name}
 \alias{post_name}
-\title{POST a name to obtain a ChemSpider query ID}
+\title{Post a name to obtain a ChemSpider query ID}
 \usage{
 post_name(name, orderBy = "recordId", orderDirection = "ascending",
   apikey)
@@ -25,14 +25,12 @@ Functionality to POST the name of a compound and obtain a ChemSpider query ID fo
 \details{
 Allowed entries for \code{orderBy} are: \code{"recordId"} (default), \code{"massDefect"}, \code{"molecularWeight"}, \code{"referenceCount"}, \code{"dataSourceCount"}, \code{"pubMedCount"}, and \code{"rscCount"}.\cr
 \cr
-Allowed entries for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.\cr
-\cr
-If successful, returns a 36-character \code{queryId} as a character vector. The \code{queryId} can be used in \code{chemspiderapi::get_queryId_status()} and \code{chemspider::get_queryId_results()}.
+Allowed entries for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.
 }
 \examples{
 \dontrun{
-## POST the name of aspirin to obtain a query ID
-name <- "aspirin"
+## Post the name of caffeine to obtain a query ID
+name <- "caffeine"
 apikey <- "a valid 32-character ChemSpider apikey"
 post_name(name = name, apikey = apikey)
 }
