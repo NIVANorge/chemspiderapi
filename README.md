@@ -110,14 +110,9 @@ annotation):
 | filter-mass-post                         | `post_mass()`                         |            yes            |
 | filter-name-post                         | `post_name()`                         |            yes            |
 | filter-queryId-results-get               | `get_queryId_results()`               |            yes            |
-| filter-queryId-results-sdf-get           | `get_queryId_results_sdf()` \*        |            yes            |
+| filter-queryId-results-sdf-get           | `get_queryId_results_sdf()`           |            yes            |
 | filter-queryId-status-get                | `get_queryId_status()`                |            yes            |
 | filter-smiles-post                       | `post_smiles()`                       |            yes            |
-
-\* `get_queryId_results_sdf()` downloads the gzipped base64-encoded
-character string, but there is currently no implementation for accessing
-the (multiple) .mol files contained
-inside.
 
 **LOOKUPS**
 
