@@ -47,50 +47,69 @@ In `base` R, the the functionalities from the `ratelimitr` package will be used 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
 ```
 
-To use the rate-limiting functionalities, we need to load `ratelimitr`
+We will now create a rate-limited version of the `post_inchikey()` function and use it to obtain a query ID.
+
+```{r,eval=FALSE}
+## The sleep_post_inchickey() function will automatically "sleep" for four seconds before any other function is called.
+## This means it will run each query with a four second sleep in between, resulting in 15 queries per minute.
+sleep_post_inchikey <- function(...) {
+  post_inchikey(...)
+  Sys.sleep(4)
+}
+
+## sapply() can be used in this context because the result of each iteration is a single vector.
+demo_chemicals$queryId <- sapply(X = demo_chemicals$InChIKey, FUN = function(x) sleep_post_inchikey(inchikey = x, apikey = apikey))
+
+demo_chemicals
+```
+
+
+### A `ratelimitr` examole
+
+In this example, the `ratelimitr` package will be used to rate-limit `chemspiderapi` functions. To use the rate-limiting functionalities, we need to load `ratelimitr`
 
 ```{r}
 ## Loading the ratelimitr package
 library(ratelimitr)
 ```
 
-we will now create a rate-limited version of the `post_inchikey()` function and use it to obtain a query ID.
+We will now create a rate-limited version of the `post_inchikey()` function and use it to obtain a query ID.
 
 ```{r,eval=FALSE}
 ## In ratelimitr::limit_rate(), the ratelimitr::rate() function specifies the rate limit as calls per second. 
-slow_post_inchikey <- limit_rate(post_inchikey, rate(n = 15, period = 60))
+limit_rate_post_inchikey <- limit_rate(post_inchikey, rate(n = 15, period = 60))
 
 ## sapply() can be used in this context because the result of each iteration is a single vector.
-demo_chemicals$queryId <- sapply(X = demo_chemicals$InChIKey, FUN = function(x) slow_post_inchikey(inchikey = x, apikey = apikey))
+demo_chemicals$queryId <- sapply(X = demo_chemicals$InChIKey, FUN = function(x) limit_rate_post_inchikey(inchikey = x, apikey = apikey))
 
 demo_chemicals
 ```
 
 We can now check the status of query with a rate-limited `get_queryId_status()` function.
 ```{r,eval=FALSE}
-slow_get_queryId_status <- limit_rate(get_queryId_status, rate(n = 15, period = 60))
+limit_rate_get_queryId_status <- limit_rate(get_queryId_status, rate(n = 15, period = 60))
 
 ## As the result of the query is an array, lapply() is used.
-demo_chemicals$status <- lapply(X = demo_chemicals$queryId, FUN = function(x) slow_get_queryId_status(queryId = x, apikey = apikey))
+demo_chemicals$status <- lapply(X = demo_chemicals$queryId, FUN = function(x) limit_rate_get_queryId_status(queryId = x, apikey = apikey))
 
 demo_chemicals
 ```
 
 All queries need to report the status `Complete` before proceeding. If this is the case, the ChemSpider IDs for the queries can be retrieved using a rate-limited `get_queryId_results()` function.
 ```{r,eval=FALSE}
-slow_get_queryId_results <- limit_rate(get_queryId_results, rate(n = 15, period = 60))
+limit_rate_get_queryId_results <- limit_rate(get_queryId_results, rate(n = 15, period = 60))
 
 ## mapply() is used because the input covers two columns
-demo_chemicals$id <- mapply(FUN = function(x, y) slow_get_queryId_results(queryId = x, status = unlist(y)[1], apikey = apikey), x = demo_chemicals$queryId, y = demo_chemicals$status)
+demo_chemicals$id <- mapply(FUN = function(x, y) limit_rate_get_queryId_results(queryId = x, status = unlist(y)[1], apikey = apikey), x = demo_chemicals$queryId, y = demo_chemicals$status)
 
 demo_chemicals
 ```
 
 Finally, the details for the chemicals can be retrieved using a rate-limited `get_recordId_details()` function.
 ```{r,eval=FALSE}
-slow_get_recordId_details <- limit_rate(get_recordId_details, rate(n = 15, period = 60))
+limit_rate_get_recordId_details <- limit_rate(get_recordId_details, rate(n = 15, period = 60))
 
-demo_chemicals$details <- lapply(X = demo_chemicals$id, FUN = function(x) slow_get_recordId_details(recordId = x, apikey = apikey, id = FALSE))
+demo_chemicals$details <- lapply(X = demo_chemicals$id, FUN = function(x) limit_rate_get_recordId_details(recordId = x, apikey = apikey, id = FALSE))
 
 demo_chemicals
 ```
