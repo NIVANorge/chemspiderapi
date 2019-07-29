@@ -11,6 +11,10 @@ jobs:
             - r-pkg-cache--
             - r-pkg-cache--
       - checkout
+      - run: 
+          name: Install additional software
+          command
+            apt-get libsodium
       - run:
           name: Install package dependencies
           command: |

@@ -5,8 +5,6 @@ output: github_document
 
 <!-- badges: start -->
 [![CircleCI build status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=svg)](https://circleci.com/gh/NIVANorge/chemspiderapi)
-<!-- [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/NIVANorge/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/NIVANorge/chemspiderapi) -->
-<!-- [![Travis build status](https://travis-ci.org/NIVANorge/chemspiderapi.svg?branch=master)](https://travis-ci.org/NIVANorge/chemspiderapi) -->
 [![Codecov test coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
 <!-- badges: end -->
 
