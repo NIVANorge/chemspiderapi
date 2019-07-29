@@ -50,18 +50,6 @@ test_that("check_inchikey() fails if the first part of an inchikey has the wrong
   )
 })
 
-test_that("check_inchikey() fails if the second part of an inchikey has the wrong length.", {
-  expect_error(
-    check_inchikey(inchikey = "RYYVLZVUVIJVG-UHFFFAOYSAN-N")
-  )
-})
-
-test_that("check_inchikey() fails if the third part of an inchikey has the wrong length.", {
-  expect_error(
-    check_inchikey(inchikey = "RYYVLZVUVIJVG-UHFFFAOYSA-NN")
-  )
-})
-
 test_that("check_inchikey() warns if a non-standard inchikey is provided.", {
   expect_warning(
     check_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYXA-N")

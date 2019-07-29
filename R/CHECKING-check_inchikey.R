@@ -28,14 +28,6 @@ check_inchikey <- function(inchikey) {
     stop("The first part of the \"inchikey\" should be 14 characters long.", call. = FALSE)
   }
 
-  if (nchar(unlist(strsplit(inchikey, split = "-"))[2]) != 10L) {
-    stop("The second part of the \"inchikey\" should be 10 characters long.", call. = FALSE)
-  }
-
-  if (length(unlist(strsplit(inchikey, split = "-"))) == 3L && nchar(unlist(strsplit(inchikey, split = "-"))[3]) != 1L) {
-    stop("The third part of the (standard) \"inchikey\" should be 1 character long.", call. = FALSE)
-  }
-
   if (substr(unlist(strsplit(inchikey, split = "-"))[2], start = 9L, stop = 9L) != "S") {
     warning("This is not a standard \"inchikey\"; performing API query regardless.", call. = FALSE)
   }
