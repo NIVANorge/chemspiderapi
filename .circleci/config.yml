@@ -41,3 +41,8 @@ jobs:
           key: r-pkg-cache--
           paths:
             - "~/R/Library"
+      - run:
+          name: CodeCov
+          when: on_success
+          command: |
+            Rscript -e 'library(covr); codecov()'
