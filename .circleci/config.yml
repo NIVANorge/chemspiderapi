@@ -14,7 +14,8 @@ jobs:
       - run: 
           name: Install additional software
           command: |
-            apt-get libsodium
+            apt-get install libsodium-dev
+            apt-get install libmagick++-dev
       - run:
           name: Install package dependencies
           command: |

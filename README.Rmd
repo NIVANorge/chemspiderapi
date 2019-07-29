@@ -36,13 +36,13 @@ Install the package from GitHub (using the [`remotes`](https://github.com/r-lib/
 
 ```{r,eval=FALSE}
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/chemspiderapi")
+remotes::install_github("NIVANorge/chemspiderapi")
 ```
 
 The development version can be installed with:
 ```{r,eval=FALSE}
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/chemspiderapi", ref = "dev")
+remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
 ```
 
 

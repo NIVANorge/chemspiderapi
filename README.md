@@ -53,14 +53,14 @@ installed alongside [devtools](https://github.com/r-lib/devtools)):
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/chemspiderapi")
+remotes::install_github("NIVANorge/chemspiderapi")
 ```
 
 The development version can be installed with:
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("RaoulWolf/chemspiderapi", ref = "dev")
+remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
 ```
 
 Currently the only tested environment for `chemspiderapi` is Windows 10
