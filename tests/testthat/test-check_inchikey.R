@@ -26,18 +26,45 @@ test_that("check_inchikey() fails if a non-character inchikey is provided.", {
   )
 })
 
-
-
-
-test_that("check_inchikey() fails if the inchikey string is incomplete.", {
+test_that("check_inchikey() fails if a single-string inchikey is provided.", {
   expect_error(
-    check_inchikey(inchikey = "C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3")
+    check_inchikey(inchikey = "RYYVLZVUVIJVGHUHFFFAOYSAN")
+  )
+})
+
+test_that("check_inchikey() fails if a three part inchikey has the wrong length.", {
+  expect_error(
+    check_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-NN")
+  )
+})
+
+test_that("check_inchikey() fails if a two part inchikey has the wrong length.", {
+  expect_error(
+    check_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSAN")
+  )
+})
+
+test_that("check_inchikey() fails if the first part of an inchikey has the wrong length.", {
+  expect_error(
+    check_inchikey(inchikey = "RYYVLZVUVIJVGHN-UHFFFAOYS-N")
+  )
+})
+
+test_that("check_inchikey() fails if the second part of an inchikey has the wrong length.", {
+  expect_error(
+    check_inchikey(inchikey = "RYYVLZVUVIJVG-UHFFFAOYSAN-N")
+  )
+})
+
+test_that("check_inchikey() fails if the third part of an inchikey has the wrong length.", {
+  expect_error(
+    check_inchikey(inchikey = "RYYVLZVUVIJVG-UHFFFAOYSA-NN")
   )
 })
 
 test_that("check_inchikey() warns if a non-standard inchikey is provided.", {
   expect_warning(
-    check_inchikey(inchikey = "InChI=1/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3")
+    check_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYXA-N")
   )
 })
 
