@@ -1,15 +1,6 @@
-#' GET external references of a record ID
-#' 
-#' GET a list of external references for a ChemSpider ID.
-#' 
-#' It is recommended to specify which \code{dataSources} to load, as some substances have a substantial amount of references (>10'000). Use \code{chemspiderapi::get_datasources()} for a complete list of the >300 \code{dataSources}.\cr
-#' \cr
-#' If successful, returns a data frame with four columns: \code{source}, \code{sourceUrl}, \code{externalId}, and \code{externalUrl}; unless any of them are removed by setting them to \code{FALSE} in the function call. In case only one parameter, e.g. the external ID, is returned, the result is a vector.\cr
-#' \cr
-#' If not successful, returns \code{NA}.\cr
-#' \cr
-#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map()}.
-#' 
+#' @title Get external references of a record ID
+#' @description GET a list of external references for a ChemSpider ID.
+#' @details It is recommended to specify which \code{dataSources} to load, as some substances have a substantial amount of references (>10'000). Use \code{chemspiderapi::get_datasources()} for a complete list of the >350 \code{dataSources}.
 #' @param recordId A valid (integer) ChemSpider ID.
 #' @param dataSources Either a character string, a vector of characters, or a list of characters detailing which \code{dataSources} to look up. If left as is, will return all \code{dataSources}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
@@ -20,8 +11,8 @@
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/externalreferences}
 #' @examples 
 #' \dontrun{
-#' ## GET the PubChem external reference for aspirin
-#' recordId <- 2157L
+#' ## Get the PubChem external reference for caffeine
+#' recordId <- 2424L
 #' dataSources <- "PubChem"
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' get_recordId_externalreferences(recordId = recordId, dataSources = dataSources, apikey = apikey)
@@ -36,9 +27,11 @@ get_recordId_externalreferences <- function(recordId, dataSources, apikey, sourc
   check_apikey(apikey)
   
   if (!is.null(dataSources)) {
-    if (length(dataSources) == 1) {
-      dataSources <- I(dataSources)
-    } else {
+    warning("Please consult get_datasources() for an up-to-date list of available data sources; performing query regardless.", call. = FALSE)
+  }
+  
+  if (!is.null(dataSources)) {
+    if (length(dataSources) > 1) {
       dataSources <- paste(dataSources, collapse = ",")
     }
     url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences?dataSources=", dataSources)
@@ -74,9 +67,7 @@ get_recordId_externalreferences <- function(recordId, dataSources, apikey, sourc
     result$externalUrl <- NULL
   }
   
-  if (ncol(result) == 1) {
-    result <- unlist(result)
-  }
+  check_result(result)
   
   result
 }

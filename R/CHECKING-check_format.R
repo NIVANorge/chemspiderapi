@@ -31,24 +31,12 @@ check_format <- function(input, inputFormat, outputFormat) {
   if (tolower(inputFormat) == "inchi") {
     check_inchi(input)
   }
-  
-  if (tolower(outputFormat) == "inchi") {
-    check_inchi(input)
-  }
-  
+
   if (tolower(inputFormat) == "inchikey") {
     check_inchikey(input)
   }
-  
-  if (tolower(outputFormat) == "inchikey") {
-    check_inchikey(input)
-  }
-  
+
   if (tolower(inputFormat) == "smiles") {
-    check_smiles(input)
-  }
-  
-  if (tolower(outputFormat) == "smiles") {
     check_smiles(input)
   }
 

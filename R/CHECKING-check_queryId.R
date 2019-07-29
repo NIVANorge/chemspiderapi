@@ -8,7 +8,7 @@ check_queryId <- function(queryId) {
     stop("This function can only handle a single ChemSpider \"queryId\" entry.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
   }
   
-  if (typeof(queryId) != "character") {
+  if (!is.character(queryId)) {
     stop("The ChemSpider \"queryId\" should be a 36-character string.", call. = FALSE)
   }
   
@@ -34,10 +34,6 @@ check_queryId <- function(queryId) {
   
   if (nchar(unlist(strsplit(queryId, split = "-"))[4]) != 4L) {
     stop("The fourth part of the ChemSpider \"queryId\" should be 4 characters long.", call. = FALSE)
-  }
-  
-  if (nchar(unlist(strsplit(queryId, split = "-"))[5]) != 12L) {
-    stop("The fifth part of the ChemSpider \"queryId\" should be 12 characters long.", call. = FALSE)
   }
 
 }

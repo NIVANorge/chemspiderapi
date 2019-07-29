@@ -1,6 +1,16 @@
 chemspiderapi
 ================
 
+<!-- badges: start -->
+
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/RaoulWolf/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/RaoulWolf/chemspiderapi)
+[![Travis build
+status](https://travis-ci.org/RaoulWolf/chemspiderapi.svg?branch=master)](https://travis-ci.org/RaoulWolf/chemspiderapi)
+[![Codecov test
+coverage](https://codecov.io/gh/RaoulWolf/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/RaoulWolf/chemspiderapi?branch=master)
+<!-- badges: end -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 > R functionalities for ChemSpider’s new API services
@@ -45,14 +55,14 @@ installed alongside [devtools](https://github.com/r-lib/devtools)):
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("NIVANorge/chemspiderapi")
+remotes::install_github("RaoulWolf/chemspiderapi")
 ```
 
 The development version can be installed with:
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
+remotes::install_github("RaoulWolf/chemspiderapi", ref = "dev")
 ```
 
 Currently the only tested environment for `chemspiderapi` is Windows 10
@@ -78,7 +88,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of
 
 ## Coverage
 
-As of 2019-07-22, the following functionalities are implemented (100%
+As of 2019-07-24, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 
@@ -100,14 +110,9 @@ annotation):
 | filter-mass-post                         | `post_mass()`                         |            yes            |
 | filter-name-post                         | `post_name()`                         |            yes            |
 | filter-queryId-results-get               | `get_queryId_results()`               |            yes            |
-| filter-queryId-results-sdf-get           | `get_queryId_results_sdf()` \*        |            yes            |
+| filter-queryId-results-sdf-get           | `get_queryId_results_sdf()`           |            yes            |
 | filter-queryId-status-get                | `get_queryId_status()`                |            yes            |
 | filter-smiles-post                       | `post_smiles()`                       |            yes            |
-
-\* `get_queryId_results_sdf()` downloads the gzipped base64-encoded
-character string, but there is currently no implementation for accessing
-the (multiple) .mol files contained
-inside.
 
 **LOOKUPS**
 

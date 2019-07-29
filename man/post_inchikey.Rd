@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-post_inchikey.R
 \name{post_inchikey}
 \alias{post_inchikey}
-\title{POST an InChIKey as ChemSpider query}
+\title{Post an InChIKey as ChemSpider query}
 \usage{
 post_inchikey(inchikey, apikey)
 }
@@ -15,17 +15,15 @@ post_inchikey(inchikey, apikey)
 Returns the queryId string as (named) character vector.
 }
 \description{
-Functionality to POST an InChIKey to obtain a \code{queryId} for use in \code{chemspiderapi::get_status()} and \code{chemspiderapi::get_results()}.
+Functionality to post an InChIKey to obtain a \code{queryId} for use in \code{chemspiderapi::get_status()} and \code{chemspiderapi::get_results()}.
 }
 \details{
-The validity criteria for InChIKeys are outlined here: \url{https://www.inchi-trust.org/technical-faq/#13.1}. If certain criteria are not met by the input \code{inchikey}, \code{chemspideR::post_inchikey()} returns a warning message and \code{NA} (and does not perform an API query). In the case of a non-standard \code{inchikey}, a warning is issued but the query will be performed.\cr
-\cr
-If successful, returns the \code{queryId} as character string.
+The validity criteria for InChIKeys are outlined here: \url{https://www.inchi-trust.org/technical-faq/#13.1}. If certain criteria are not met by the input \code{inchikey}, \code{chemspideR::post_inchikey()} returns an error message (and does not perform an API query). In the case of a non-standard \code{inchikey}, a warning is issued but the query will be performed.
 }
 \examples{
 \dontrun{
-## POST the InChIKey of aspirin to obtain a queryId
-inchikey <- "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
+## Post the InChIKey of caffeine to obtain a queryId
+inchikey <- "RYYVLZVUVIJVGH-UHFFFAOYSA-N"
 apikey <- "A valid 32-character Chemspider API key"
 post_inchikey(inchikey = inchikey, apikey = apikey)
 }

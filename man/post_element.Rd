@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-post_element.R
 \name{post_element}
 \alias{post_element}
-\title{POST elements to obtain a query ID}
+\title{Post elements to obtain a query ID}
 \usage{
 post_element(includeElements, excludeElements, includeAll = FALSE,
   complexity = "any", isotopic = "any", orderBy = "recordId",
@@ -29,7 +29,7 @@ post_element(includeElements, excludeElements, includeAll = FALSE,
 Returns the queryId string as (named) character vector.
 }
 \description{
-Functionality to POST up to 15 elements to include and up to 100 elements to exclude to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+Functionality to post up to 15 elements to include and up to 100 elements to exclude to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
 Says Chemspider:\cr
@@ -44,15 +44,13 @@ The default behavior is to consider records which contain any of the elements li
 \cr
 Valid values for \code{complexity} are \code{"any"}, \code{"single"}, or \code{"multiple"} whereby a compound with a complexity of multiple has more than one disconnected system in it or a metal atom or ion.\cr
 \cr
-Valid values for \code{isotopic} are \code{"any"}, \code{"labeled"}, or \code{"unlabeled"}."\cr
-\cr
-If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+Valid values for \code{isotopic} are \code{"any"}, \code{"labeled"}, or \code{"unlabeled"}."
 }
 \examples{
 \dontrun{
-## POST the elements for Aspirin and exclude certain elements
-includeElements <- c("C", "H", "O")
-excludeElements <- c("K", "Na", "N", "Cl", "F")
+## Post the elements for caffeine and exclude certain elements
+includeElements <- c("C", "H", "N", "O")
+excludeElements <- c("K", "Na", "Fe", "Cl", "F")
 apikey <- "a valid 32-character ChemSpider apikey"
 post_element(includeElements = includeElements, excludeElements = excludeElements, apikey = apikey)
 }

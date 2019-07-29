@@ -2,9 +2,9 @@
 % Please edit documentation in R/FILTERING-get_queryId_results_sdf.R
 \name{get_queryId_results_sdf}
 \alias{get_queryId_results_sdf}
-\title{GET the gzipped .sdf file for a ChemSpider query}
+\title{Get a gzipped SDF file for a ChemSpider query}
 \usage{
-get_queryId_results_sdf(queryId, status, apikey)
+get_queryId_results_sdf(queryId, status, apikey, decompress = TRUE)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider \code{queryId}.}
@@ -12,6 +12,8 @@ get_queryId_results_sdf(queryId, status, apikey)
 \item{status}{A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{decompress}{\code{logical}: should the base64-encoded gzipped file be decompressed? Defaults to \code{TRUE}.}
 }
 \value{
 Returns a (base64-encoded) character vector
@@ -20,17 +22,11 @@ Returns a (base64-encoded) character vector
 This function is used to download a single .sdf file from ChemSpider after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
 }
 \details{
-Call this function after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.\cr
-\cr
-If successful, returns a character vector of results from the query, a gzipped .sdf file.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_chr()}.
+Call this function after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
 }
 \examples{
 \dontrun{
-## GET a gzipped .sdf file
+## Get a gzipped .sdf file
 queryId <- "a valid 36-character ChemSpider apikey"
 apikey <- "a valid 32-character ChemSpider apikey"
 get_queryId_results_sdf(queryId = queryId, apikey = apikey)
@@ -38,4 +34,7 @@ get_queryId_results_sdf(queryId = queryId, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results/sdf}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

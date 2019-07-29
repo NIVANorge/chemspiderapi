@@ -1,14 +1,10 @@
-#' @title POST a batch of chemical formulas
-#' @description Functionality to POST a batch of up to 100 formulas to obtain a \code{queryId} for use in \code{chemspiderapi::get_formula_batch_queryId_status()} and \code{chemspiderapi::get_formula_batch_queryId_results()}.
+#' @title Post a batch of chemical formulas
+#' @description Functionality to post a batch of up to 100 formulas to obtain a \code{queryId} for use in \code{chemspiderapi::get_formula_batch_queryId_status()} and \code{chemspiderapi::get_formula_batch_queryId_results()}.
 #' @details Possible values for \code{orderBy} are: \code{"recordId"} (default), \code{"massDefect"}, \code{"molecularWeight"}, \code{"referenceCount"}, \code{"dataSourceCount"}, \code{"pubmedCount"}, and \code{"rscCount"}.\cr
 #' \cr
 #' Possible values for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.\cr
 #' \cr
-#' Says ChemSpider:\cr
-#' \cr
-#' \emph{"If dataSources is not specified, all known sources are searched. This will take longer."}\cr
-#' \cr
-#' If successful, returns the \code{queryId} as character string.
+#' \emph{"If dataSources is not specified, all known sources are searched. This will take longer."}
 #' @param formulas A character vector of up to 100 chemical formulas.
 #' @param dataSources Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.
 #' @param orderBy A character string indicating by which parameter the results should be ordered; see Details.
@@ -18,15 +14,15 @@
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/formula/batch}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## POST the formulas of aspirin and caffeine to get a query ID
-#' formulas <- c("C9H8O4", "C8H10N4O2")
+#' ## Post the formulas of caffeine and cocaine to get a query ID
+#' formulas <- c("C9H8O4", "C17H21NO4")
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_formula_batch(formulas = formulas, apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_formula_batch <- function(formulas, dataSources, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
   check_formulas(formulas)
   
@@ -37,9 +33,7 @@ post_formula_batch <- function(formulas, dataSources, orderBy = "recordId", orde
   if (!is.null(dataSources)) {
     if (length(dataSources) == 1) {
       dataSources <- I(dataSources)
-    } else {
-      dataSources <- paste(dataSources, collapse = ",")
-    }
+    } 
     data <- list("formulas" = formulas, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
   } else {
     data <- list("formulas" = formulas, "orderBy" = orderBy, "orderDirection" = orderDirection)
@@ -63,7 +57,9 @@ post_formula_batch <- function(formulas, dataSources, orderBy = "recordId", orde
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

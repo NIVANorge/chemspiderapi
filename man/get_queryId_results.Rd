@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-get_queryId_results.R
 \name{get_queryId_results}
 \alias{get_queryId_results}
-\title{GET the results of a ChemSpider query}
+\title{Get results of a ChemSpider query}
 \usage{
 get_queryId_results(queryId, status, start = NULL, count = NULL,
   apikey)
@@ -29,17 +29,11 @@ Before running \code{chemspiderapi::get_queryId_results()}, make sure \code{chem
 \cr
 If the results have been truncated because there were more results than the maximum number of results permitted (by default, 10,000), a warning is issued. If this happens, you can split your requests into smaller batches.\cr
 \cr
-To batch your requests, call this function with two optional parameters, \code{start} and \code{count}. Both take integer values. \code{start} is the number of the record to start with (zero-based), and \code{count} is the number of records to return. For example, to request results 200-300, use \code{start = 200L} and \code{count = 100L}.\cr
-\cr
-If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single vector.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_*()}.
+To batch your requests, call this function with two optional parameters, \code{start} and \code{count}. Both take integer values. \code{start} is the number of the record to start with (zero-based), and \code{count} is the number of records to return. For example, to request results 200-300, use \code{start = 200L} and \code{count = 100L}.
 }
 \examples{
 \dontrun{
-## GET the results of a query from ChemSpider
+## Get results of a query from ChemSpider
 queryId <- "A valid 36-character Chemspider query ID"
 apikey <- "A valid 32-character Chemspider API key"
 status <- get_queryId_status(queryId = queryId, apikey = apikey)
@@ -48,4 +42,7 @@ get_queryId_results(queryId = queryId, status = status, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

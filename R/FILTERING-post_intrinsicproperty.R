@@ -1,5 +1,5 @@
-#' @title POST an intrinsic property
-#' @description Functionality to POST an intrinsic property to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+#' @title Post an intrinsic property
+#' @description Functionality to post an intrinsic property to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 #' @details Valid entries for property are: \code{formula}, \code{molecularWeight}, \code{nominalMass}, \code{averageMass}, or \code{monoisotopicMass}.\cr
 #' \cr
 #' Says ChemSpider:\cr
@@ -26,14 +26,14 @@
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/intrinsicproperty}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## POST an intrinsic property for Aspirin to get a query ID
+#' ## Post an intrinsic property for caffeine to get a query ID
 #' property = "Formula"
-#' formula = "C9H8O4"
+#' formula = "C8H10N4O2"
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_intrinsicproperty(property = property, formula = formula, apikey = apikey)
 #' 
 #' property <- "MolecularWeight"
-#' mass <- 180
+#' mass <- 194
 #' range <- 0.5
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_intrinsicproperty(property = property, mass = mass, range = range, apikey = apikey)
@@ -41,7 +41,7 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_intrinsicproperty <- function(property, formula, complexity = "any", isotopic = "any", mass, range, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_intrinsicproperty <- function(property, formula = NULL, complexity = "any", isotopic = "any", mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
   check_property(property)
   
@@ -107,7 +107,9 @@ post_intrinsicproperty <- function(property, formula, complexity = "any", isotop
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

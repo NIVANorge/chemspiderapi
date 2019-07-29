@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-get_formula_batch_queryId_results.R
 \name{get_formula_batch_queryId_results}
 \alias{get_formula_batch_queryId_results}
-\title{GET the results of a formula batch query from ChemSpider}
+\title{Get results of a formula batch query from ChemSpider}
 \usage{
 get_formula_batch_queryId_results(queryId, status, apikey)
 }
@@ -17,16 +17,10 @@ get_formula_batch_queryId_results(queryId, status, apikey)
 Returns the (integer) ChemSpider IDs
 }
 \description{
-GET the results of a formula batch query from ChemSpider after \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}.
+Get results of a formula batch query from ChemSpider after \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}.
 }
 \details{
-Before running \code{chemspiderapi::get_formula_batch_queryId_results()}, make sure \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}!\cr
-\cr
-If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single vector.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_int()}.
+Before running \code{chemspiderapi::get_formula_batch_queryId_results()}, make sure \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}.
 }
 \examples{
 \dontrun{
@@ -39,4 +33,7 @@ get_formula_batch_queryId_results(queryId = queryId, status = status, apikey = a
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/formula/batch/{queryId}/results}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

@@ -4,6 +4,10 @@ check_property <- function(property) {
     stop("No \"property\" provided.", call. = FALSE)
   }
   
+  if (!is.character(property)) {
+    stop("The provided \"property\" is not a character vector.", call. = FALSE)
+  }
+  
   if (length(property) > 1) {
     stop("This function is meant for single \"property\" entries.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
   }

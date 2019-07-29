@@ -2,7 +2,7 @@
 % Please edit documentation in R/FILTERING-get_mass_batch_queryId_results.R
 \name{get_mass_batch_queryId_results}
 \alias{get_mass_batch_queryId_results}
-\title{GET the results of a mass batch query from ChemSpider}
+\title{Get results of a mass batch query from ChemSpider}
 \usage{
 get_mass_batch_queryId_results(queryId, status, apikey)
 }
@@ -17,16 +17,10 @@ get_mass_batch_queryId_results(queryId, status, apikey)
 Returns the record IDs of a mass batch query
 }
 \description{
-GET the results from a ChemSpider query after \code{chemspiderapi::get_mass_batch_queryId_status()} returns \code{"Complete"}.
+Get results from a ChemSpider query after \code{chemspiderapi::get_mass_batch_queryId_status()} returns \code{"Complete"}.
 }
 \details{
-Before running \code{chemspiderapi::get_mass_batch_queryId_results()}, make sure \code{chemspiderapi::get_mass_batch_queryIdstatus()} returns \code{"Complete"}!\cr
-\cr
-If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single (integer) vector.\cr
-\cr
-If not successful, returns \code{NA}.\cr
-\cr
-This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_int()}.
+Before running \code{chemspiderapi::get_mass_batch_queryId_results()}, make sure \code{chemspiderapi::get_mass_batch_queryIdstatus()} returns \code{"Complete"}.
 }
 \examples{
 \dontrun{
@@ -38,4 +32,7 @@ get_mass_batch_queryId_results(queryId = queryId, apikey = apikey)
 }
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/mass/batch/{queryId}/results}
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }

@@ -12,11 +12,11 @@ check_inchi <- function(inchi) {
     stop("This function can only handle a single \"inchi\" entry.\nFor functional programming, try using it in apply() or purrr::map().", call. = FALSE)
   }
   
-  if (!grepl(pattern = "InChI=", x = inchi)) {
+  if (tolower(substr(x = inchi, start = 1L, stop = 6L)) != tolower("InChI=")) {
     stop("This is not a valid \"inchi\" string because \"InChI=\" is missing in the beginning.", call. = FALSE)
   }
-  
-  if (substr(x = inchi, start = 8L, stop = 8L) != "S") {
+
+  if (tolower(substr(x = inchi, start = 8L, stop = 8L)) != tolower("S")) {
     warning("This is not a standard \"inchi\" string; performing API query regardless.", call. = FALSE)
   }
   

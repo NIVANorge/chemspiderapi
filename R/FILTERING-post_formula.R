@@ -18,15 +18,15 @@
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/formula}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## POST the formula of Aspirin to get a query ID
-#' formula <- "C9H8O4"
+#' ## POST the formula of caffeine to get a query ID
+#' formula <- "C8H10N4O2"
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_formula(formula = formula, apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_formula <- function(formula, dataSources, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_formula <- function(formula, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
   check_formula(formula)
   
@@ -34,15 +34,9 @@ post_formula <- function(formula, dataSources, orderBy = "recordId", orderDirect
   
   check_apikey(apikey)
   
-  if (length(dataSources) == 1L) {
-    dataSources <- I(dataSources)
-  }
-  
   if (!is.null(dataSources)) {
     if (length(dataSources) == 1L) {
       dataSources <- I(dataSources)
-    } else {
-      dataSources <- paste(dataSources, collapse = ",")
     }
     data <- list("formula" = formula, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
   } else {
@@ -67,7 +61,9 @@ post_formula <- function(formula, dataSources, orderBy = "recordId", orderDirect
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

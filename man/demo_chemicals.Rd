@@ -4,7 +4,7 @@
 \name{demo_chemicals}
 \alias{demo_chemicals}
 \title{Demo chemicals}
-\format{A 5-by-2 \code{data.frame}}
+\format{A 5-by-2 \code{data.frame}.}
 \usage{
 data(demo_chemicals)
 }
@@ -19,5 +19,8 @@ These five chemicals were chosen randomly. The verified InChIKeys were extracted
 data(demo_chemicals)
 demo_chemicals
 }
+}
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
 }
 \keyword{datasets}

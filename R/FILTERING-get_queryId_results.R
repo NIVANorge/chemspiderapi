@@ -1,19 +1,10 @@
-#' GET the results of a ChemSpider query
-#'
-#' This function is used to retrieve the results of a ChemSpider query after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
-#'
-#' Before running \code{chemspiderapi::get_queryId_results()}, make sure \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}. In fact, this function will return \code{"NA"} if the status is not \code{"Complete"}.\cr
+#' @title Get results of a ChemSpider query
+#' @description This function is used to retrieve the results of a ChemSpider query after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
+#' @details Before running \code{chemspiderapi::get_queryId_results()}, make sure \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}. In fact, this function will return \code{"NA"} if the status is not \code{"Complete"}.\cr
 #' \cr
 #' If the results have been truncated because there were more results than the maximum number of results permitted (by default, 10,000), a warning is issued. If this happens, you can split your requests into smaller batches.\cr
 #' \cr
-#' To batch your requests, call this function with two optional parameters, \code{start} and \code{count}. Both take integer values. \code{start} is the number of the record to start with (zero-based), and \code{count} is the number of records to return. For example, to request results 200-300, use \code{start = 200L} and \code{count = 100L}.\cr
-#' \cr
-#' If successful, returns a data frame with the query results; in case the response is a single value, e.g., a ChemSpider ID, it is returned as single vector.\cr
-#' \cr
-#' If not successful, returns \code{NA}.\cr
-#' \cr
-#' This function is fully \code{tidyverse} compatible, e.g., for use in \code{purrr::map_*()}.
-#'
+#' To batch your requests, call this function with two optional parameters, \code{start} and \code{count}. Both take integer values. \code{start} is the number of the record to start with (zero-based), and \code{count} is the number of records to return. For example, to request results 200-300, use \code{start = 200L} and \code{count = 100L}.
 #' @param queryId A valid 36-character ChemSpider query ID string; see Details.
 #' @param start Optional: An integer value giving the position from which to start the retrival of query results. See Details.
 #' @param count Optional: An integer value giving the the number of query results to retrieve. See Details.
@@ -21,9 +12,10 @@
 #' @param status A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}
 #' @return A character vector indicating the status of the query; see Details.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}
+#' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples
 #' \dontrun{
-#' ## GET the results of a query from ChemSpider
+#' ## Get results of a query from ChemSpider
 #' queryId <- "A valid 36-character Chemspider query ID"
 #' apikey <- "A valid 32-character Chemspider API key"
 #' status <- get_queryId_status(queryId = queryId, apikey = apikey)
@@ -68,18 +60,18 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
   
   check_status_code(raw_result$status_code)
   
-  # if (isTRUE(raw_result$limitedToMaxAllowed)) {
-  #   warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
-  # }
-  
+  if ("limitedToMaxAllowed" %in% names(raw_result)) {
+    if (isTRUE(raw_result$limitedToMaxAllowed)) {
+      warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
+    }
+  }
+
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   
   result <- data.frame(results = result$results, stringsAsFactors = FALSE)
   
-  if (ncol(result) == 1L) {
-    result <- unlist(result)
-  }
+  check_result(result)
   
   result
 }

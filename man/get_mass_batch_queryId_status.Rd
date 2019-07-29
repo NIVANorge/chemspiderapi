@@ -53,3 +53,6 @@ get_mass_batch_queryId_status(queryId = queryId, apikey = apikey)}
 \seealso{
 \url{https://developer.rsc.org/compounds-v1/apis/get/filter/mass/batch/{queryId}/status}
 }
+\author{
+Raoul Wolf (\url{https://github.com/RaoulWolf/})
+}

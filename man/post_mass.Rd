@@ -2,9 +2,9 @@
 % Please edit documentation in R/FILTERING-post_mass.R
 \name{post_mass}
 \alias{post_mass}
-\title{POST a monoisotopic mass and its range to obtain a query ID}
+\title{Post a monoisotopic mass and its range to obtain a query ID}
 \usage{
-post_mass(mass, range, dataSources, orderBy = "recordId",
+post_mass(mass, range, dataSources = NULL, orderBy = "recordId",
   orderDirection = "ascending", apikey)
 }
 \arguments{
@@ -27,8 +27,6 @@ Returns the queryId string as (named) character vector.
 Functionality to POST an atomic mass and its range to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
-Says Chemspider:\cr
-\cr
 \emph{"Submit mass as a double between 1 and 11000 Atomic Mass Units, and a range between 0.0001 and 100 via POST. For example, if you specify a mass of 40 and a range of 5, all monoisotopic masses between 35 and 45 are searched.\cr
 \cr
 [...] If \code{dataSources} is not specified, all known sources are searched. This will take longer.\cr
@@ -37,15 +35,13 @@ Optionally, you can also submit \code{orderBy} and \code{orderDirection} to spec
 \cr
 Valid values for \code{orderBy} are \code{recordId}, \code{massDefect}, \code{molecularWeight}, \code{referenceCount}, \code{dataSourceCount}, \code{pubMedCount}, \code{rscCount}.\cr
 \cr
-Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}\cr
-\cr
-If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspideR::get_queryId_results()}.
+Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}
 }
 \examples{
 \dontrun{
-## Post the approximate atomic mass of aspirin and a sensible range
-mass <- 180
-range = 0.2
+## Post the approximate atomic mass of caffeine and a sensible range
+mass <- 194
+range <- 0.002
 apikey <- "a valid 32-character ChemSpider apikey"
 post_mass(mass = mass, range = range, apikey = apikey)
 }

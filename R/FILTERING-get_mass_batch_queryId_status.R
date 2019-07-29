@@ -28,6 +28,7 @@
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @return Returns a character vector with the status of the query; ideally, "Complete".
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/mass/batch/{queryId}/status}
+#' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples 
 #' \dontrun{
 #' ## Get the status of a mass batch query from ChemSpider
@@ -67,9 +68,7 @@ get_mass_batch_queryId_status <- function(queryId, count = TRUE, message = TRUE,
     result$message <- NULL
   }
   
-  if (ncol(result) == 1) {
-    result <- unlist(result)
-  }
+  check_result(result)
   
   result
 }

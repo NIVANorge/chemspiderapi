@@ -1,5 +1,5 @@
-#' @title POST elements to obtain a query ID
-#' @description Functionality to POST up to 15 elements to include and up to 100 elements to exclude to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+#' @title Post elements to obtain a query ID
+#' @description Functionality to post up to 15 elements to include and up to 100 elements to exclude to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 #' @details Says Chemspider:\cr
 #' \cr
 #' \emph{"Optionally, you can also submit \code{orderBy} and \code{orderDirection} to specify the sort order for the results. If you do not specify a value for \code{orderBy}, results are sorted by [\code{recordId}] by default."}\cr
@@ -12,9 +12,7 @@
 #' \cr
 #' Valid values for \code{complexity} are \code{"any"}, \code{"single"}, or \code{"multiple"} whereby a compound with a complexity of multiple has more than one disconnected system in it or a metal atom or ion.\cr
 #' \cr
-#' Valid values for \code{isotopic} are \code{"any"}, \code{"labeled"}, or \code{"unlabeled"}."\cr
-#' \cr
-#' If successful, performs the desired query and returns a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+#' Valid values for \code{isotopic} are \code{"any"}, \code{"labeled"}, or \code{"unlabeled"}."
 #' @param includeElements A character vector of elements to include; maximum length 15.
 #' @param excludeElements A character vector of elements to exclude; maximum length 100.
 #' @param includeAll \code{logical}: Only look for records containing ALL elements of \code{includeElement}?
@@ -27,9 +25,9 @@
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/element}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## POST the elements for Aspirin and exclude certain elements
-#' includeElements <- c("C", "H", "O")
-#' excludeElements <- c("K", "Na", "N", "Cl", "F")
+#' ## Post the elements for caffeine and exclude certain elements
+#' includeElements <- c("C", "H", "N", "O")
+#' excludeElements <- c("K", "Na", "Fe", "Cl", "F")
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_element(includeElements = includeElements, excludeElements = excludeElements, apikey = apikey)
 #' }
@@ -47,6 +45,14 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
   check_order(orderBy, orderDirection)
 
   check_apikey(apikey)
+  
+  if (length(includeElements) == 1) {
+    includeElements <- I(includeElements)
+  }
+  
+  if (length(excludeElements) == 1) {
+    excludeElements <- I(excludeElements)
+  }
   
   options <- list("includeAll" = includeAll, "complexity" = complexity, "isotopic" = isotopic)
   
@@ -69,7 +75,9 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

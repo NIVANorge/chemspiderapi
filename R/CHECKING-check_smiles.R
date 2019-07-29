@@ -11,5 +11,5 @@ check_smiles <- function(smiles) {
   if (!is.character(smiles)) {
     stop("The provided \"smiles\" is not a character vector.", call. = FALSE)
   }
-  
+
 }

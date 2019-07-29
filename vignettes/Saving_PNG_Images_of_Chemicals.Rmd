@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the` get_recordId_image()` function. These image files can also be stored straight from R.
+ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the `get_recordId_image()` function. These image files can also be stored straight from R.
 
 ### Installing the required `magick` package
 
-Before downloading an example image for caffein (ChemSpider ID 2424), the `magic` package needs to be installed.
+Before downloading an example image for caffein (ChemSpider ID 2424), the `magick` package needs to be installed.
 
 ```{r,eval=FALSE}
 install.packages("magick")
@@ -28,7 +28,7 @@ install.packages("magick")
 
 First, the `chemspiderapi` package needs to be loaded and the apikey needs to be retrieved.
 
-```{r setup}
+```{r,eval=FALSE}
 library(chemspiderapi)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))

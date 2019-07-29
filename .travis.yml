@@ -1,0 +1,30 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+cache: packages
+latex: false
+fortran: false
+
+matrix:
+  include: 
+    - dist: trusty
+    - dist: xenial
+    - os: osx
+      brew_packages: imagemagick libsodium
+    - os: osx
+      brew_packages: imagemagick@6 libsodium
+    - os: windows
+      script: choco install r -y
+
+addons:
+  apt:
+    update: true
+    packages:
+      - libsodium-dev
+      - libmagick++-dev
+
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'library(covr); codecov()'

@@ -1,10 +1,8 @@
-#' @title POST a name to obtain a ChemSpider query ID
+#' @title Post a name to obtain a ChemSpider query ID
 #' @description Functionality to POST the name of a compound and obtain a ChemSpider query ID for subsequent use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
 #' @details Allowed entries for \code{orderBy} are: \code{"recordId"} (default), \code{"massDefect"}, \code{"molecularWeight"}, \code{"referenceCount"}, \code{"dataSourceCount"}, \code{"pubMedCount"}, and \code{"rscCount"}.\cr
 #' \cr
-#' Allowed entries for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.\cr
-#' \cr
-#' If successful, returns a 36-character \code{queryId} as a character vector. The \code{queryId} can be used in \code{chemspiderapi::get_queryId_status()} and \code{chemspider::get_queryId_results()}.
+#' Allowed entries for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.
 #' @param name A character string of the compound name.
 #' @param orderBy A character string indicating by which parameter the results should be arranged (NOT case sensitive); see Details.
 #' @param orderDirection A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.
@@ -12,8 +10,8 @@
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/name}
 #' @examples \dontrun{
-#' ## POST the name of aspirin to obtain a query ID
-#' name <- "aspirin"
+#' ## Post the name of caffeine to obtain a query ID
+#' name <- "caffeine"
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' post_name(name = name, apikey = apikey)
 #' }
@@ -47,7 +45,9 @@ post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", 
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  
+  check_result(result)
   
   result
 }

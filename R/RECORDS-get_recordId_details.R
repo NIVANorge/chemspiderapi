@@ -1,18 +1,19 @@
-#' @title GET the record details for a compound from ChemSpider
-#' @description This function is used to return record details from ChemSpider.
-#' @details The available options for \code{fields} are: \code{"SMILES"}, \code{"Formula"}, \code{"AverageMass"}, \code{"MolecularWeight"}, \code{"MonoisotopicMass"}, \code{"NominalMass"}, \code{"CommonName"}, \code{"ReferenceCount"}, \code{"DataSourceCount"}, \code{"PubMedCount"}, \code{"RSCCount"}, \code{"Mol2D"}, \code{"Mol3D"}, and \code{"all"}.\cr
+#' @title Get details for a ChemSpider record
+#' @description This function returns record details from ChemSpider.
+#' @details "Call this endpoint with a Record ID as an integer.\cr
 #' \cr
-#' If successful, returns either a \code{data.frame} of results from the query with the requested fields; if only one paraemeter is returned, this is then transformed into a vector.
+#' The available fields are: SMILES, Formula, InChI, InChIKey, StdInChI, StdInChIKey, AverageMass, MolecularWeight, MonoisotopicMass, NominalMass, CommonName, ReferenceCount, DataSourceCount, PubMedCount, RSCCount, Mol2D, Mol3D."
 #' @param recordId A valid (integer) ChemSpider ID.
 #' @param fields Either a single character string, a character vector, or a character list stating which fields to return. Alternatively, \code{"all"} returns all possible \code{fields}. \code{fields} is NOT case sensitive, but see details for a list of possible entries.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output?
-#' @return A \code{data.frame} if multiple columns are returned, or a (named) vector of the appropriate type if only one \code{field} is returned.
+#' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{FALSE}.
+#' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.
+#' @return A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
-#' ## GET the record details for aspirin
-#' recordId <- 2157L
+#' ## Get the record details for caffeine
+#' recordId <- 2424L
 #' apikey <- "A valid 32-character Chemspider API key"
 #' get_recordId_details(recordId = recordId, 
 #'                      fields = c("SMILES", "Formula", "MolecularWeight", "CommonName"), 
@@ -21,7 +22,7 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
+get_recordId_details <- function(recordId, fields = "all", apikey, id = FALSE, simplify_formula = TRUE) {
   
   check_recordId(recordId)
 
@@ -60,10 +61,12 @@ get_recordId_details <- function(recordId, fields = "all", apikey, id = TRUE) {
   if (isFALSE(id)) {
     result$id <- NULL
   }
-
-  if (ncol(result) == 1L) {
-    result <- unlist(result)
+  
+  if (grepl("formula", fields, ignore.case = TRUE) && isTRUE(simplify_formula)) {
+    result$formula <- gsub(pattern = "[[:punct:]]", replacement = "", x = result$formula)
   }
+
+  check_result(result)
 
   result
 }
