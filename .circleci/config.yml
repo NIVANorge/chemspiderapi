@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run: 
           name: Install additional software
-          command
+          command: |
             apt-get libsodium
       - run:
           name: Install package dependencies
