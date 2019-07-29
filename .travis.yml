@@ -14,6 +14,7 @@ matrix:
     - os: osx
       brew_packages: imagemagick@6 libsodium
     - os: windows
+      script: choco install r -y
 
 addons:
   apt:
