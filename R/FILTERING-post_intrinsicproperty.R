@@ -41,7 +41,7 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_intrinsicproperty <- function(property, formula, complexity = "any", isotopic = "any", mass, range, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_intrinsicproperty <- function(property, formula = NULL, complexity = "any", isotopic = "any", mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
   check_property(property)
   

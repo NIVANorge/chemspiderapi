@@ -13,6 +13,7 @@ matrix:
       brew_packages: imagemagick libsodium
     - os: osx
       brew_packages: imagemagick@6 libsodium
+    - os: windows
 
 addons:
   apt:

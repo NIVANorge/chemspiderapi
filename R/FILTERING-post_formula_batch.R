@@ -22,7 +22,7 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_formula_batch <- function(formulas, dataSources, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
   
   check_formulas(formulas)
   

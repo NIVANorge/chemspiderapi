@@ -46,6 +46,14 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
 
   check_apikey(apikey)
   
+  if (length(includeElements) == 1) {
+    includeElements <- I(includeElements)
+  }
+  
+  if (length(excludeElements) == 1) {
+    excludeElements <- I(excludeElements)
+  }
+  
   options <- list("includeAll" = includeAll, "complexity" = complexity, "isotopic" = isotopic)
   
   data <- list("includeElements" = includeElements, "excludeElements" = excludeElements, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
