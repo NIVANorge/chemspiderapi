@@ -3,12 +3,12 @@ chemspiderapi
 
 <!-- badges: start -->
 
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/RaoulWolf/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/RaoulWolf/chemspiderapi)
-[![Travis build
-status](https://travis-ci.org/RaoulWolf/chemspiderapi.svg?branch=master)](https://travis-ci.org/RaoulWolf/chemspiderapi)
+[![CircleCI build
+status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=svg)](https://circleci.com/gh/NIVANorge/chemspiderapi)
+<!-- [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/NIVANorge/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/NIVANorge/chemspiderapi) -->
+<!-- [![Travis build status](https://travis-ci.org/NIVANorge/chemspiderapi.svg?branch=master)](https://travis-ci.org/NIVANorge/chemspiderapi) -->
 [![Codecov test
-coverage](https://codecov.io/gh/RaoulWolf/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/RaoulWolf/chemspiderapi?branch=master)
+coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
 <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -88,7 +88,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of
 
 ## Coverage
 
-As of 2019-07-24, the following functionalities are implemented (100%
+As of 2019-07-29, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 
@@ -186,4 +186,4 @@ Mixtures and Multiple Stressors
 
 ## License
 
-MIT © Raoul Wolf
+MIT Â© Raoul Wolf
