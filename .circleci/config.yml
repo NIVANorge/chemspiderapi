@@ -36,3 +36,29 @@ jobs:
           name: CodeCov
           when: on_success
           command: R -e 'covr::codecov()'
+    macos:
+      xcode: "10.3.0"
+    steps:
+      - checkout
+      - run:
+          name: Install additional libraries
+          command: |
+             sudo brew update
+             sudo brew install imagemagick
+             sudo brew install libsodium
+             sudo brew install r
+            - run:
+          name: Install package dependencies
+          command: R -e 'remotes::install_deps(dependencies = TRUE)'
+      - run:
+          name: Session information and installed package versions
+          command: |
+            R -e 'sessionInfo()'
+            R -e 'installed.packages()[, c("Package", "Version")]'
+            R -e 'rmarkdown::pandoc_version()'
+      - run:
+          name: Build package
+          command: R CMD build .
+      - run:
+          name: Check package
+          command: R CMD check --as-cran --no-manual *tar.gz
