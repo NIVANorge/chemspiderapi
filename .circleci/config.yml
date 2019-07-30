@@ -6,11 +6,10 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Install additional libraries
+          name: Install libsodium
           command: |
             sudo apt-get update
             sudo apt-get install libsodium-dev
-            sudo apt-get install libmagick++-dev
       - run:
           name: Install package dependencies
           command: R -e 'remotes::install_deps(dependencies = TRUE)'
@@ -26,13 +25,13 @@ jobs:
       - run:
           name: Check package
           command: R CMD check --as-cran --no-manual *tar.gz
+      - run:
+          name: Test package
+          when: on_success
+          command: R -e 'covr::codecov()'
       - store_artifacts:
           path: chemspiderapi.Rcheck/
       - save_cache:
           key: r-pkg-cache--
           paths:
             - "~/R/Library"
-      - run:
-          name: CodeCov
-          when: on_success
-          command: R -e 'covr::codecov()'
