@@ -17,19 +17,17 @@
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' get_recordId_externalreferences(recordId = recordId, dataSources = dataSources, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON
 #' @export 
-get_recordId_externalreferences <- function(recordId, dataSources, apikey, source = TRUE, sourceUrl = TRUE, externalUrl = TRUE) {
+get_recordId_externalreferences <- function(recordId, dataSources = NULL, apikey, source = TRUE, sourceUrl = TRUE, externalUrl = TRUE) {
   
   check_recordId(recordId)
-  
+
   check_dataSources(dataSources)
   
   check_apikey(apikey)
-  
-  if (!is.null(dataSources)) {
-    warning("Please consult get_datasources() for an up-to-date list of available data sources; performing query regardless.", call. = FALSE)
-  }
-  
+
   if (!is.null(dataSources)) {
     if (length(dataSources) > 1) {
       dataSources <- paste(dataSources, collapse = ",")

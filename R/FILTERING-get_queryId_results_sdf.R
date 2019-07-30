@@ -15,6 +15,8 @@
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' get_queryId_results_sdf(queryId = queryId, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite base64_dec fromJSON
 #' @export
 get_queryId_results_sdf <- function(queryId, status, apikey, decompress = TRUE) {
   

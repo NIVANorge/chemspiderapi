@@ -15,6 +15,8 @@
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' get_recordId_mol(recordId = recordId, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON
 #' @export
 get_recordId_mol <- function(recordId, apikey) {
   

@@ -29,6 +29,8 @@
 #' apikey <- "a valid 32-character ChemSpider apikey"
 #' get_formula_batch_queryId_status(queryId = queryId, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON
 #' @export
 get_formula_batch_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   

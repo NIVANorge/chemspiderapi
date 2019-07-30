@@ -21,6 +21,8 @@
 #' status <- get_queryId_status(queryId = queryId, apikey = apikey)
 #' get_queryId_results(queryId = queryId, status = status, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON
 #' @export
 get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
   

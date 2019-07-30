@@ -6,8 +6,7 @@
 #' @format A 5-by-2 \code{data.frame}.
 #' @keywords datasets
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
-#' @examples \dontrun{
+#' @examples 
 #' data(demo_chemicals)
 #' demo_chemicals
-#' }
 "demo_chemicals"

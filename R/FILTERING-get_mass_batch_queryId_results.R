@@ -14,6 +14,8 @@
 #' queryId <- "a valid 36-character ChemSpider queryId"
 #' get_mass_batch_queryId_results(queryId = queryId, apikey = apikey)
 #' }
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON
 #' @export
 get_mass_batch_queryId_results <- function(queryId, status, apikey) {
   

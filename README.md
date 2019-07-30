@@ -86,7 +86,7 @@ If `curl` or `jsonlite` are missing from the R library, all functions of
 
 ## Coverage
 
-As of 2019-07-29, the following functionalities are implemented (100%
+As of 2019-07-30, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 

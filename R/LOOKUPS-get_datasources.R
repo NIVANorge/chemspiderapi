@@ -15,7 +15,7 @@
 #' get_datasources(apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
-#' @importFrom jsonlite fromJSON toJSON 
+#' @importFrom jsonlite fromJSON 
 #' @export
 get_datasources <- function(apikey) {
   

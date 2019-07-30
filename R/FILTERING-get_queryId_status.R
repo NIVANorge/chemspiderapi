@@ -25,7 +25,8 @@
 #' apikey <- "A valid 32-character Chemspider API key"
 #' get_queryId_status(queryId = queryId, apikey = apikey)
 #' }
-#' @export
+#' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
+#' @importFrom jsonlite fromJSON
 get_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   
   check_queryId(queryId)
