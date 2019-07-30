@@ -1,26 +1,19 @@
 version: 2.1
 jobs:
   build:
-    machine:
-      image: ubuntu-1604:201903-01
-    environment:
-      R_LIBS: ~/R/Library
+    docker:
+      - image: rocker/verse:latest
     steps:
       - checkout
       - run: 
           name: Install additional libraries
           command: |
             sudo apt-get update
-            sudo apt-get install curl
             sudo apt-get install libsodium-dev
             sudo apt-get install libmagick++-dev
-            sudo apt-get install r-base
       - run:
           name: Install package dependencies
-          command: |
-            mkdir -p ~/R/Library
-            R -e 'install.packages("remotes", repos = "https://cloud.r-project.org")'
-            R -e 'remotes::install_deps(dependencies = TRUE)'
+          command: R -e 'remotes::install_deps(dependencies = TRUE)'
       - run:
           name: Session information and installed package versions
           command: |
