@@ -14,7 +14,9 @@ jobs:
             sudo apt-get install r-base
       - run:
           name: Install package dependencies
-          command: R -e 'remotes::install_deps(dependencies = TRUE)'
+          command: |
+            R -e 'install.packages("devtools")'
+            R -e 'remotes::install_deps(dependencies = TRUE)'
       - run:
           name: Session information and installed package versions
           command: |
