@@ -1,8 +1,8 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: rocker/verse:latest
+    machine:
+      - image: ubuntu-1604:201903-01
     steps:
       - checkout
       - run: 
@@ -11,6 +11,7 @@ jobs:
             sudo apt-get update
             sudo apt-get install libsodium-dev
             sudo apt-get install libmagick++-dev
+            sudo apt-get install r
       - run:
           name: Install package dependencies
           command: R -e 'remotes::install_deps(dependencies = TRUE)'
