@@ -6,6 +6,10 @@ jobs:
     environment:
       R_LIBS: ~/R/Library
     steps:
+      - restore_cache:
+          keys:
+            - r-pkg-cache--
+            - r-pkg-cache--
       - checkout
       - run: 
           name: Install additional libraries
