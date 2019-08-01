@@ -8,7 +8,7 @@
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{FALSE}.
 #' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.
-#' @return A data frame (if multiple fields are returned), or a vector of adequate type if only one field is requiered.
+#' @return A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/records/batch}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples

@@ -4,7 +4,7 @@
 \alias{post_formula}
 \title{POST a chemical formula to obtain a query ID}
 \usage{
-post_formula(formula, dataSources, orderBy = "recordId",
+post_formula(formula, dataSources = NULL, orderBy = "recordId",
   orderDirection = "ascending", apikey)
 }
 \arguments{

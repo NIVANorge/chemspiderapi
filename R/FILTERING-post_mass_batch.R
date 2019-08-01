@@ -8,7 +8,7 @@
 #' \cr
 #' Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}
 #' @param mass A vector of (double) numbers corresponding to the atomic (monoisotopic) masses you are inquiring. Has to be within the range of [1,11000].
-#' @param range A vector of (double) numbers corresponding to the rangees for the above masses. Has to be within the range of [0.0001,0.001].
+#' @param range A vector of (double) numbers corresponding to the ranges for the above masses. Has to be within the range of [0.0001,0.001].
 #' @param dataSources Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.
 #' @param orderBy A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
 #' @param orderDirection A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
@@ -38,7 +38,7 @@ post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId
   
   masses <- list()
   
-  for (i in 1:length(mass)) {
+  for (i in seq_len(length(mass))) {
     masses[[i]] <- list("mass" = mass[i], "range" = range[i])
   }
   

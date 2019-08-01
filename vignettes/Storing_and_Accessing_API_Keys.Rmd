@@ -2,7 +2,7 @@
 title: "Storing and Accessing API Keys"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Storing_and_Accessing_API_Keys}
+  %\VignetteIndexEntry{storing-and-accessing-api-keys}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

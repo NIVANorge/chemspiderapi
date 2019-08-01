@@ -6,7 +6,7 @@
 #' \cr
 #' To batch your requests, call this function with two optional parameters, \code{start} and \code{count}. Both take integer values. \code{start} is the number of the record to start with (zero-based), and \code{count} is the number of records to return. For example, to request results 200-300, use \code{start = 200L} and \code{count = 100L}.
 #' @param queryId A valid 36-character ChemSpider query ID string; see Details.
-#' @param start Optional: An integer value giving the position from which to start the retrival of query results. See Details.
+#' @param start Optional: An integer value giving the position from which to start the retrieval of query results. See Details.
 #' @param count Optional: An integer value giving the the number of query results to retrieve. See Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param status A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}

@@ -12,7 +12,7 @@ get_queryId_results(queryId, status, start = NULL, count = NULL,
 
 \item{status}{A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}}
 
-\item{start}{Optional: An integer value giving the position from which to start the retrival of query results. See Details.}
+\item{start}{Optional: An integer value giving the position from which to start the retrieval of query results. See Details.}
 
 \item{count}{Optional: An integer value giving the the number of query results to retrieve. See Details.}
 

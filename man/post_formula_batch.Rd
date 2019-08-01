@@ -4,7 +4,7 @@
 \alias{post_formula_batch}
 \title{Post a batch of chemical formulas}
 \usage{
-post_formula_batch(formulas, dataSources, orderBy = "recordId",
+post_formula_batch(formulas, dataSources = NULL, orderBy = "recordId",
   orderDirection = "ascending", apikey)
 }
 \arguments{

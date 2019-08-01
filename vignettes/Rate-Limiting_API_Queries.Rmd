@@ -2,7 +2,7 @@
 title: "Rate-Limiting API Queries"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Rate-Limiting_API_Queries}
+  %\VignetteIndexEntry{rate-limiting-api-queries}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +18,7 @@ Most users of ChemSpider's API services will have to apply rate limiting conditi
 
 ## Installing necessary packages
 
-To run both examples, the `ratelimitr` package and the `tidyverse` package collection need to be installed. The neccessary API key is retrieved from a stored keyring using the `keyring` package; see separate vignette "Storing and Accessing API Keys" for instructions and recomendations on how to handle system-wide keys.
+To run both examples, the `ratelimitr` package and the `tidyverse` package collection need to be installed. The necessary API key is retrieved from a stored keyring using the `keyring` package; see separate vignette "Storing and Accessing API Keys" for instructions and recomendations on how to handle system-wide keys.
 
 ```{r,eval=FALSE}
 install.packages(c("ratelimitr", "tidyverse"))
@@ -107,7 +107,7 @@ demo_chemicals
 ```
 
 
-### A `ratelimitr` examole
+### A `ratelimitr` example
 
 In this example, the `ratelimitr` package will be used to rate-limit `chemspiderapi` functions. To use the rate-limiting functionalities, we need to load `ratelimitr`
 

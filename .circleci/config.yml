@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
@@ -35,3 +35,8 @@ jobs:
           key: r-pkg-cache--
           paths:
             - "~/R/Library"
+workflows:
+  version: 2
+  workflow: 
+    jobs:
+    - build

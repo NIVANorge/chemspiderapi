@@ -1,6 +1,6 @@
 #' @title Post elements to obtain a query ID
 #' @description Functionality to post up to 15 elements to include and up to 100 elements to exclude to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
-#' @details Says Chemspider:\cr
+#' @details Says ChemSpider:\cr
 #' \cr
 #' \emph{"Optionally, you can also submit \code{orderBy} and \code{orderDirection} to specify the sort order for the results. If you do not specify a value for \code{orderBy}, results are sorted by [\code{recordId}] by default."}\cr
 #' \cr

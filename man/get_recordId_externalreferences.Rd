@@ -4,7 +4,7 @@
 \alias{get_recordId_externalreferences}
 \title{Get external references of a record ID}
 \usage{
-get_recordId_externalreferences(recordId, dataSources, apikey,
+get_recordId_externalreferences(recordId, dataSources = NULL, apikey,
   source = TRUE, sourceUrl = TRUE, externalUrl = TRUE)
 }
 \arguments{

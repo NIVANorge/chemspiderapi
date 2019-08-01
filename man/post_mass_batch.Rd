@@ -4,13 +4,13 @@
 \alias{post_mass_batch}
 \title{Post a batch of monoisotopic masses and their ranges to obtain a query ID}
 \usage{
-post_mass_batch(mass, range, dataSources, orderBy = "recordId",
+post_mass_batch(mass, range, dataSources = NULL, orderBy = "recordId",
   orderDirection = "ascending", apikey)
 }
 \arguments{
 \item{mass}{A vector of (double) numbers corresponding to the atomic (monoisotopic) masses you are inquiring. Has to be within the range of [1,11000].}
 
-\item{range}{A vector of (double) numbers corresponding to the rangees for the above masses. Has to be within the range of [0.0001,0.001].}
+\item{range}{A vector of (double) numbers corresponding to the ranges for the above masses. Has to be within the range of [0.0001,0.001].}
 
 \item{dataSources}{Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.}
 

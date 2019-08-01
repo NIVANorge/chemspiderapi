@@ -19,7 +19,7 @@ post_batch(recordIds, fields = "all", apikey, id = TRUE,
 \item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.}
 }
 \value{
-A data frame (if multiple fields are returned), or a vector of adequate type if only one field is requiered.
+A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
 }
 \description{
 Post a batch query of up to 100 ChemSpider record IDs.

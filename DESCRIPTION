@@ -12,6 +12,7 @@ Imports:
     jsonlite
 Suggests: 
     covr, 
+    httptest, 
     keyring, 
     knitr, 
     magick, 

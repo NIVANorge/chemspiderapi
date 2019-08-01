@@ -15,10 +15,8 @@ Small data set of five chemicals and their InChIKey for demonstration purposes.
 These five chemicals were chosen randomly. The verified InChIKeys were extracted from Wikipedia pages.
 }
 \examples{
-\dontrun{
 data(demo_chemicals)
 demo_chemicals
-}
 }
 \author{
 Raoul Wolf (\url{https://github.com/RaoulWolf/})

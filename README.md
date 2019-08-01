@@ -1,15 +1,15 @@
 chemspiderapi
 ================
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![CircleCI build
-status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=svg)](https://circleci.com/gh/NIVANorge/chemspiderapi)
-[![Codecov test
+status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=shield)](https://circleci.com/gh/NIVANorge/chemspiderapi)
+[![CodeCov test
 coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
 <!-- badges: end -->
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 > R functionalities for ChemSpider’s new API services
 
@@ -25,31 +25,34 @@ The aim of this package is to:
 2)  Include thorough quality checking *before* the query is send, to
     avoid using up the query quota on, e.g., spelling errors.
 3)  Implement the R functionality in a way that is suitable for both
-    base and tidyverse programming.
+    `base` and `tidyverse` programming.
 
 `chemspiderapi` relies on API keys to access ChemSpider’s API services.
-For this, we recommend storing the ChemSpider API key using
-[`keyring`](https://github.com/r-lib/keyring).
+For this, we recommend storing the ChemSpider API key using the
+[`keyring`](https://cran.r-project.org/package=keyring) package.
 
-To limit the rate of API queries, we recommend using
-[`ratelimitr`](https://github.com/tarakc02/ratelimitr) or
-`purrr::slowly()` within `tidyverse`.
+To limit the rate of API queries, we recommend using the
+[`ratelimitr`](https://cran.r-project.org/package=ratelimitr) package or
+`purrr::slowly()` within the
+[`tidyverse`](https://cran.r-project.org/package=tidyverse) package
+collection.
 
-To handle PNG images (as returned by
-`chemspiderapi::get_recordId_image()`)
-[`magick`](https://github.com/ropensci/magick) is recommended.
+To handle PNG images, the
+[`magick`](https://cran.r-project.org/package=magick) package is
+recommended.
 
-We furthermore recommend [`memoise`](https://github.com/r-lib/memoise)
-to “remember” the results of API queries (i.e., to not ruin the API
+We furthermore recommend the
+[`memoise`](https://cran.r-project.org/package=memoise) package to
+“remember” the results of API queries (i.e., to not ruin the API
 allowance).
 
 ## Installation
 
 ### R package
 
-Install the package from GitHub (using the
-[`remotes`](https://github.com/r-lib/remotes) package; automatically
-installed alongside [devtools](https://github.com/r-lib/devtools)):
+Install the package from GitHub (using the `remotes` package;
+automatically installed alongside
+[`devtools`](https://cran.r-project.org/package=devtools)):
 
 ``` r
 # install.packages("devtools")
@@ -63,30 +66,33 @@ The development version can be installed with:
 remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
 ```
 
-Currently the only tested environment for `chemspiderapi` is Windows 10
-and macOS, but it *should* install smoothly on Linux machines as well.
-Please open an issue if you run into any troubles.
+Currently the only tested continuous integration environment for
+`chemspiderapi` is Linux. It *should* install smoothly on Windows 10 and
+mac OS machines as well. Please open an issue if you run into any
+troubles.
 
 ### Dependencies
 
-`chemspiderapi` relies on two essential dependencies, i.e.,
-[`curl`](https://github.com/jeroen/curl) and
-[`jsonlite`](https://github.com/jeroen/jsonlite).
+`chemspiderapi` relies on two essential dependencies. The
+[`curl`](https://cran.r-project.org/package=curl) package is used to
+handle the API queries and the
+[`jsonlite`](https://cran.r-project.org/package=jsonlite) package is
+necessary to wrap and unwrap information for the queries.
 
-If not already installed, these packages *should* be installed
-automatically when installing `chemspiderapi`. Should this result in
-trouble, the dependency packages can be installed manually:
+If not already installed, these packages will be installed automatically
+when installing `chemspiderapi`. Should this result in trouble, the
+dependency packages can be installed manually:
 
 ``` r
 install.packages(c("curl", "jsonlite"))
 ```
 
-If `curl` or `jsonlite` are missing from the R library, all functions of
+If `curl` or `jsonlite` are missing, (almost) all functions of
 `chemspiderapi` will fail and throw an error.
 
 ## Coverage
 
-As of 2019-07-30, the following functionalities are implemented (100%
+As of 2019-07-31, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 
@@ -137,7 +143,7 @@ annotation):
 
 ## Best practices for ChemSpider’s Compound APIs
 
-This section will be updated with practical examples in the future.
+*This section will be updated with practical examples in the future.*
 
 The basic workflow order for the above **FILTERING** queries is:
 
@@ -148,7 +154,8 @@ The basic workflow order for the above **FILTERING** queries is:
 3)  GET Results (after GET Status returns `"Complete"`)
 
 In practice, this means the following possible workflows can be
-implemented:
+implemented (from left to
+right):
 
 | POST Query                 | GET Status                           | GET Results                           |
 | :------------------------- | :----------------------------------- | :------------------------------------ |
@@ -166,7 +173,30 @@ implemented:
 
 Typically, the result will be one or multiple ChemSpider IDs
 (`recordId`). They can be used as input into the above **RECORDS**
-queries.
+queries, e.g., `get_recordId_details()`.
+
+## Vignettes
+
+As of 2019-07-31, the following five vignettes are available:
+
+  - **Storing and Accessing API Keys**: A basic example on how to safely
+    store and retrieve API keys using the `keyring` package.
+
+  - **Rate-Limiting API Queries**: Multiple examples on how to slow down
+    API queries. `base`, `ratelimitr`, and `tidyverse` workflows are
+    provided.
+
+  - **Remembering API Queries**: A basic example on how to “remember”
+    the results of API queries using the `memoise` package. This can
+    greatly reduce redundant API queries.
+
+  - **Saving MOL and SDF Files**: Examples on how to save MOL and SDF
+    files as returned by `get_recordId_mol()` and
+    `get_queryId_results_sdf()`.
+
+  - **Saving PNG Images**: Examples on how to save PNG files, as
+    returned by `get_recordId_image()`, using functionalities of the
+    `magick` package.
 
 ## Funding
 
@@ -177,11 +207,10 @@ Computational Toxicology Program
 Ecotoxicology and Risk
 Assessment](https://www.niva.no/en/research/ecotoxicology_and_risk_assessment)
 and funded by [The Research Council of Norway
-(RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906),
-project 268294: [Cumulative Hazard and Risk Assessment of Complex
-Mixtures and Multiple Stressors
+(RCN)](https://www.forskningsradet.no/en/), project 268294: [Cumulative
+Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors
 (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
 
 ## License
 
-MIT Â© Raoul Wolf
+MIT © Raoul Wolf
