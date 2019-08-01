@@ -26,19 +26,19 @@ install.packages("magick")
 ### Downloading the PNG image of caffeine
 
 First, the `chemspiderapi` package needs to be loaded and the API key needs to be retrieved.
-```{r}
+```{r,eval=FALSE}
 library(chemspiderapi)
 
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
 ```
 
 Now, the "raw" image file (ChemSpider ID 2424) is downloaded using `get_recordId_image()`.
-```{r}
+```{r,eval=FALSE}
 caffeine_image_raw <- get_recordId_image(recordId = 2424L, apikey = apikey)
 ```
 
 Next, the image needs to be read in using the `magick::image_read()` functionality.
-```{r}
+```{r,eval=FALSE}
 library(magick)
 
 caffeine_png <- image_read(caffeine_image_raw)
@@ -48,7 +48,7 @@ caffeine_png <- image_read(caffeine_image_raw)
 ### Viewing the image
 
 The loaded image can be viewed by calling the object. 
-```{r}
+```{r,eval=FALSE}
 caffeine_png
 ```
 
