@@ -5,13 +5,17 @@ chemspiderapi
 
 <!-- badges: start -->
 
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/NIVANorge/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/NIVANorge/chemspiderapi)
 [![CircleCI build
 status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=shield)](https://circleci.com/gh/NIVANorge/chemspiderapi)
+[![Travis build
+status](https://travis-ci.org/NIVANorge/chemspiderapi.svg?branch=master)](https://travis-ci.org/NIVANorge/chemspiderapi)
 [![CodeCov test
 coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
 <!-- badges: end -->
 
-> R functionalities for ChemSpider’s new API services
+> R functionalities for ChemSpider’s API services
 
 ChemSpider has introduced a new API syntax in late 2018, and [the old
 ChemSpider API syntax will be shut down at the end of
@@ -92,7 +96,7 @@ If `curl` or `jsonlite` are missing, (almost) all functions of
 
 ## Coverage
 
-As of 2019-07-31, the following functionalities are implemented (100%
+As of 2019-08-07, the following functionalities are implemented (100%
 functionality with 100%
 annotation):
 
@@ -177,7 +181,7 @@ queries, e.g., `get_recordId_details()`.
 
 ## Vignettes
 
-As of 2019-07-31, the following five vignettes are available:
+As of 2019-08-07, the following five vignettes are available:
 
   - **Storing and Accessing API Keys**: A basic example on how to safely
     store and retrieve API keys using the `keyring` package.
