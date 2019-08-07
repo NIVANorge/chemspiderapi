@@ -1,0 +1,70 @@
+---
+title: "Saving MOL and SDF Files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{saving-mol-and-sdf-files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+MOL files are returned by multiple possible API queries. Most obviously by `get_recordId_mol()`, but also as part of `get_recordId_details()`. Saving those human-readable MOL files from R is possible with `base` R functionality.
+
+### Downloading the MOL file of caffeine
+
+For demonstration purposes, we will work with the MOL file for caffeine. Before starting, we need to load the `chemspiderapi` package and retrieve the API key. See the separate vignette "Storing and Accessing API Keys" for details on handling API keys using the `keyring` package.
+
+```{r,eval=FALSE}
+library(chemspiderapi)
+
+apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
+```
+
+We can now get the MOL file for caffeine, which has a ChemSpider ID of 2424.
+
+```{r,eval=FALSE}
+caffeine_mol <- get_recordId_mol(recordId = 2424, apikey = apikey)
+```
+
+
+### Saving the MOL file
+
+Saving the file is done using the `writeLines()` function. 
+
+```{r,eval=FALSE}
+## Writing the MOL file. Note that the file is specified as a connection.
+con <- file("caffeine.mol")
+
+writeLines(caffeine_mol, con = con)
+
+close(con)
+```
+
+### Saving SDF files
+
+Similar to the above procedure, bulk files SDF files containing multiple MOL entries can be stored. SDF files would be the result of queries by, for example, `post_mass()`. Accordingly, only the file connection needs to be changed. The below example is looking at chemicals
+
+```{r,eval=FALSE}
+## First the queryId is obtained
+queryId <- post_mass(mass = 194, range = 0.002, apikey = apikey)
+
+## Next, the status is controlled
+status <- get_queryId_status(queryId = queryId, count = FALSE, message = FALSE, apikey = apikey)
+
+## Note that per default, the MOL file is decompressed.
+caffeine_sdf <- get_queryId_results_sdf(queryId = queryId, status = status, apikey = apikey)
+
+## The file can now be written.
+con <- file("caffeine.sdf")
+
+writeLines(caffeine_sdf, con = con)
+
+close(con)
+```
+

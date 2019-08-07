@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Saving PNG Images</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Saving PNG Images</h1>
+
+
+
+<p>ChemSpider’s API services offers the functionality to download image files of the chemicals. This functionality is implemented in the <code>get_recordId_image()</code> function. These image files can also be stored straight from R.</p>
+<div id="installing-the-required-magick-package" class="section level3">
+<h3>Installing the required <code>magick</code> package</h3>
+<p>Before downloading an example image for caffeine, the <code>magick</code> package needs to be installed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;magick&quot;</span>)</a></code></pre></div>
+</div>
+<div id="downloading-the-png-image-of-caffeine" class="section level3">
+<h3>Downloading the PNG image of caffeine</h3>
+<p>First, the <code>chemspiderapi</code> package needs to be loaded and the API key needs to be retrieved.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(chemspiderapi)</a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">apikey &lt;-<span class="st"> </span>keyring<span class="op">::</span><span class="kw">key_get</span>(<span class="dt">service =</span> <span class="st">&quot;ChemSpider API key&quot;</span>, <span class="dt">username =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;USERNAME&quot;</span>))</a></code></pre></div>
+<p>Now, the “raw” image file (ChemSpider ID 2424) is downloaded using <code>get_recordId_image()</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">caffeine_image_raw &lt;-<span class="st"> </span><span class="kw">get_recordId_image</span>(<span class="dt">recordId =</span> 2424L, <span class="dt">apikey =</span> apikey)</a></code></pre></div>
+<p>Next, the image needs to be read in using the <code>magick::image_read()</code> functionality.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(magick)</a></code></pre></div>
+<pre><code>## Linking to ImageMagick 6.9.9.14
+## Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp
+## Disabled features: fontconfig, x11</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">caffeine_png &lt;-<span class="st"> </span><span class="kw">image_read</span>(caffeine_image_raw)</a></code></pre></div>
+</div>
+<div id="viewing-the-image" class="section level3">
+<h3>Viewing the image</h3>
+<p>The loaded image can be viewed by calling the object.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">caffeine_png</a></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABVlBMVEX/////2dn/Y2P/AAD/dHT/5ub/JSX/UVH/zMz/8/P/hYXMzMzm5ubZ2dnz8/OxsbEAAABRUVH/PDw8PDy/v79jY2Ojo6PW1ta+vr78/PyoqKiUlJRISEjHx8fn5+coKCh0dHRAQEDf398gICAlJSWFhYV/f38zMzO3t7fPz88QEBD39/dgYGDX19c4ODiHh4eVlZUYGBgdHR0TExOUlP/z8/+qqvjm5v9FRUUGBgY0NDQAAP9jY/9RUf/MzP8ICAiXl5dwcHDv7+/a2tqvr69YWFh4eHiPj48lJf/o6OhoaGjZ2f+np6c8PP+/v//u7u6tra0wMDCFhf/q6ur19fWfn59QUFBGRkYXFxexsf9dXV2NjY1ycnKZmZkBAQE3NzcVFRUbGxtSUlIEBARPT08MDAwFBQU9PT0UFBS2trajo///sbH/v7//lJR0dP//o6PFxcXKysq74/CnAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAAd0SU1FB+MHHxEVH0EHevMAAAZFSURBVHja7Zv7V+JGFMdHo4hlsRcX7WMhCCq7EJGlhdo2iyhFsT62ZVvT2vf7se5u2///l947wV0kgUzCQLLnzPecTXBMyGfn3jtz55phTElJSUlJSUlJSUlJSem11Ny8pmkLi2FjDFNptubCBrmtGPXU4ry2FDbILcW1GJ2WNW05bJTbWG/w85IWDxtFBlYiccc+0TGZWJGOFcSIbwIqhSwA9GMKErK7K6bNo8uv+nJ5pLqbwn9TxIoHGCAA0mg5QJipYQUYThOwRqf1BAEmUHengMXeevsdxt5N+8G696rfbE0BKwNZpkPOD9YGnVY4Vgo1Faw8ekoBNsVvSMIWIaVSySn6ln8sxEilE2sAdwaxwP4cItadLe5Q64MDBH2QyuUfi62sp1IbZLhUin7cRnOyCGAV72edjaEbkW3CA7dmqVz+sUpQNtyQQsYqwo6zMfxIzLnbUK58Y1VcbBgBLFcbho+1K25Dx+SUxMlh657IrX6xCj5sOIyVtBOOjSlgVX3YcBhrC7ZX2DpAUj6WDxsOYyUp0WZs7Z7AkgSxHvrBytXE43AoTRxIID2VgffgfaE0sF5v4PGD+l5wrG3RO/UPAT4C+LjifalpPsJj09z3gUXH1CssbsRtTyMaxRaUq8ZBDeCw7Y1FRAGx+OR04/KJT1q72dG3dTYBjnT80D5GvK431kkjIBZ9AOwurjX2aa3/YBeV8gAvoQsZgNz4GEMjmvUJjAgDwynvh6pL8LRPAWoHAw0PcgCZcS5mmnumeeYHy4n4StQPm53hq7plgOO2s22Ui6WL56bJ6mYzKJYzH6N+yJeGW1x6pn0Iri7W2UFfyCEWu7D9PhASOFqpH05N8zHjkfQZ9Z+7H1Xywy5mdHbwZsgVdcLaD4g1Ik2kfsBvbHCsz929rd8zGJ2Zwg3T+VELv7DXpQbCYk8Q64sgXCNU6SLWE471ZVcfc6FRLUOL3K59aRFTvtuHrNfx0KjX977SRR4oKpMbQMBldQzSry2Lhpj8gQPB2AVLLtaVeSE27pR2icm6dA3LQhm8Rl5/WMhUFwzw+/DNyNmoA62SyHcIY53h/CGGtQOX436Zk7fKoEiqiwY4x7rsuP/SyElcZhBW48QHlj4yO6y0xnWmfywaD4WxxiStB1AuiHyNoPLfCl7ogcUs2JXnXuJJuxdWexMOI4jFsrw8HzksXPTXZE1CMrFwKZePIpZeg+8ihmWVcWr6Hn6IFhb6lUGpxI+RwrKj8BhqnmvLWWLZY1Za3gghB4uP8OjwRUlUcrAuoVWgkoqs4UEOlp09dGXO1RKwjB7lWtkWdAS/aTZYh7DZZobMiZqxc19YLHPqaMc8Pis5a073wB+WUxh/Ve70AmU6Mem48PsJfha8+hd46NZsUfxJTJmp7tcqJgFORbIRo/orLhOdS1dm5XSadI4kUZ3X8DH4lN/Au+pnF3R+H7Go7ju9DGVxkdyjmUI/gj88q34VuzDYHiyLDKj9519ZJkH6Tr/uxw1Z5bWt0UPhYI3LOD+iIlKvyh282TzD45Pm2d8SoF4WYHiJyCoMtrjoYLgieFPequCC7oL5qzSPFi9X0X+WCri9/pRPJZmaWzDREOKsEnZO0TMhgwvyp3KwjJvinj5UwL1VZb5RwXKrstq8pzWLClF7k2LF43OUr9lu4mK2fk1+nz/kbL/BjFE16RuZZt18NBnWNb2UFXvGSsRCTm45nJz/BYOexbhl0jWvMc00Gyfm40mwkCq2FNO0Z8yO955rHonDBeOGIazeUDHaDYs9Nk8ugmMta9o1np7Tm3/dob8K3BKFl9nkWAXPwYhKK4+CVppJcW2Vn2PaIsuNHAv6z7owr8QchrD2JsN6zs/03qY+PonEp6DPCGOxpxNhLbzE8n7WC/OFEJYdtPv7jaBYc/Z7pHgS6YKGOYll/GhJi13HMRwXRLDY1aywFlf526Sr3u/ecodpzgiLLf8zvzR/LXBhE4cHtmcnB9FSqfZv2AhuKspbtSsshaWwFJbCipwiitWBg7AR3JT4b6pbnIJp+lucAlJNe4tTEM1ii5N/zWaLUwCsWWxxCoC1Qacpb3HyrdlscfKvmWxx8q+ZbHEKoFlscZKl0I04EixsAHekCGJFIBKVlJSUlJSUlJReS/0P1BIHgAOgGwoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDctMzFUMTU6MjE6MzErMDI6MDDWoRgXAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTA3LTMxVDE1OjIxOjMxKzAyOjAwp/ygqwAAAABJRU5ErkJggg==" width="150" /></p>
+</div>
+<div id="saving-the-png-image" class="section level3">
+<h3>Saving the PNG image</h3>
+<p>Saving the image is possible using the <code>magick::image_write()</code> function.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">image_write</span>(caffeine_png, <span class="dt">path =</span> <span class="st">&quot;caffeine.png&quot;</span>)</a></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

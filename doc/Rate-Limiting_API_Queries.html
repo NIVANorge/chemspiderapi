@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Rate-Limiting API Queries</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Rate-Limiting API Queries</h1>
+
+
+
+<p>Most users of ChemSpider’s API services will have to apply rate limiting conditions. Such a rate limit could be, for example, “no more than 15 queries per minute”. The following two paragraphs describe how to rate-limit any <code>chemspiderapi</code> function; both in <code>base</code> R (using <code>ratelimitr</code>) and <code>tidyverse</code> coding styles.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div id="installing-necessary-packages" class="section level2">
+<h2>Installing necessary packages</h2>
+<p>To run both examples, the <code>ratelimitr</code> package and the <code>tidyverse</code> package collection need to be installed. The necessary API key is retrieved from a stored keyring using the <code>keyring</code> package; see separate vignette “Storing and Accessing API Keys” for instructions and recomendations on how to handle system-wide keys.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ratelimitr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>))</a></code></pre></div>
+<div id="loading-demo-data" class="section level3">
+<h3>Loading demo data</h3>
+<p>To start working with rate-limiting, the miniature demo data from <code>chemspiderapi</code> will be used. The data set is immediately available once <code>chemspiderapi</code> is loaded.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co">## Loading chemspiderapi</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(chemspiderapi)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">## Loading the demo data</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">data</span>(<span class="st">&quot;demo_chemicals&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6"></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">## Looking at the demo data</span></a>
+<a class="sourceLine" id="cb2-8" title="8">demo_chemicals</a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;                         Name                    InChIKey</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 1                   Caffeine RYYVLZVUVIJVGH-UHFFFAOYSA-N</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 2                Bisphenol A IISBACLAFKSPIT-UHFFFAOYSA-N</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 3             Benzo(a)pyrene FMMWHPNWAFZXNH-UHFFFAOYSA-N</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 4       Acetylsalicylic acid BSYNRYMUTXBXSQ-UHFFFAOYSA-N</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; 5 N,N-Diethyl-meta-toluamide MMOXZBCLCQITDF-UHFFFAOYSA-N</span></a></code></pre></div>
+</div>
+<div id="a-base-r-example" class="section level3">
+<h3>A <code>base</code> R example</h3>
+<p>In <code>base</code> R, <code>chemspiderapi</code> functions can be re-wrapped into functions that introduce a waiting time using <code>Sys.sleep()</code>. These rate-limited functions can then be used in, for example, the <code>apply()</code> family . Before diving into the rate-limiting, the API key needs to be retrieved.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">## Retrieving the API key from the keyring package.</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">## Note that the keyring package is not loaded, but only the keyring::key_get() function is called.</span></a>
+<a class="sourceLine" id="cb3-3" title="3">apikey &lt;-<span class="st"> </span>keyring<span class="op">::</span><span class="kw">key_get</span>(<span class="dt">service =</span> <span class="st">&quot;ChemSpider API key&quot;</span>, <span class="dt">username =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;USERNAME&quot;</span>))</a></code></pre></div>
+<p>We will now create a rate-limited version of the <code>post_inchikey()</code> function and use it to obtain a query ID.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">## The sleep_post_inchickey() function will automatically &quot;sleep&quot; for four seconds before returning its result.</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">## This means it will run each query with a four second sleep in between, resulting in 15 queries per minute.</span></a>
+<a class="sourceLine" id="cb4-3" title="3">sleepy_post_inchikey &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb4-4" title="4">  result &lt;-<span class="st"> </span><span class="kw">post_inchikey</span>(...)</a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">Sys.sleep</span>(<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6">  result</a>
+<a class="sourceLine" id="cb4-7" title="7">}</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">## sapply() can be used in this context because the result of each iteration is a single vector.</span></a>
+<a class="sourceLine" id="cb4-10" title="10">demo_chemicals<span class="op">$</span>queryId &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dt">X =</span> demo_chemicals<span class="op">$</span>InChIKey, <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">sleepy_post_inchikey</span>(<span class="dt">inchikey =</span> x, <span class="dt">apikey =</span> apikey))</a>
+<a class="sourceLine" id="cb4-11" title="11"></a>
+<a class="sourceLine" id="cb4-12" title="12">demo_chemicals</a></code></pre></div>
+<p>We can now check the status of query with a rate-limited <code>get_queryId_status()</code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">sleepy_get_queryId_status &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb5-2" title="2">  result &lt;-<span class="st"> </span><span class="kw">get_queryId_status</span>(...)</a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">Sys.sleep</span>(<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4">  result</a>
+<a class="sourceLine" id="cb5-5" title="5">}</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">## As the result of the query is an array, lapply() is used.</span></a>
+<a class="sourceLine" id="cb5-8" title="8">demo_chemicals<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dt">X =</span> demo_chemicals<span class="op">$</span>queryId, <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">sleepy_get_queryId_status</span>(<span class="dt">queryId =</span> x, <span class="dt">apikey =</span> apikey))</a>
+<a class="sourceLine" id="cb5-9" title="9"></a>
+<a class="sourceLine" id="cb5-10" title="10">demo_chemicals</a></code></pre></div>
+<p>All queries need to report the status <code>Complete</code> before proceeding. If this is the case, the ChemSpider IDs for the queries can be retrieved using a “sleepy” <code>get_queryId_results()</code> function.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">sleepy_get_queryId_results &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb6-2" title="2">  result &lt;-<span class="st"> </span><span class="kw">get_queryId_results</span>(...)</a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">Sys.sleep</span>(<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb6-4" title="4">  result</a>
+<a class="sourceLine" id="cb6-5" title="5">}</a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">## mapply() is used because the input covers two columns</span></a>
+<a class="sourceLine" id="cb6-8" title="8">demo_chemicals<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw">mapply</span>(<span class="dt">FUN =</span> <span class="cf">function</span>(x, y) <span class="kw">sleepy_get_queryId_results</span>(<span class="dt">queryId =</span> x, <span class="dt">status =</span> <span class="kw">unlist</span>(y)[<span class="dv">1</span>], <span class="dt">apikey =</span> apikey), <span class="dt">x =</span> demo_chemicals<span class="op">$</span>queryId, <span class="dt">y =</span> demo_chemicals<span class="op">$</span>status)</a>
+<a class="sourceLine" id="cb6-9" title="9"></a>
+<a class="sourceLine" id="cb6-10" title="10">demo_chemicals</a></code></pre></div>
+<p>Finally, the details for the chemicals can be retrieved using a rate-limited <code>get_recordId_details()</code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">sleepy_get_recordId_details &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb7-2" title="2">  result &lt;-<span class="st"> </span><span class="kw">get_recordId_details</span>(...)</a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">Sys.sleep</span>(<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">  result</a>
+<a class="sourceLine" id="cb7-5" title="5">}</a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7">demo_chemicals<span class="op">$</span>details &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dt">X =</span> demo_chemicals<span class="op">$</span>id, <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">sleepy_get_recordId_details</span>(<span class="dt">recordId =</span> x, <span class="dt">apikey =</span> apikey, <span class="dt">id =</span> <span class="ot">FALSE</span>))</a>
+<a class="sourceLine" id="cb7-8" title="8"></a>
+<a class="sourceLine" id="cb7-9" title="9">demo_chemicals</a></code></pre></div>
+</div>
+<div id="a-ratelimitr-example" class="section level3">
+<h3>A <code>ratelimitr</code> example</h3>
+<p>In this example, the <code>ratelimitr</code> package will be used to rate-limit <code>chemspiderapi</code> functions. To use the rate-limiting functionalities, we need to load <code>ratelimitr</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co">## Loading the ratelimitr package</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">library</span>(ratelimitr)</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">## Re-setting the demo data</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="kw">data</span>(<span class="st">&quot;demo_chemicals&quot;</span>)</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">## Note that the API key is already available from the previous example!</span></a></code></pre></div>
+<p>We will now create a rate-limited version of the <code>post_inchikey()</code> function and use it to obtain a query ID.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co">## In ratelimitr::limit_rate(), the ratelimitr::rate() function specifies the rate limit as calls per second. </span></a>
+<a class="sourceLine" id="cb9-2" title="2">limit_rate_post_inchikey &lt;-<span class="st"> </span><span class="kw">limit_rate</span>(post_inchikey, <span class="kw">rate</span>(<span class="dt">n =</span> <span class="dv">15</span>, <span class="dt">period =</span> <span class="dv">60</span>))</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">## sapply() can be used in this context because the result of each iteration is a single vector.</span></a>
+<a class="sourceLine" id="cb9-5" title="5">demo_chemicals<span class="op">$</span>queryId &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dt">X =</span> demo_chemicals<span class="op">$</span>InChIKey, <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">limit_rate_post_inchikey</span>(<span class="dt">inchikey =</span> x, <span class="dt">apikey =</span> apikey))</a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7">demo_chemicals</a></code></pre></div>
+<p>We can now check the status of query with a rate-limited <code>get_queryId_status()</code> function.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">limit_rate_get_queryId_status &lt;-<span class="st"> </span><span class="kw">limit_rate</span>(get_queryId_status, <span class="kw">rate</span>(<span class="dt">n =</span> <span class="dv">15</span>, <span class="dt">period =</span> <span class="dv">60</span>))</a>
+<a class="sourceLine" id="cb10-2" title="2"></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co">## As the result of the query is an array, lapply() is used.</span></a>
+<a class="sourceLine" id="cb10-4" title="4">demo_chemicals<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dt">X =</span> demo_chemicals<span class="op">$</span>queryId, <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">limit_rate_get_queryId_status</span>(<span class="dt">queryId =</span> x, <span class="dt">apikey =</span> apikey))</a>
+<a class="sourceLine" id="cb10-5" title="5"></a>
+<a class="sourceLine" id="cb10-6" title="6">demo_chemicals</a></code></pre></div>
+<p>All queries need to report the status <code>Complete</code> before proceeding. If this is the case, the ChemSpider IDs for the queries can be retrieved using a rate-limited <code>get_queryId_results()</code> function.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">limit_rate_get_queryId_results &lt;-<span class="st"> </span><span class="kw">limit_rate</span>(get_queryId_results, <span class="kw">rate</span>(<span class="dt">n =</span> <span class="dv">15</span>, <span class="dt">period =</span> <span class="dv">60</span>))</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co">## mapply() is used because the input covers two columns</span></a>
+<a class="sourceLine" id="cb11-4" title="4">demo_chemicals<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw">mapply</span>(<span class="dt">FUN =</span> <span class="cf">function</span>(x, y) <span class="kw">limit_rate_get_queryId_results</span>(<span class="dt">queryId =</span> x, <span class="dt">status =</span> <span class="kw">unlist</span>(y)[<span class="dv">1</span>], <span class="dt">apikey =</span> apikey), <span class="dt">x =</span> demo_chemicals<span class="op">$</span>queryId, <span class="dt">y =</span> demo_chemicals<span class="op">$</span>status)</a>
+<a class="sourceLine" id="cb11-5" title="5"></a>
+<a class="sourceLine" id="cb11-6" title="6">demo_chemicals</a></code></pre></div>
+<p>Finally, the details for the chemicals can be retrieved using a rate-limited <code>get_recordId_details()</code> function.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">limit_rate_get_recordId_details &lt;-<span class="st"> </span><span class="kw">limit_rate</span>(get_recordId_details, <span class="kw">rate</span>(<span class="dt">n =</span> <span class="dv">15</span>, <span class="dt">period =</span> <span class="dv">60</span>))</a>
+<a class="sourceLine" id="cb12-2" title="2"></a>
+<a class="sourceLine" id="cb12-3" title="3">demo_chemicals<span class="op">$</span>details &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dt">X =</span> demo_chemicals<span class="op">$</span>id, <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">limit_rate_get_recordId_details</span>(<span class="dt">recordId =</span> x, <span class="dt">apikey =</span> apikey, <span class="dt">id =</span> <span class="ot">FALSE</span>))</a>
+<a class="sourceLine" id="cb12-4" title="4"></a>
+<a class="sourceLine" id="cb12-5" title="5">demo_chemicals</a></code></pre></div>
+</div>
+<div id="a-tidyverse-example" class="section level3">
+<h3>A <code>tidyverse</code> example</h3>
+<p>In the <code>tidyverse</code> ecosystem, all relevant <code>chemspiderapi</code> functions can be used in functional programming approaches using the <code>purrr::map()</code> family. <code>purrr::slowly()</code> can be used to limit the number of calls of <code>chemspiderapi</code> functions in a given time interval.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co">## Loading the tidyverse package family</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb13-3" title="3"></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="co">## Re-setting the demo data</span></a>
+<a class="sourceLine" id="cb13-5" title="5"><span class="kw">data</span>(<span class="st">&quot;demo_chemicals&quot;</span>)</a>
+<a class="sourceLine" id="cb13-6" title="6"></a>
+<a class="sourceLine" id="cb13-7" title="7"><span class="co">## Note that the API key is already available from the previous example!</span></a>
+<a class="sourceLine" id="cb13-8" title="8"></a>
+<a class="sourceLine" id="cb13-9" title="9"><span class="co">## Using purrr::slowly() and purrr::rate_delay() to rate-limit the post_inchikey() function.</span></a>
+<a class="sourceLine" id="cb13-10" title="10"><span class="co">## In this example, we introduce a pause of four seconds and use the verbose output (`quiet = FALSE`).</span></a>
+<a class="sourceLine" id="cb13-11" title="11">slowly_post_inchikey &lt;-<span class="st"> </span><span class="kw">slowly</span>(post_inchikey, <span class="dt">rate =</span> <span class="kw">rate_delay</span>(<span class="dt">pause =</span> <span class="dv">4</span>), <span class="dt">quiet =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>The <code>post_inchikey()</code> function is now rate-limited as <code>slowly_post_inchikey()</code>. We can now use it to POST the five InChIKeys of the demo data.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">tidyverse_demo &lt;-<span class="st"> </span>demo_chemicals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">queryId =</span> <span class="kw">map_chr</span>(InChIKey, <span class="op">~</span><span class="st"> </span><span class="kw">slowly_post_inchikey</span>(<span class="dt">inchikey =</span> .x, <span class="dt">apikey =</span> apikey)))</a>
+<a class="sourceLine" id="cb14-4" title="4"></a>
+<a class="sourceLine" id="cb14-5" title="5">tidyverse_demo</a></code></pre></div>
+<p>In the next step, the queryId status needs to be checked using the <code>get_queryId_status()</code> function. This function as well needs to be rate-limited into <code>slowly_get_queryId_status()</code> before use.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">slowly_get_queryId_status &lt;-<span class="st"> </span><span class="kw">slowly</span>(get_queryId_status, <span class="dt">rate =</span> <span class="kw">rate_delay</span>(<span class="dt">pause =</span> <span class="dv">4</span>), <span class="dt">quiet =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb15-2" title="2"></a>
+<a class="sourceLine" id="cb15-3" title="3">tidyverse_demo &lt;-<span class="st"> </span>tidyverse_demo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">status =</span> <span class="kw">map</span>(queryId, <span class="op">~</span><span class="st"> </span><span class="kw">slowly_get_queryId_status</span>(<span class="dt">queryId =</span> .x, <span class="dt">apikey =</span> apikey))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-5" title="5"><span class="st">  </span><span class="kw">unnest</span>(status)</a>
+<a class="sourceLine" id="cb15-6" title="6"></a>
+<a class="sourceLine" id="cb15-7" title="7">tidyverse_demo</a></code></pre></div>
+<p>Ideally, the status column only contains <code>Complete</code>. If this is the case, the results can be retrieved using a rate-limited <code>slowly_get_queryId_results()</code> function.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">slowly_get_queryId_results &lt;-<span class="st"> </span><span class="kw">slowly</span>(get_queryId_results, <span class="dt">rate =</span> <span class="kw">rate_delay</span>(<span class="dt">pause =</span> <span class="dv">4</span>), <span class="dt">quiet =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"></a>
+<a class="sourceLine" id="cb16-3" title="3">tidyverse_demo &lt;-<span class="st"> </span>tidyverse_demo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">map2_int</span>(queryId, status, <span class="op">~</span><span class="st"> </span><span class="kw">slowly_get_queryId_results</span>(<span class="dt">queryId =</span> .x, <span class="dt">status =</span> .y, <span class="dt">apikey =</span> apikey)))</a>
+<a class="sourceLine" id="cb16-5" title="5"></a>
+<a class="sourceLine" id="cb16-6" title="6">tidyverse_demo</a></code></pre></div>
+<p>The id column contains the ChemSpider IDs for the five chemicals; or rather their InChIKeys. We can now obtain details for the chemicals using the rate-limited version of <code>get_recordId_details()</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">slowly_get_recordId_details &lt;-<span class="st"> </span><span class="kw">slowly</span>(get_recordId_details, <span class="dt">rate =</span> <span class="kw">rate_delay</span>(<span class="dt">pause =</span> <span class="dv">4</span>), <span class="dt">quiet =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb17-2" title="2"></a>
+<a class="sourceLine" id="cb17-3" title="3">tidyverse_demo &lt;-<span class="st"> </span>tidyverse_demo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">details =</span> <span class="kw">map</span>(id, <span class="op">~</span><span class="st"> </span><span class="kw">slowly_get_recordId_details</span>(<span class="dt">recordId =</span> .x, <span class="dt">apikey =</span> apikey, <span class="dt">id =</span> <span class="ot">FALSE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="st">  </span><span class="kw">unnest</span>(details)</a>
+<a class="sourceLine" id="cb17-6" title="6"></a>
+<a class="sourceLine" id="cb17-7" title="7">tidyverse_demo</a></code></pre></div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Technically, using the <code>purrr</code> package would be sufficient, but in practice most users will likely use the entire <code>tidyverse</code>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+---
+title: "Saving PNG Images"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Saving PNG Images}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r,include=FALSE}
+library(httptest)
+start_vignette("png")
+```
+
+ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the `get_recordId_image()` function. These image files can also be stored straight from R.
+
+
+### Installing the required `magick` package
+
+Before downloading an example image for caffeine, the `magick` package needs to be installed.
+```{r,eval=FALSE}
+install.packages("magick")
+```
+
+
+### Downloading the PNG image of caffeine
+
+First, the `chemspiderapi` package needs to be loaded and the API key needs to be retrieved.
+```{r}
+library(chemspiderapi)
+
+apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
+```
+
+Now, the "raw" image file (ChemSpider ID 2424) is downloaded using `get_recordId_image()`.
+```{r}
+caffeine_image_raw <- get_recordId_image(recordId = 2424L, apikey = apikey)
+```
+
+Next, the image needs to be read in using the `magick::image_read()` functionality.
+```{r}
+library(magick)
+
+caffeine_png <- image_read(caffeine_image_raw)
+```
+
+
+### Viewing the image
+
+The loaded image can be viewed by calling the object. 
+```{r}
+caffeine_png
+```
+
+
+### Saving the PNG image
+
+Saving the image is possible using the `magick::image_write()` function.
+```{r,eval=FALSE}
+image_write(caffeine_png, path = "caffeine.png")
+```
+
+```{r,include=FALSE}
+end_vignette()
+```
