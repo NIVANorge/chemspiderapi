@@ -9,9 +9,18 @@ matrix:
   include: 
     - os: osx
       brew_packages: imagemagick libsodium
+    - os: windows
+      script: choco install r -y
+
+addons:
+  apt:
+    update: true
+    packages:
+      - libsodium-dev
+      - libmagick++-dev
 
 r_packages:
   - covr
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'covr::codecov()'
