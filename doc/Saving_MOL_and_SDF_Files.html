@@ -312,36 +312,44 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb1-2" title="2"></a>
 <a class="sourceLine" id="cb1-3" title="3">apikey &lt;-<span class="st"> </span>keyring<span class="op">::</span><span class="kw">key_get</span>(<span class="dt">service =</span> <span class="st">&quot;ChemSpider API key&quot;</span>, <span class="dt">username =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;USERNAME&quot;</span>))</a></code></pre></div>
 <p>We can now get the MOL file for caffeine, which has a ChemSpider ID of 2424.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">caffeine_mol &lt;-<span class="st"> </span><span class="kw">get_recordId_mol</span>(<span class="dt">recordId =</span> <span class="dv">2424</span>, <span class="dt">apikey =</span> apikey)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">caffeine_mol &lt;-<span class="st"> </span><span class="kw">get_recordId_mol</span>(<span class="dt">recordId =</span> 2424L, <span class="dt">apikey =</span> apikey)</a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">caffeine_mol</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">length</span>(caffeine_mol)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">Sys.sleep</span>(<span class="dv">5</span>)</a></code></pre></div>
 </div>
 <div id="saving-the-mol-file" class="section level3">
 <h3>Saving the MOL file</h3>
-<p>Saving the file is done using the <code>writeLines()</code> function.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">## Writing the MOL file. Note that the file is specified as a connection.</span></a>
-<a class="sourceLine" id="cb3-2" title="2">con &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;caffeine.mol&quot;</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="kw">writeLines</span>(caffeine_mol, <span class="dt">con =</span> con)</a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="kw">close</span>(con)</a></code></pre></div>
+<p>Saving the file is done using the <code>writeLines()</code> function. Note that the file is specified as a connection.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">con &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;caffeine.mol&quot;</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">writeLines</span>(caffeine_mol, <span class="dt">con =</span> con)</a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">close</span>(con)</a></code></pre></div>
 </div>
 <div id="saving-sdf-files" class="section level3">
 <h3>Saving SDF files</h3>
-<p>Similar to the above procedure, bulk files SDF files containing multiple MOL entries can be stored. SDF files would be the result of queries by, for example, <code>post_mass()</code>. Accordingly, only the file connection needs to be changed. The below example is looking at chemicals</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">## First the queryId is obtained</span></a>
-<a class="sourceLine" id="cb4-2" title="2">queryId &lt;-<span class="st"> </span><span class="kw">post_mass</span>(<span class="dt">mass =</span> <span class="dv">194</span>, <span class="dt">range =</span> <span class="fl">0.002</span>, <span class="dt">apikey =</span> apikey)</a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">## Next, the status is controlled</span></a>
-<a class="sourceLine" id="cb4-5" title="5">status &lt;-<span class="st"> </span><span class="kw">get_queryId_status</span>(<span class="dt">queryId =</span> queryId, <span class="dt">count =</span> <span class="ot">FALSE</span>, <span class="dt">message =</span> <span class="ot">FALSE</span>, <span class="dt">apikey =</span> apikey)</a>
-<a class="sourceLine" id="cb4-6" title="6"></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">## Note that per default, the MOL file is decompressed.</span></a>
-<a class="sourceLine" id="cb4-8" title="8">caffeine_sdf &lt;-<span class="st"> </span><span class="kw">get_queryId_results_sdf</span>(<span class="dt">queryId =</span> queryId, <span class="dt">status =</span> status, <span class="dt">apikey =</span> apikey)</a>
-<a class="sourceLine" id="cb4-9" title="9"></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">## The file can now be written.</span></a>
-<a class="sourceLine" id="cb4-11" title="11">con &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;caffeine.sdf&quot;</span>)</a>
-<a class="sourceLine" id="cb4-12" title="12"></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="kw">writeLines</span>(caffeine_sdf, <span class="dt">con =</span> con)</a>
-<a class="sourceLine" id="cb4-14" title="14"></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="kw">close</span>(con)</a></code></pre></div>
+<p>Similar to the above procedure, bulk files SDF files containing multiple MOL entries can be stored. SDF files would be the result of queries by, for example, <code>post_mass()</code>. Accordingly, only the file connection needs to be changed. The below example is looking at chemicals with a mass and range similar to caffeine. First the queryId is obtained.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">queryId &lt;-<span class="st"> </span><span class="kw">post_mass</span>(<span class="dt">mass =</span> <span class="dv">194</span>, <span class="dt">range =</span> <span class="fl">0.002</span>, <span class="dt">apikey =</span> apikey)</a></code></pre></div>
+<p>Next, the status is controlled.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">status &lt;-<span class="st"> </span><span class="kw">get_queryId_status</span>(<span class="dt">queryId =</span> queryId, <span class="dt">count =</span> <span class="ot">FALSE</span>, <span class="dt">message =</span> <span class="ot">FALSE</span>, <span class="dt">apikey =</span> apikey)</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">status</a></code></pre></div>
+<p>The SDF file can now be retrieved. Note that per default, the SDF file is decompressed.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">caffeine_sdf &lt;-<span class="st"> </span><span class="kw">get_queryId_results_sdf</span>(<span class="dt">queryId =</span> queryId, <span class="dt">status =</span> status, <span class="dt">apikey =</span> apikey)</a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">head</span>(caffeine_sdf)</a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="kw">length</span>(caffeine_sdf)</a></code></pre></div>
+</div>
+<div id="the-file-can-now-be-written." class="section level3">
+<h3>The file can now be written.</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">con &lt;-<span class="st"> </span><span class="kw">file</span>(<span class="st">&quot;caffeine.sdf&quot;</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">writeLines</span>(caffeine_sdf, <span class="dt">con =</span> con)</a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="kw">close</span>(con)</a></code></pre></div>
 </div>
 
 

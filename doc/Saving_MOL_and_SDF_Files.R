@@ -1,19 +1,19 @@
-## ---- include = FALSE----------------------------------------------------
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-
 ## ----eval=FALSE----------------------------------------------------------
 #  library(chemspiderapi)
 #  
 #  apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
 
 ## ----eval=FALSE----------------------------------------------------------
-#  caffeine_mol <- get_recordId_mol(recordId = 2424, apikey = apikey)
+#  caffeine_mol <- get_recordId_mol(recordId = 2424L, apikey = apikey)
+#  
+#  caffeine_mol
+#  
+#  length(caffeine_mol)
 
 ## ----eval=FALSE----------------------------------------------------------
-#  ## Writing the MOL file. Note that the file is specified as a connection.
+#  Sys.sleep(5)
+
+## ----eval=FALSE----------------------------------------------------------
 #  con <- file("caffeine.mol")
 #  
 #  writeLines(caffeine_mol, con = con)
@@ -21,16 +21,21 @@ knitr::opts_chunk$set(
 #  close(con)
 
 ## ----eval=FALSE----------------------------------------------------------
-#  ## First the queryId is obtained
 #  queryId <- post_mass(mass = 194, range = 0.002, apikey = apikey)
-#  
-#  ## Next, the status is controlled
+
+## ----eval=FALSE----------------------------------------------------------
 #  status <- get_queryId_status(queryId = queryId, count = FALSE, message = FALSE, apikey = apikey)
 #  
-#  ## Note that per default, the MOL file is decompressed.
+#  status
+
+## ----eval=FALSE----------------------------------------------------------
 #  caffeine_sdf <- get_queryId_results_sdf(queryId = queryId, status = status, apikey = apikey)
 #  
-#  ## The file can now be written.
+#  head(caffeine_sdf)
+#  
+#  length(caffeine_sdf)
+
+## ----eval=FALSE----------------------------------------------------------
 #  con <- file("caffeine.sdf")
 #  
 #  writeLines(caffeine_sdf, con = con)

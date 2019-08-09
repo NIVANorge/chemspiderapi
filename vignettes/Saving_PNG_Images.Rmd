@@ -7,11 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r,include=FALSE}
-library(httptest)
-start_vignette("png")
-```
-
 ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the `get_recordId_image()` function. These image files can also be stored straight from R.
 
 
@@ -58,8 +53,4 @@ caffeine_png
 Saving the image is possible using the `magick::image_write()` function.
 ```{r,eval=FALSE}
 image_write(caffeine_png, path = "caffeine.png")
-```
-
-```{r,include=FALSE}
-end_vignette()
 ```

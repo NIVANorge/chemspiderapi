@@ -7,11 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r,include=FALSE}
-library(httptest)
-start_vignette("mol-sdf")
-```
-
 MOL files are returned by multiple possible API queries. Most obviously by `get_recordId_mol()`, but also as part of `get_recordId_details()`. Saving those human-readable MOL files from R is possible with `base` R functionality.
 
 ### Downloading the MOL file of caffeine
@@ -34,7 +29,7 @@ caffeine_mol
 length(caffeine_mol)
 ```
 
-```{r,include=FALSE}
+```{r,eval=FALSE}
 Sys.sleep(5)
 ```
 
@@ -59,10 +54,6 @@ Similar to the above procedure, bulk files SDF files containing multiple MOL ent
 queryId <- post_mass(mass = 194, range = 0.002, apikey = apikey)
 ```
 
-```{r,include=FALSE}
-Sys.sleep(5)
-```
-
 Next, the status is controlled.
 ```{r,eval=FALSE}
 status <- get_queryId_status(queryId = queryId, count = FALSE, message = FALSE, apikey = apikey)
@@ -79,10 +70,6 @@ head(caffeine_sdf)
 length(caffeine_sdf)
 ```
 
-```{r,include=FALSE}
-Sys.sleep(5)
-```
-
 ### The file can now be written.
 ```{r,eval=FALSE}
 con <- file("caffeine.sdf")
@@ -90,8 +77,4 @@ con <- file("caffeine.sdf")
 writeLines(caffeine_sdf, con = con)
 
 close(con)
-```
-
-```{r,include=FALSE}
-end_vignette()
 ```

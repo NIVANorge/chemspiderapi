@@ -6,7 +6,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/NIVANorge/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/NIVANorge/chemspiderapi)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/NIVANorge/chemspiderapi?branch=master&svg=true)](https://ci.appveyor.com/project/skrytebane/chemspiderapi)
 [![CircleCI build status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=shield)](https://circleci.com/gh/NIVANorge/chemspiderapi)
 [![Travis build status](https://travis-ci.org/NIVANorge/chemspiderapi.svg?branch=master)](https://travis-ci.org/NIVANorge/chemspiderapi)
 [![CodeCov test coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)

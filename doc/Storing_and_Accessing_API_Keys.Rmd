@@ -7,13 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 > It is good practice to *not* store API keys in code or as plain text!
 
 To store API keys, we recommend using the `keyring` package. This vignette provides a minimal intro to the necessary functionality. For further functionalities of `keyring`, including real keyrings and password protection of the ChemSpider API key, we recommend the documentation of `keyring`, available [here](https://cran.r-project.org/package=keyring).
