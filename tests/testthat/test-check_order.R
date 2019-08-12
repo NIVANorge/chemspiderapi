@@ -8,7 +8,6 @@ test_that("check_order() fails if more than one orderBy is provided.", {
   )
 })
 
-
 test_that("check_order() fails if a false orderBy is provided.", {
   expect_error(
     check_order(orderBy = "thewrongthing", orderDirection = NULL)
@@ -38,7 +37,6 @@ test_that("check_order() fails if a false orderDirection is provided.", {
     check_order(orderBy = NULL, orderDirection = "thewrongthing")
   )
 })
-
 
 test_that("check_order() remains silent when the correct order is provided.", {
   expect_silent(

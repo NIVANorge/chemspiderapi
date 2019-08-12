@@ -11,5 +11,9 @@ check_smiles <- function(smiles) {
   if (!is.character(smiles)) {
     stop("The provided \"smiles\" is not a character vector.", call. = FALSE)
   }
+  
+  if (tolower(substr(x = smiles, start = 1L, stop = 6L)) == tolower("InChI=")) {
+    stop("The provided \"smiles\" seems to be an InChI string.", call. = FALSE)
+  }
 
 }

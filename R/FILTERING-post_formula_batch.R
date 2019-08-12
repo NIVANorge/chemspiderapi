@@ -26,6 +26,8 @@ post_formula_batch <- function(formulas, dataSources = NULL, orderBy = "recordId
   
   check_formulas(formulas)
   
+  check_dataSources(dataSources)
+  
   check_order(orderBy, orderDirection)
   
   check_apikey(apikey)
