@@ -41,16 +41,26 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_intrinsicproperty <- function(property, formula = NULL, complexity = "any", isotopic = "any", mass = NULL, range = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_intrinsicproperty <- function(property, 
+                                   formula = NULL, 
+                                   complexity = "any", 
+                                   isotopic = "any", 
+                                   mass = NULL, 
+                                   range = NULL, 
+                                   orderBy = "recordId", 
+                                   orderDirection = "ascending", 
+                                   apikey) {
   
   check_property(property)
   
   if (property != "formula" && is.null(mass) || property != "formula" && is.null(range)) {
-    stop("Both \"mass\" and \"range\" need to be provided.", call. = FALSE)
+    stop("Both \"mass\" and \"range\" need to be provided.", 
+         call. = FALSE)
   }
   
   if (property == "formula" && is.null(formula)) {
-    stop("No \"formula\" provided.", call. = )
+    stop("No \"formula\" provided.", 
+         call. = FALSE)
   }
   
   check_mass_and_range(mass, range)
@@ -66,27 +76,42 @@ post_intrinsicproperty <- function(property, formula = NULL, complexity = "any",
   options <- list("complexity" = complexity, "isotopic" = isotopic)
   
   if (tolower(property) == "formula") {
-    data <- list("formula" = formula, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("formula" = formula, 
+                 "options" = options, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "molecularweight") {
     molecularWeight <- list("mass" = mass, "range" = range)
-    data <- list("molecularWeight" = molecularWeight, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("molecularWeight" = molecularWeight, 
+                 "options" = options, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "nominalmass") {
     nominalMass <- list("mass" = mass, "range" = range)
-    data <- list("nominalMass" = nominalMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("nominalMass" = nominalMass, 
+                 "options" = options, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "averagemass") {
     averageMass <- list("mass" = mass, "range" = range)
-    data <- list("averageMass" = averageMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("averageMass" = averageMass, 
+                 "options" = options, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   }
   
   if (tolower(property) == "monoisotopicmass") {
     monoisotopicMass <- list("mass" = mass, "range" = range)
-    data <- list("monoisotopicMass" = monoisotopicMass, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("monoisotopicMass" = monoisotopicMass, 
+                 "options" = options, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   }
   
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)

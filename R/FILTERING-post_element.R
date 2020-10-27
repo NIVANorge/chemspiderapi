@@ -34,7 +34,14 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_element <- function(includeElements, excludeElements, includeAll = FALSE, complexity = "any", isotopic = "any", orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_element <- function(includeElements, 
+                         excludeElements, 
+                         includeAll = FALSE, 
+                         complexity = "any", 
+                         isotopic = "any", 
+                         orderBy = "recordId", 
+                         orderDirection = "ascending", 
+                         apikey) {
   
   check_elements(includeElements, excludeElements)
   
@@ -54,9 +61,15 @@ post_element <- function(includeElements, excludeElements, includeAll = FALSE, c
     excludeElements <- I(excludeElements)
   }
   
-  options <- list("includeAll" = includeAll, "complexity" = complexity, "isotopic" = isotopic)
+  options <- list("includeAll" = includeAll, 
+                  "complexity" = complexity, 
+                  "isotopic" = isotopic)
   
-  data <- list("includeElements" = includeElements, "excludeElements" = excludeElements, "options" = options, "orderBy" = orderBy, "orderDirection" = orderDirection)
+  data <- list("includeElements" = includeElements, 
+               "excludeElements" = excludeElements, 
+               "options" = options, 
+               "orderBy" = orderBy, 
+               "orderDirection" = orderDirection)
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
   header <- list("Content-Type" = "", "apikey" = apikey)

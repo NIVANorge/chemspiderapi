@@ -26,7 +26,12 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_mass_batch <- function(mass, 
+                            range, 
+                            dataSources = NULL, 
+                            orderBy = "recordId", 
+                            orderDirection = "ascending", 
+                            apikey) {
   
   check_mass_and_range(mass, range)
   
@@ -46,9 +51,14 @@ post_mass_batch <- function(mass, range, dataSources = NULL, orderBy = "recordId
     if (length(dataSources) == 1) {
       dataSources <- I(dataSources)
     } 
-    data <- list("masses" = masses, "dataSources" = dataSources, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("masses" = masses, 
+                 "dataSources" = dataSources, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   } else {
-    data <- list("masses" = masses, "orderBy" = orderBy, "orderDirection" = orderDirection)
+    data <- list("masses" = masses, 
+                 "orderBy" = orderBy, 
+                 "orderDirection" = orderDirection)
   }
   
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)

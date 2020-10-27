@@ -18,7 +18,10 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite base64_dec fromJSON
 #' @export
-get_queryId_results_sdf <- function(queryId, status, apikey, decompress = TRUE) {
+get_queryId_results_sdf <- function(queryId, 
+                                    status, 
+                                    apikey, 
+                                    decompress = TRUE) {
   
   check_queryId(queryId)
   

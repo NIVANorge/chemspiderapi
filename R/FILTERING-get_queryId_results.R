@@ -24,7 +24,11 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_queryId_results <- function(queryId, status, start = NULL, count = NULL, apikey) {
+get_queryId_results <- function(queryId, 
+                                status, 
+                                start = NULL, 
+                                count = NULL, 
+                                apikey) {
   
   check_queryId(queryId)
   
@@ -64,7 +68,8 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
   
   if ("limitedToMaxAllowed" %in% names(raw_result)) {
     if (isTRUE(raw_result$limitedToMaxAllowed)) {
-      warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", call. = FALSE)
+      warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", 
+              call. = FALSE)
     }
   }
 

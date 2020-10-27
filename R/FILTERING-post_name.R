@@ -18,7 +18,10 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", apikey) {
+post_name <- function(name, 
+                      orderBy = "recordId", 
+                      orderDirection = "ascending", 
+                      apikey) {
   
   check_name(name)
   
@@ -26,7 +29,9 @@ post_name <- function(name, orderBy = "recordId", orderDirection = "ascending", 
   
   check_apikey(apikey)
   
-  data <- list("name" = name, "orderBy" = orderBy, "orderDirection" = orderDirection)
+  data <- list("name" = name, 
+               "orderBy" = orderBy, 
+               "orderDirection" = orderDirection)
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
