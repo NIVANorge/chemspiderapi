@@ -4,8 +4,13 @@
 \alias{post_batch}
 \title{Post a batch of ChemSpider record IDs}
 \usage{
-post_batch(recordIds, fields = "all", apikey, id = TRUE,
-  simplify_formula = TRUE)
+post_batch(
+  recordIds,
+  fields = "all",
+  apikey,
+  id = TRUE,
+  simplify_formula = TRUE
+)
 }
 \arguments{
 \item{recordIds}{A vector of integer ChemSpider IDs.}

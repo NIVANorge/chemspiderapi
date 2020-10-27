@@ -4,9 +4,17 @@
 \alias{post_intrinsicproperty}
 \title{Post an intrinsic property}
 \usage{
-post_intrinsicproperty(property, formula = NULL, complexity = "any",
-  isotopic = "any", mass = NULL, range = NULL,
-  orderBy = "recordId", orderDirection = "ascending", apikey)
+post_intrinsicproperty(
+  property,
+  formula = NULL,
+  complexity = "any",
+  isotopic = "any",
+  mass = NULL,
+  range = NULL,
+  orderBy = "recordId",
+  orderDirection = "ascending",
+  apikey
+)
 }
 \arguments{
 \item{property}{See Details.}

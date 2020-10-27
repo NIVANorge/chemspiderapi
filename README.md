@@ -20,7 +20,7 @@ coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badg
 ChemSpider has introduced a new API syntax in late 2018, and [the old
 ChemSpider API syntax will be shut down at the end of
 November 2018](http://link.rsc.org/rsps/m/xSq8Cm8ovjN8-Elm0eYB3Sey61zutqNIUUaMcyc14sQ).
-`chemspiderapi` provides R wrappers around the new API services from
+`{chemspiderapi}` provides R wrappers around the new API services from
 ChemSpider.
 
 The aim of this package is to:
@@ -29,34 +29,39 @@ The aim of this package is to:
 2)  Include thorough quality checking *before* the query is send, to
     avoid using up the query quota on, e.g., spelling errors.
 3)  Implement the R functionality in a way that is suitable for both
-    `base` and `tidyverse` programming.
+    `{base}`- and `{tidyverse}`-style programming.
 
-`chemspiderapi` relies on API keys to access ChemSpider’s API services.
-For this, we recommend storing the ChemSpider API key using the
-[`keyring`](https://cran.r-project.org/package=keyring) package.
+`{chemspiderapi}` relies on API keys to access ChemSpider’s API
+services. For this, we recommend storing the ChemSpider API key using
+the [`{keyring}`](https://cran.r-project.org/package=keyring) package.
 
 To limit the rate of API queries, we recommend using the
-[`ratelimitr`](https://cran.r-project.org/package=ratelimitr) package or
-`purrr::slowly()` within the
-[`tidyverse`](https://cran.r-project.org/package=tidyverse) package
+[`{ratelimitr}`](https://cran.r-project.org/package=ratelimitr) package
+or `purrr::slowly()` within the
+[`{tidyverse}`](https://cran.r-project.org/package=tidyverse) package
 collection.
 
 To handle PNG images, the
-[`magick`](https://cran.r-project.org/package=magick) package is
+[`{magick}`](https://cran.r-project.org/package=magick) package is
 recommended.
 
 We furthermore recommend the
-[`memoise`](https://cran.r-project.org/package=memoise) package to
-“remember” the results of API queries (i.e., to not ruin the API
+[`{memoise}`](https://cran.r-project.org/package=memoise) package to
+“remember” the results of API queries (*i.e.*, to not ruin the API
 allowance).
+
+Additionally, the superb
+[`{webchem}`](https://cran.r-project.org/web/packages/webchem/) package
+provides access to a lot of additional chemistry-related API services
+and is highly recommended.
 
 ## Installation
 
 ### R package
 
-Install the package from GitHub (using the `remotes` package;
-automatically installed alongside
-[`devtools`](https://cran.r-project.org/package=devtools)):
+Install the package from GitHub (using the `{remotes}` package;
+automatically installed as part of
+[`{devtools}`](https://cran.r-project.org/package=devtools)):
 
 ``` r
 # install.packages("devtools")
@@ -71,34 +76,33 @@ remotes::install_github("NIVANorge/chemspiderapi", ref = "dev")
 ```
 
 Currently the only tested continuous integration environment for
-`chemspiderapi` is Linux. It *should* install smoothly on Windows 10 and
-mac OS machines as well. Please open an issue if you run into any
+`{chemspiderapi}` is Linux. It *should* install smoothly on Windows 10
+and mac OS machines as well. Please open an issue if you run into any
 troubles.
 
 ### Dependencies
 
-`chemspiderapi` relies on two essential dependencies. The
-[`curl`](https://cran.r-project.org/package=curl) package is used to
+`{chemspiderapi}` relies on two essential dependencies. The
+[`{curl}`](https://cran.r-project.org/package=curl) package is used to
 handle the API queries and the
-[`jsonlite`](https://cran.r-project.org/package=jsonlite) package is
+[`{jsonlite}`](https://cran.r-project.org/package=jsonlite) package is
 necessary to wrap and unwrap information for the queries.
 
 If not already installed, these packages will be installed automatically
-when installing `chemspiderapi`. Should this result in trouble, the
+when installing `{chemspiderapi}`. Should this result in trouble, the
 dependency packages can be installed manually:
 
 ``` r
 install.packages(c("curl", "jsonlite"))
 ```
 
-If `curl` or `jsonlite` are missing, (almost) all functions of
-`chemspiderapi` will fail and throw an error.
+If `{curl}` or `{jsonlite}` are missing, (almost) all functions of
+`{chemspiderapi}` will fail and throw an error.
 
 ## Coverage
 
-As of 2019-08-09, the following functionalities are implemented (100%
-functionality with 100%
-annotation):
+As of 2020-10-27, the following functionalities are implemented (100%
+functionality with 100% annotation):
 
 **FILTERING**
 
@@ -158,8 +162,7 @@ The basic workflow order for the above **FILTERING** queries is:
 3)  GET Results (after GET Status returns `"Complete"`)
 
 In practice, this means the following possible workflows can be
-implemented (from left to
-right):
+implemented (from left to right):
 
 | POST Query                 | GET Status                           | GET Results                           |
 | :------------------------- | :----------------------------------- | :------------------------------------ |
@@ -181,7 +184,7 @@ queries, e.g., `get_recordId_details()`.
 
 ## Vignettes
 
-As of 2019-08-09, the following five vignettes are available:
+As of 2020-10-27, the following five vignettes are available:
 
   - **Storing and Accessing API Keys**: A basic example on how to safely
     store and retrieve API keys using the `keyring` package.

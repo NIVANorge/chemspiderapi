@@ -4,4 +4,6 @@ check_result <- function(result) {
     result <- unlist(result, recursive = TRUE, use.names = FALSE)
   }
   
+  result
+  
 }

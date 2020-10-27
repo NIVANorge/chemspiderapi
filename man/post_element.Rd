@@ -4,9 +4,16 @@
 \alias{post_element}
 \title{Post elements to obtain a query ID}
 \usage{
-post_element(includeElements, excludeElements, includeAll = FALSE,
-  complexity = "any", isotopic = "any", orderBy = "recordId",
-  orderDirection = "ascending", apikey)
+post_element(
+  includeElements,
+  excludeElements,
+  includeAll = FALSE,
+  complexity = "any",
+  isotopic = "any",
+  orderBy = "recordId",
+  orderDirection = "ascending",
+  apikey
+)
 }
 \arguments{
 \item{includeElements}{A character vector of elements to include; maximum length 15.}

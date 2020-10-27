@@ -50,7 +50,7 @@ get_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
+  result <- as.character(result)
   
   if (isFALSE(count)) {
     result$count <- NULL

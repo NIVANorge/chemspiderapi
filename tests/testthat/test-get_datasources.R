@@ -8,7 +8,6 @@ test_that("get_datasources() returns nothing if API key length is wrong.", {
     )
 })
 
-
 test_that("get_datasources() returns nothing if API key type is wrong.", {
   expect_error(
     get_datasources(apikey = 1234567890L)

@@ -4,8 +4,13 @@
 \alias{post_formula_batch}
 \title{Post a batch of chemical formulas}
 \usage{
-post_formula_batch(formulas, dataSources = NULL, orderBy = "recordId",
-  orderDirection = "ascending", apikey)
+post_formula_batch(
+  formulas,
+  dataSources = NULL,
+  orderBy = "recordId",
+  orderDirection = "ascending",
+  apikey
+)
 }
 \arguments{
 \item{formulas}{A character vector of up to 100 chemical formulas.}

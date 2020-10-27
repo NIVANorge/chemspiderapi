@@ -4,8 +4,7 @@
 \alias{get_queryId_results}
 \title{Get results of a ChemSpider query}
 \usage{
-get_queryId_results(queryId, status, start = NULL, count = NULL,
-  apikey)
+get_queryId_results(queryId, status, start = NULL, count = NULL, apikey)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID string; see Details.}

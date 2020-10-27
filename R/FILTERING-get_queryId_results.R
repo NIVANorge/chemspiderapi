@@ -71,7 +71,7 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL, api
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   
-  result <- data.frame(results = result$results, stringsAsFactors = FALSE)
+  result <- as.character(result$results)
   
   check_result(result)
   

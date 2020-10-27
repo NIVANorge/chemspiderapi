@@ -4,8 +4,7 @@
 \alias{post_name}
 \title{Post a name to obtain a ChemSpider query ID}
 \usage{
-post_name(name, orderBy = "recordId", orderDirection = "ascending",
-  apikey)
+post_name(name, orderBy = "recordId", orderDirection = "ascending", apikey)
 }
 \arguments{
 \item{name}{A character string of the compound name.}

@@ -4,15 +4,19 @@
 \name{demo_chemicals}
 \alias{demo_chemicals}
 \title{Demo chemicals}
-\format{A 5-by-2 \code{data.frame}.}
+\format{
+A 5-by-2 \code{data.frame}.
+}
 \usage{
 data(demo_chemicals)
 }
 \description{
-Small data set of five chemicals and their InChIKey for demonstration purposes.
+Small data set of five chemicals and their InChIKey for 
+demonstration purposes.
 }
 \details{
-These five chemicals were chosen randomly. The verified InChIKeys were extracted from Wikipedia pages.
+These five chemicals were chosen randomly. The verified InChIKeys 
+were extracted from Wikipedia pages.
 }
 \examples{
 data(demo_chemicals)

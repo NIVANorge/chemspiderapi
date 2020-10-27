@@ -4,8 +4,7 @@
 \alias{get_mass_batch_queryId_status}
 \title{GET the status for a mass batch query from ChemSpider}
 \usage{
-get_mass_batch_queryId_status(queryId, count = TRUE, message = TRUE,
-  apikey)
+get_mass_batch_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID obtained from \code{chemspiderapi::post_mass_batch()}.}

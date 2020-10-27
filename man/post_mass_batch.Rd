@@ -4,8 +4,14 @@
 \alias{post_mass_batch}
 \title{Post a batch of monoisotopic masses and their ranges to obtain a query ID}
 \usage{
-post_mass_batch(mass, range, dataSources = NULL, orderBy = "recordId",
-  orderDirection = "ascending", apikey)
+post_mass_batch(
+  mass,
+  range,
+  dataSources = NULL,
+  orderBy = "recordId",
+  orderDirection = "ascending",
+  apikey
+)
 }
 \arguments{
 \item{mass}{A vector of (double) numbers corresponding to the atomic (monoisotopic) masses you are inquiring. Has to be within the range of [1,11000].}

@@ -4,8 +4,14 @@
 \alias{post_mass}
 \title{Post a monoisotopic mass and its range to obtain a query ID}
 \usage{
-post_mass(mass, range, dataSources = NULL, orderBy = "recordId",
-  orderDirection = "ascending", apikey)
+post_mass(
+  mass,
+  range,
+  dataSources = NULL,
+  orderBy = "recordId",
+  orderDirection = "ascending",
+  apikey
+)
 }
 \arguments{
 \item{mass}{A (double) number corresponding to the atomic mass (Da or g/mol) you are inquiring. Has to be within the range of [1,11000].}

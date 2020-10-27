@@ -4,8 +4,13 @@
 \alias{get_recordId_details}
 \title{Get details for a ChemSpider record}
 \usage{
-get_recordId_details(recordId, fields = "all", apikey, id = FALSE,
-  simplify_formula = TRUE)
+get_recordId_details(
+  recordId,
+  fields = "all",
+  apikey,
+  id = FALSE,
+  simplify_formula = TRUE
+)
 }
 \arguments{
 \item{recordId}{A valid (integer) ChemSpider ID.}

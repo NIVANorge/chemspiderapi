@@ -4,8 +4,7 @@
 \alias{get_formula_batch_queryId_status}
 \title{Get status for a formula batch query from ChemSpider}
 \usage{
-get_formula_batch_queryId_status(queryId, count = TRUE, message = TRUE,
-  apikey)
+get_formula_batch_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID obtained from \code{chemspiderapi::post_formula_batch()}.}
