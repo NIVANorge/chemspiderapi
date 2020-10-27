@@ -21,7 +21,11 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_batch <- function(recordIds, fields = "all", apikey, id = TRUE, simplify_formula = TRUE) {
+post_batch <- function(recordIds, 
+                       fields = "all", 
+                       apikey, 
+                       id = TRUE, 
+                       simplify_formula = TRUE) {
   
   check_recordIds(recordIds)
   

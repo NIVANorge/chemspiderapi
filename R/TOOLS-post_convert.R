@@ -27,7 +27,9 @@ post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
   check_apikey(apikey)
   
-  data <- list("input" = input, "inputFormat" = inputFormat, "outputFormat" = outputFormat)
+  data <- list("input" = input, 
+               "inputFormat" = inputFormat, 
+               "outputFormat" = outputFormat)
   
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   

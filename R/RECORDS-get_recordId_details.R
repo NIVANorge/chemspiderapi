@@ -22,7 +22,11 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_recordId_details <- function(recordId, fields = "all", apikey, id = FALSE, simplify_formula = TRUE) {
+get_recordId_details <- function(recordId, 
+                                 fields = "all", 
+                                 apikey, 
+                                 id = FALSE, 
+                                 simplify_formula = TRUE) {
   
   check_recordId(recordId)
 

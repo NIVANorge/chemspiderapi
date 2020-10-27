@@ -20,7 +20,12 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export 
-get_recordId_externalreferences <- function(recordId, dataSources = NULL, apikey, source = TRUE, sourceUrl = TRUE, externalUrl = TRUE) {
+get_recordId_externalreferences <- function(recordId, 
+                                            dataSources = NULL, 
+                                            apikey, 
+                                            source = TRUE, 
+                                            sourceUrl = TRUE, 
+                                            externalUrl = TRUE) {
   
   check_recordId(recordId)
 
