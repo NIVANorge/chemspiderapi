@@ -4,23 +4,25 @@
 \alias{get_formula_batch_queryId_results}
 \title{Get results of a formula batch query from ChemSpider}
 \usage{
-get_formula_batch_queryId_results(queryId, status, apikey)
+get_formula_batch_queryId_results(queryId, status, apikey, coerce = FALSE)
 }
 \arguments{
-\item{queryId}{A valid 36-character query ID, as returned by \code{chemspiderapi::post_formula_batch()}.}
+\item{queryId}{A valid 36-character query ID, as returned by \code{post_formula_batch()}.}
 
-\item{status}{status A character string indicating the query status as returned by \code{chemspiderapi::get_formula_batch_queryId_status()}.}
+\item{status}{A character string indicating the query status as returned by \code{get_formula_batch_queryId_status()}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
 }
 \value{
-Returns the (integer) ChemSpider IDs
+Returns the (integer) ChemSpider IDs as \code{list} or \code{data.frame}.
 }
 \description{
-Get results of a formula batch query from ChemSpider after \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}.
+Get results of a formula batch query from ChemSpider after \code{get_formula_batch_queryId_status()} returns \code{"Complete"}.
 }
 \details{
-Before running \code{chemspiderapi::get_formula_batch_queryId_results()}, make sure \code{chemspiderapi::get_formula_batch_queryId_status()} returns \code{"Complete"}.
+Before running \code{get_formula_batch_queryId_results()}, make sure \code{get_formula_batch_queryId_status()} returns \code{"Complete"}.
 }
 \examples{
 \dontrun{

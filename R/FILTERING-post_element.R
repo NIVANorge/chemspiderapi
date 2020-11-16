@@ -21,6 +21,7 @@
 #' @param orderBy A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
 #' @param orderDirection A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/element}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -41,7 +42,8 @@ post_element <- function(includeElements,
                          isotopic = "any", 
                          orderBy = "recordId", 
                          orderDirection = "ascending", 
-                         apikey) {
+                         apikey,
+                         coerce = FALSE) {
   
   .check_elements(includeElements, excludeElements)
   
@@ -52,6 +54,8 @@ post_element <- function(includeElements,
   .check_order(orderBy, orderDirection)
 
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
   
   if (length(includeElements) == 1L) {
     includeElements <- I(includeElements)
@@ -88,9 +92,10 @@ post_element <- function(includeElements,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
   
   result
 }

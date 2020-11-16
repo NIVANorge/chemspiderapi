@@ -7,6 +7,8 @@
 #' @param orderBy A character string indicating by which parameter the results should be arranged (NOT case sensitive); see Details.
 #' @param orderDirection A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/name}
 #' @examples \dontrun{
@@ -21,13 +23,18 @@
 post_name <- function(name, 
                       orderBy = "recordId", 
                       orderDirection = "ascending", 
-                      apikey) {
+                      apikey,
+                      coerce = FALSE, simplify = FALSE) {
   
   .check_name(name)
   
   .check_order(orderBy, orderDirection)
   
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
   
   data <- list("name" = name, 
                "orderBy" = orderBy, 
@@ -50,9 +57,14 @@ post_name <- function(name,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.character(result)
   
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
   
   result
 }

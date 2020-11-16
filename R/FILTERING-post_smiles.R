@@ -3,6 +3,8 @@
 #' @details If successful, returns the \code{queryId} as character string.
 #' @param smiles A SMILES character string.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/smiles}
 #' @examples \dontrun{
@@ -14,11 +16,15 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_smiles <- function(smiles, apikey) {
+post_smiles <- function(smiles, apikey, coerce = FALSE, simplify = FALSE) {
   
   .check_smiles(smiles)
   
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
   
   data <- list("smiles" = smiles)
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)
@@ -39,9 +45,14 @@ post_smiles <- function(smiles, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
   
   result
 }

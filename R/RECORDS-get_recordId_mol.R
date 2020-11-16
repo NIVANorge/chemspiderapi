@@ -5,6 +5,7 @@
 #' Call this endpoint with \code{recordId} as an integer. To save the MOL/SDF file, see the vignette "Saving MOL Files of Chemicals".
 #' @param recordId A valid (integer) ChemSpider ID.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return A character string containing the (human-readable) .MOL file.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/mol} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -18,11 +19,13 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_recordId_mol <- function(recordId, apikey) {
+get_recordId_mol <- function(recordId, apikey, simplify = FALSE) {
   
   .check_recordId(recordId)
   
   .check_apikey(apikey)
+  
+  .check_simplify(simplify)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -40,7 +43,10 @@ get_recordId_mol <- function(recordId, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
   
   result
 }

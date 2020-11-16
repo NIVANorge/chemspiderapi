@@ -9,7 +9,8 @@ get_recordId_details(
   fields = "all",
   apikey,
   id = TRUE,
-  simplify_formula = FALSE
+  simplify_formula = FALSE,
+  coerce = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ get_recordId_details(
 \item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{TRUE}.}
 
 \item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.

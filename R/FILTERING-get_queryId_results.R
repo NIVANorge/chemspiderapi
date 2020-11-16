@@ -10,6 +10,7 @@
 #' @param count Optional: An integer value giving the the number of query results to retrieve. See Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param status A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return A character vector indicating the status of the query; see Details.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -24,11 +25,8 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_queryId_results <- function(queryId, 
-                                status, 
-                                start = NULL, 
-                                count = NULL, 
-                                apikey) {
+get_queryId_results <- function(queryId, status, start = NULL, count = NULL, 
+                                apikey, coerce = FALSE) {
   
   .check_queryId(queryId)
   
@@ -37,6 +35,8 @@ get_queryId_results <- function(queryId,
   .check_start_and_count(start, count)
   
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -76,9 +76,9 @@ get_queryId_results <- function(queryId,
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   
-  result <- as.character(result$results)
-  
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
   
   result
 }

@@ -3,6 +3,8 @@
 #' @details Returns a numeric (double) array. To save the picture, see the vignette "Saving PNG Images of Chemicals".
 #' @param recordId A valid (integer) ChemSpider ID.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param decode \code{logical}: should the base64-encoded image be decoded? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return A numeric array.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/image} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -15,11 +17,13 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite base64_dec fromJSON
 #' @export 
-get_recordId_image <- function(recordId, apikey) {
+get_recordId_image <- function(recordId, apikey, decode = FALSE, simplify = FALSE) {
   
   .check_recordId(recordId)
   
   .check_apikey(apikey)
+  
+  .check_simplify(simplify)
 
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -37,8 +41,14 @@ get_recordId_image <- function(recordId, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
-  result <- jsonlite::base64_dec(result)
-
+  
+  if (decode) {
+    result$image <- jsonlite::base64_dec(result$image)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
+  
   result
 }

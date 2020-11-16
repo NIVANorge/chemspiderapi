@@ -41,41 +41,12 @@ test_that("get_datasources() correctly checks the status code.", {
   expect_error(.check_status_code(raw_result$status_code))
 })
 
-# test_that("", {
-#   expect_identical(
-#     typeof(curl::new_handle()), 
-#     "externalptr"
-#   )
-# })
-
-
-
-# with_mock_api({
-#   test_that("get_datasources() returns a data.frame with a single character column", {
-#     result <- get_datasources(apikey = keyring::key_get(service = "ChemSpider API key",
-#                                                         username = Sys.getenv("USERNAME")))
-#     expect_identical(class(result), "data.frame")
-#     expect_identical(length(colnames(result)), 1L)
-#     expect_identical(colnames(result), "dataSources")
-#     expect_identical(typeof(result$dataSources), "character")
-#   })
-# })
-
-# httpbin <- setup(presser::new_app_process(presser::httpbin_app()))
-# teardown(httpbin$stop())
-# 
-# test_that("HTTP errors are caught", {
-#   url <- httpbin$url("/status/404")
-#   resp <- httr::GET(url)
-#   expect_error(httr::stop_for_status(resp), class = "http_404")
-# })
-
-# test_that("query works", {
+# web <- setup({
 #   app <- presser::new_app()
-#   app$get("/hello", function(req, res) res$send("hello there"))
-#   on.exit(try(web$stop()))
-#   web <- presser::new_app_process(app)
-#   
-#   echo <- httr::content(httr::GET(web$url("/hello")))
-#   expect_equal(echo, "hello there")
+#   app$get("/hello/:user", function(req, res) {
+#     res$send(paste0("Hello ", req$params$user, "!"))
+#   })
+#   presser::new_app_process(app)
 # })
+# teardown(web$stop())
+

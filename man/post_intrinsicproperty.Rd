@@ -13,7 +13,9 @@ post_intrinsicproperty(
   range = NULL,
   orderBy = "recordId",
   orderDirection = "ascending",
-  apikey
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
 )
 }
 \arguments{
@@ -34,6 +36,10 @@ post_intrinsicproperty(
 \item{orderDirection}{A character string indicating in which direction the results should be ordered; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

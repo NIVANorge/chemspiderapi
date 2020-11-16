@@ -4,7 +4,14 @@
 \alias{get_queryId_results}
 \title{Get results of a ChemSpider query}
 \usage{
-get_queryId_results(queryId, status, start = NULL, count = NULL, apikey)
+get_queryId_results(
+  queryId,
+  status,
+  start = NULL,
+  count = NULL,
+  apikey,
+  coerce = FALSE
+)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID string; see Details.}
@@ -16,6 +23,8 @@ get_queryId_results(queryId, status, start = NULL, count = NULL, apikey)
 \item{count}{Optional: An integer value giving the the number of query results to retrieve. See Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 A character vector indicating the status of the query; see Details.

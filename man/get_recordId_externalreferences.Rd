@@ -8,9 +8,7 @@ get_recordId_externalreferences(
   recordId,
   dataSources = NULL,
   apikey,
-  source = TRUE,
-  sourceUrl = TRUE,
-  externalUrl = TRUE
+  coerce = FALSE
 )
 }
 \arguments{
@@ -20,11 +18,7 @@ get_recordId_externalreferences(
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
-\item{source}{\code{logical}: Should the source name be returned (ChemSpider default)?}
-
-\item{sourceUrl}{\code{logical}: Should the source URL be returned (ChemSpider default)?}
-
-\item{externalUrl}{\code{logical}: Should the external URL be returned (ChemSpider default)?}
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 Either a data frame (if no options are dropped) or a character/integer vector, depending on the external ID.

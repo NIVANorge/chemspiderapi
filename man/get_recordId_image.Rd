@@ -4,12 +4,16 @@
 \alias{get_recordId_image}
 \title{Get a PNG image of a ChemSpider record}
 \usage{
-get_recordId_image(recordId, apikey)
+get_recordId_image(recordId, apikey, decode = FALSE, simplify = FALSE)
 }
 \arguments{
 \item{recordId}{A valid (integer) ChemSpider ID.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{decode}{\code{logical}: should the base64-encoded image be decoded? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 A numeric array.

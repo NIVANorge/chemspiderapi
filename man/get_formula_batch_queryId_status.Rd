@@ -4,25 +4,36 @@
 \alias{get_formula_batch_queryId_status}
 \title{Get status for a formula batch query from ChemSpider}
 \usage{
-get_formula_batch_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
+get_formula_batch_queryId_status(
+  queryId,
+  count = TRUE,
+  message = TRUE,
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
+)
 }
 \arguments{
-\item{queryId}{A valid 36-character ChemSpider query ID obtained from \code{chemspiderapi::post_formula_batch()}.}
+\item{queryId}{A valid 36-character ChemSpider query ID obtained from \code{post_formula_batch()}.}
 
 \item{count}{\code{logical}: Should the count of the results be returned (ChemSpider default)?}
 
 \item{message}{\code{logical}: Should the message be returned (ChemSpider default)?}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
-Returns the query status as character vector
+Returns the query status as \code{list}, \code{data.frame} or character \code{vector}.
 }
 \description{
-This function is used to return the status of a query from \code{chemspiderapi::post_formula_batch()}.
+This function is used to return the status of a query from \code{post_formula_batch()}.
 }
 \details{
-Call this endpoint with a \code{queryId} obtained from \code{chemspiderapi::post_formula_batch()}.\cr
+Call this endpoint with a \code{queryId} obtained from \code{post_formula_batch()}.\cr
 \cr
 If the query is still ongoing, returns a warning and a character vector of the query status as \code{Incomplete}. It is recommended to wait at least ten seconds before checking the status again.\cr
 \cr
@@ -34,16 +45,16 @@ A status of Failed can be caused if the backend system could not compile the res
 \cr
 A status of Not Found can be caused if the Query ID has not been registered or has expired. Create a new filter request."}\cr
 \cr
-If both \code{count} and \code{message} are set to \code{FALSE}, \code{chemspiderapi::get_formula_batch_queryId_status()} returns the \code{status} as character vector.\cr
+If both \code{count} and \code{message} are set to \code{FALSE}, \code{get_formula_batch_queryId_status()} returns the \code{status} as character vector.\cr
 \cr
-If the status is \code{"Complete"}, the results of the query can be obtained from \code{chemspiderapi::get_formula_batch_queryId_results()}.
+If the status is \code{"Complete"}, the results of the query can be obtained from \code{get_formula_batch_queryId_results()}.
 }
 \examples{
 \dontrun{
 ## Get the status of a formula batch query from ChemSpider
 queryId <- "a valid 36-character ChemSpider queryId"
 apikey <- "a valid 32-character ChemSpider apikey"
-get_formula_batch_queryId_status(queryId = queryId, apikey = apikey)
+get_formula_batch_queryId_status(queryId = queryId, apikey = apikey, coerce = TRUE)
 }
 }
 \seealso{

@@ -3,6 +3,8 @@
 #' @details The validity criteria for InChIKeys are outlined here: \url{https://www.inchi-trust.org/technical-faq/#13.1}. If certain criteria are not met by the input \code{inchikey}, \code{chemspideR::post_inchikey()} returns an error message (and does not perform an API query). In the case of a non-standard \code{inchikey}, a warning is issued but the query will be performed.
 #' @param inchikey A valid 27-character InChIKey; see Details.
 #' @param apikey A valid 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchikey}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -15,7 +17,7 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_inchikey <- function(inchikey, apikey) {
+post_inchikey <- function(inchikey, apikey, coerce = FALSE, simplify = FALSE) {
   
   .check_inchikey(inchikey)
   
@@ -40,9 +42,14 @@ post_inchikey <- function(inchikey, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  .check_result(result)
-
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
+  
   result
 }

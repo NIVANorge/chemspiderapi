@@ -7,6 +7,8 @@
 #' @param inputFormat A character string indicating which format the input has. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.
 #' @param outputFormat A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return A character string with the desired converted identifier
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/tools/convert}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -21,11 +23,15 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export    
-post_convert <- function(input, inputFormat, outputFormat, apikey) {
+post_convert <- function(input, inputFormat, outputFormat, apikey, coerce = FALSE, simplify = FALSE) {
   
   .check_format(input, inputFormat, outputFormat)
   
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
   
   data <- list("input" = input, 
                "inputFormat" = inputFormat, 
@@ -49,8 +55,14 @@ post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
-  result <- unname(result)
+  
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
   
   result
 }

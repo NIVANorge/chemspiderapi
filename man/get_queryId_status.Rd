@@ -4,7 +4,14 @@
 \alias{get_queryId_status}
 \title{Get the status of a ChemSpider query}
 \usage{
-get_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
+get_queryId_status(
+  queryId,
+  count = TRUE,
+  message = TRUE,
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
+)
 }
 \arguments{
 \item{queryId}{A valid 36-character ChemSpider query ID string; see Details.}
@@ -14,15 +21,19 @@ get_queryId_status(queryId, count = TRUE, message = TRUE, apikey)
 \item{message}{\code{logical}: Should the message be returned?}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a \code{vector}? Defaults to \code{FALSE}.}
 }
 \value{
-A character vector indicating the status of the query
+Returns the query status as \code{list}, \code{data.frame} or character \code{vector}.
 }
 \description{
-This function is used to return the status of a query from ChemSpider before \code{chemspiderapi::get_results()} is called.
+This function is used to return the status of a query from ChemSpider before \code{get_results()} is called.
 }
 \details{
-Call this endpoint with a \code{queryId} obtained from a previous POST query,e.g., \code{chemspiderapi::post_inchikey()}.
+Call this endpoint with a \code{queryId} obtained from a previous POST query,e.g., \code{post_inchikey()}.
 \cr
 If the query is still ongoing, returns a warning and a character vector of the query status as \code{Incomplete}. It is recommended to wait at least ten seconds before checking the status again.\cr
 \cr

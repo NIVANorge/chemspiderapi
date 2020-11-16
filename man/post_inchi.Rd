@@ -4,12 +4,16 @@
 \alias{post_inchi}
 \title{POST an InChI string}
 \usage{
-post_inchi(inchi, apikey)
+post_inchi(inchi, apikey, coerce = FALSE, simplify = FALSE)
 }
 \arguments{
 \item{inchi}{A valid InChI string; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

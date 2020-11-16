@@ -4,12 +4,14 @@
 \alias{get_recordId_mol}
 \title{Get the MOL file of a ChemSpider record}
 \usage{
-get_recordId_mol(recordId, apikey)
+get_recordId_mol(recordId, apikey, simplify = FALSE)
 }
 \arguments{
 \item{recordId}{A valid (integer) ChemSpider ID.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 A character string containing the (human-readable) .MOL file.

@@ -8,6 +8,7 @@
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{TRUE}.
 #' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -26,13 +27,16 @@ get_recordId_details <- function(recordId,
                                  fields = "all", 
                                  apikey, 
                                  id = TRUE, 
-                                 simplify_formula = FALSE) {
+                                 simplify_formula = FALSE,
+                                 coerce = FALSE) {
   
   .check_recordId(recordId)
 
   .check_fields(fields)
 
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
 
   if (length(fields) == 1L) {
     if (fields == "all") {
@@ -60,8 +64,7 @@ get_recordId_details <- function(recordId,
 
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
-
+  
   if (!id) {
     result$id <- NULL
   }
@@ -70,7 +73,9 @@ get_recordId_details <- function(recordId,
     result$formula <- gsub(pattern = "[[:punct:]]", replacement = "", x = result$formula)
   }
 
-  .check_result(result)
-
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
   result
 }

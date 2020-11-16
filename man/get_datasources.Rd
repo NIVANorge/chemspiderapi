@@ -4,10 +4,14 @@
 \alias{get_datasources}
 \title{Get external ChemSpider data sources}
 \usage{
-get_datasources(apikey)
+get_datasources(apikey, coerce = FALSE, simplify = FALSE)
 }
 \arguments{
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 A character vector, length > 350.

@@ -6,6 +6,8 @@
 #' \cr
 #' This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, e.g., \code{chemspiderapi::get_recordId_externalreferences()}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return A character vector, length > 350.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -17,10 +19,14 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON 
 #' @export
-get_datasources <- function(apikey) {
+get_datasources <- function(apikey, coerce = FALSE, simplify = FALSE) {
   
   .check_apikey(apikey)
 
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
+  
   header <- list("Content-Type" = "", "apikey" = apikey)
   
   url <- "https://api.rsc.org/compounds/v1/lookups/datasources"
@@ -37,9 +43,14 @@ get_datasources <- function(apikey) {
 
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
   
   result
 }

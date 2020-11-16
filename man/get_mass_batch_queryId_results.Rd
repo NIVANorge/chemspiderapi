@@ -4,23 +4,25 @@
 \alias{get_mass_batch_queryId_results}
 \title{Get results of a mass batch query from ChemSpider}
 \usage{
-get_mass_batch_queryId_results(queryId, status, apikey)
+get_mass_batch_queryId_results(queryId, status, apikey, coerce = FALSE)
 }
 \arguments{
-\item{queryId}{A valid 36-character query ID, as returned by \code{chemspiderapi::post_mass_batch()}.}
+\item{queryId}{A valid 36-character query ID, as returned by \code{post_mass_batch()}.}
 
-\item{status}{status A character string indicating the query status as returned by \code{chemspiderapi::get_mass_batch_queryId_status()}}
+\item{status}{status A character string indicating the query status as returned by \code{get_mass_batch_queryId_status()}}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the record IDs of a mass batch query
 }
 \description{
-Get results from a ChemSpider query after \code{chemspiderapi::get_mass_batch_queryId_status()} returns \code{"Complete"}.
+Get results from a ChemSpider query after \code{get_mass_batch_queryId_status()} returns \code{"Complete"}.
 }
 \details{
-Before running \code{chemspiderapi::get_mass_batch_queryId_results()}, make sure \code{chemspiderapi::get_mass_batch_queryIdstatus()} returns \code{"Complete"}.
+Before running \code{get_mass_batch_queryId_results()}, make sure \code{get_mass_batch_queryIdstatus()} returns \code{"Complete"}.
 }
 \examples{
 \dontrun{

@@ -10,7 +10,9 @@ post_mass_batch(
   dataSources = NULL,
   orderBy = "recordId",
   orderDirection = "ascending",
-  apikey
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ post_mass_batch(
 \item{orderDirection}{A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

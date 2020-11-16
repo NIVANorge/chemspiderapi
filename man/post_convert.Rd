@@ -4,7 +4,14 @@
 \alias{post_convert}
 \title{Convert between chemical identifiers}
 \usage{
-post_convert(input, inputFormat, outputFormat, apikey)
+post_convert(
+  input,
+  inputFormat,
+  outputFormat,
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
+)
 }
 \arguments{
 \item{input}{A character string in the specified \code{inputFormat}.}
@@ -14,6 +21,10 @@ post_convert(input, inputFormat, outputFormat, apikey)
 \item{outputFormat}{A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 A character string with the desired converted identifier

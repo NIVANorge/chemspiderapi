@@ -14,6 +14,7 @@
 #' @param orderBy A character string indicating by which parameter the results should be ordered; see Details.
 #' @param orderDirection A character string indicating in which direction the results should be ordered; see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/formula}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -30,7 +31,7 @@ post_formula <- function(formula,
                          dataSources = NULL, 
                          orderBy = "recordId", 
                          orderDirection = "ascending", 
-                         apikey) {
+                         apikey, coerce = FALSE) {
   
   .check_formula(formula)
   
@@ -70,9 +71,10 @@ post_formula <- function(formula,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
   
   result
 }

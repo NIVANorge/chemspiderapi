@@ -15,6 +15,8 @@
 #' @param orderBy A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
 #' @param orderDirection A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/mass}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -33,7 +35,8 @@ post_mass <- function(mass,
                       dataSources = NULL, 
                       orderBy = "recordId", 
                       orderDirection = "ascending", 
-                      apikey) {
+                      apikey,
+                      coerce = FALSE, simplify = FALSE) {
   
   .check_mass_and_range(mass, range)
   
@@ -77,9 +80,14 @@ post_mass <- function(mass,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  .check_result(result)
+  if (coerce) {
+    result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
+  }
   
   result
 }

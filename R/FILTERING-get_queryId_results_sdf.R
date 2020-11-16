@@ -1,10 +1,11 @@
 #' @title Get a gzipped SDF file for a ChemSpider query
-#' @description This function is used to download a single .sdf file from ChemSpider after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
-#' @details Call this function after \code{chemspiderapi::get_queryId_status()} returns \code{"Complete"}.
+#' @description This function is used to download a single .sdf file from ChemSpider after \code{get_queryId_status()} returns \code{"Complete"}.
+#' @details Call this function after \code{get_queryId_status()} returns \code{"Complete"}.
 #' @param queryId A valid 36-character ChemSpider \code{queryId}.
-#' @param status A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}.
+#' @param status A character string indicating the query status as returned by \code{get_queryId_status()}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param decompress \code{logical}: should the base64-encoded gzipped file be decompressed? Defaults to \code{TRUE}.
+#' @param decode \code{logical}: should the base64-encoded gzipped file be decoded? Defaults to \code{TRUE}.
+#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns a (base64-encoded) character vector
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results/sdf}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -21,7 +22,8 @@
 get_queryId_results_sdf <- function(queryId, 
                                     status, 
                                     apikey, 
-                                    decompress = TRUE) {
+                                    decode = TRUE,
+                                    simplify = FALSE) {
   
   .check_queryId(queryId)
   
@@ -45,18 +47,21 @@ get_queryId_results_sdf <- function(queryId,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- result$results
   
-  if (decompress) {
+  if (decode) {
     
-    result <- jsonlite::base64_dec(result)
+    result_decoded <- jsonlite::base64_dec(result$results)
     
-    con <- rawConnection(result)
+    con <- rawConnection(result_decoded)
     
-    result <- readLines(gzcon(con))
+    result$results <- readLines(gzcon(con))
     
     close(con)
     
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
   }
   
   result

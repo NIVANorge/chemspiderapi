@@ -4,7 +4,14 @@
 \alias{post_name}
 \title{Post a name to obtain a ChemSpider query ID}
 \usage{
-post_name(name, orderBy = "recordId", orderDirection = "ascending", apikey)
+post_name(
+  name,
+  orderBy = "recordId",
+  orderDirection = "ascending",
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
+)
 }
 \arguments{
 \item{name}{A character string of the compound name.}
@@ -14,6 +21,10 @@ post_name(name, orderBy = "recordId", orderDirection = "ascending", apikey)
 \item{orderDirection}{A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
+
+\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

@@ -4,9 +4,7 @@
 #' @param recordId A valid (integer) ChemSpider ID.
 #' @param dataSources Either a character string, a vector of characters, or a list of characters detailing which \code{dataSources} to look up. If left as is, will return all \code{dataSources}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param source \code{logical}: Should the source name be returned (ChemSpider default)?
-#' @param sourceUrl \code{logical}: Should the source URL be returned (ChemSpider default)?
-#' @param externalUrl \code{logical}: Should the external URL be returned (ChemSpider default)?
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return Either a data frame (if no options are dropped) or a character/integer vector, depending on the external ID.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/externalreferences}
 #' @examples 
@@ -23,15 +21,15 @@
 get_recordId_externalreferences <- function(recordId, 
                                             dataSources = NULL, 
                                             apikey, 
-                                            source = TRUE, 
-                                            sourceUrl = TRUE, 
-                                            externalUrl = TRUE) {
+                                            coerce = FALSE) {
   
   .check_recordId(recordId)
 
   .check_dataSources(dataSources)
   
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
 
   if (!is.null(dataSources)) {
     if (length(dataSources) > 1) {
@@ -56,21 +54,10 @@ get_recordId_externalreferences <- function(recordId,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- unlist(result)
   
-  if (!source) {
-    result$source <- NULL
+  if (coerce) {
+    result <- result$externalReferences
   }
-  
-  if (!sourceUrl) {
-    result$sourceUrl <- NULL
-  }
-  
-  if (!externalUrl) {
-    result$externalUrl <- NULL
-  }
-  
-  .check_result(result)
   
   result
 }

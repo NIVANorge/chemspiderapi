@@ -8,6 +8,7 @@
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{TRUE}.
 #' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.
+#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/records/batch}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -25,13 +26,16 @@ post_batch <- function(recordIds,
                        fields = "all", 
                        apikey, 
                        id = TRUE, 
-                       simplify_formula = FALSE) {
+                       simplify_formula = FALSE,
+                       coerce = FALSE) {
   
   .check_recordIds(recordIds)
   
   .check_fields(fields)
   
   .check_apikey(apikey)
+  
+  .check_coerce(coerce)
   
   if (length(fields) == 1L) {
     if (fields == "all") {
@@ -63,17 +67,18 @@ post_batch <- function(recordIds,
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
-  result <- as.data.frame(result$records, stringsAsFactors = FALSE)
   
   if (!id) {
-    result$id <- NULL
+    result$records$id <- NULL
   }
   
-  if (grepl("formula", fields, ignore.case = TRUE) && simplify_formula) {
-    result$formula <- gsub(pattern = "[[:punct:]]", replacement = "", x = result$formula)
+  if (any(grepl("formula", fields, ignore.case = TRUE)) && simplify_formula) {
+    result$records$formula <- gsub(pattern = "[[:punct:]]", replacement = "", x = result$records$formula)
   }
   
-  .check_result(result)
+  if (coerce) {
+    result <- result$records
+  }
   
   result
 }

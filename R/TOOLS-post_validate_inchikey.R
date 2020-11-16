@@ -35,11 +35,13 @@ post_validate_inchikey <- function(inchikey, apikey) {
   
   curl::handle_setheaders(handle, .list = header)
   
-  result <- curl::curl_fetch_memory(url = url, handle = handle)
+  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  if (result$status_code == 200L) {
-    TRUE
+  if (raw_result$status_code == 200L) {
+    result <- TRUE
   } else {
-    FALSE
+    result <- FALSE
   }
+  
+  result
 }
