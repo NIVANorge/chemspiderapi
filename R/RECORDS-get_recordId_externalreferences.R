@@ -27,11 +27,11 @@ get_recordId_externalreferences <- function(recordId,
                                             sourceUrl = TRUE, 
                                             externalUrl = TRUE) {
   
-  check_recordId(recordId)
+  .check_recordId(recordId)
 
-  check_dataSources(dataSources)
+  .check_dataSources(dataSources)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
 
   if (!is.null(dataSources)) {
     if (length(dataSources) > 1) {
@@ -52,25 +52,25 @@ get_recordId_externalreferences <- function(recordId,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- unlist(result)
   
-  if (isFALSE(source)) {
+  if (!source) {
     result$source <- NULL
   }
   
-  if (isFALSE(sourceUrl)) {
+  if (!sourceUrl) {
     result$sourceUrl <- NULL
   }
   
-  if (isFALSE(externalUrl)) {
+  if (!externalUrl) {
     result$externalUrl <- NULL
   }
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

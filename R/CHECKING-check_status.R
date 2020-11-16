@@ -1,4 +1,4 @@
-check_status <- function(status) {
+.check_status <- function(status) {
   
   if (is.null(status)) {
     stop("No ChemSpider query \"status\" provided.", 

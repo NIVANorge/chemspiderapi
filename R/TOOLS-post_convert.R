@@ -23,9 +23,9 @@
 #' @export    
 post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
-  check_format(input, inputFormat, outputFormat)
+  .check_format(input, inputFormat, outputFormat)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   data <- list("input" = input, 
                "inputFormat" = inputFormat, 
@@ -45,7 +45,7 @@ post_convert <- function(input, inputFormat, outputFormat, apikey) {
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)

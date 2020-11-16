@@ -19,7 +19,7 @@
 #' @export
 get_datasources <- function(apikey) {
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
 
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -33,13 +33,13 @@ get_datasources <- function(apikey) {
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
 
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
 
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

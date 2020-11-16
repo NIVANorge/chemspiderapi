@@ -12,11 +12,11 @@ Imports:
     jsonlite
 Suggests: 
     covr, 
-    httptest, 
     keyring, 
     knitr, 
     magick, 
     memoise, 
+    presser,
     ratelimitr, 
     rmarkdown, 
     testthat

@@ -1,4 +1,4 @@
-check_queryId <- function(queryId) {
+.check_queryId <- function(queryId) {
   
   if (is.null(queryId)) {
     stop("No valid \"queryId\" provided.", 

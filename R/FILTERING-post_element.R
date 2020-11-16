@@ -43,21 +43,21 @@ post_element <- function(includeElements,
                          orderDirection = "ascending", 
                          apikey) {
   
-  check_elements(includeElements, excludeElements)
+  .check_elements(includeElements, excludeElements)
   
-  check_complexity(complexity)
+  .check_complexity(complexity)
   
-  check_isotopic(isotopic)
+  .check_isotopic(isotopic)
   
-  check_order(orderBy, orderDirection)
+  .check_order(orderBy, orderDirection)
 
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
-  if (length(includeElements) == 1) {
+  if (length(includeElements) == 1L) {
     includeElements <- I(includeElements)
   }
   
-  if (length(excludeElements) == 1) {
+  if (length(excludeElements) == 1L) {
     excludeElements <- I(excludeElements)
   }
   
@@ -84,13 +84,13 @@ post_element <- function(includeElements,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

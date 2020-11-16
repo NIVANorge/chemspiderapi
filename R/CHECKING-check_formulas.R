@@ -1,4 +1,4 @@
-check_formulas <- function(formulas) {
+.check_formulas <- function(formulas) {
   
   if (is.null(formulas)) {
     stop("No \"formulas\" provided.", 

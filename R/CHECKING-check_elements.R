@@ -1,4 +1,4 @@
-check_elements <- function(includeElements, excludeElements) {
+.check_elements <- function(includeElements, excludeElements) {
   
   if (is.null(includeElements)) {
     stop("No \"includeElements\" provided.", 

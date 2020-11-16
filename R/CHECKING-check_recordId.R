@@ -1,4 +1,4 @@
-check_recordId <- function(recordId) {
+.check_recordId <- function(recordId) {
   
   if (is.null(recordId)) {
     stop("No \"recordId\" provided.", 

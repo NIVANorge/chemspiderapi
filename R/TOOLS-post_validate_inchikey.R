@@ -17,9 +17,9 @@
 #' @export
 post_validate_inchikey <- function(inchikey, apikey) {
   
-  check_inchikey(inchikey)
+  .check_inchikey(inchikey)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   data <- list("inchikey" = inchikey)
   

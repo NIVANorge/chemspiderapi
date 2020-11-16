@@ -1,4 +1,4 @@
-check_inchikey <- function(inchikey) {
+.check_inchikey <- function(inchikey) {
   
   if (is.null(inchikey)) {
     stop("No \"inchikey\" provided.", 

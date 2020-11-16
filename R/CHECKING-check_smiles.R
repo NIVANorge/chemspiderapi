@@ -1,4 +1,4 @@
-check_smiles <- function(smiles) {
+.check_smiles <- function(smiles) {
   
   if (is.null(smiles)) {
     stop("No \"smiles\" provided.", 

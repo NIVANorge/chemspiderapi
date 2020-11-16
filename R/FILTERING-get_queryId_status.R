@@ -33,9 +33,9 @@ get_queryId_status <- function(queryId,
                                message = TRUE, 
                                apikey) {
   
-  check_queryId(queryId)
+  .check_queryId(queryId)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -49,21 +49,21 @@ get_queryId_status <- function(queryId,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.character(result)
   
-  if (isFALSE(count)) {
+  if (!count) {
     result$count <- NULL
   }
   
-  if (isFALSE(message)) {
+  if (!message) {
     result$message <- NULL
   }
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

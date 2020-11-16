@@ -33,13 +33,13 @@ post_mass_batch <- function(mass,
                             orderDirection = "ascending", 
                             apikey) {
   
-  check_mass_and_range(mass, range)
+  .check_mass_and_range(mass, range)
   
-  check_dataSources(dataSources)
+  .check_dataSources(dataSources)
   
-  check_order(orderBy, orderDirection)
+  .check_order(orderBy, orderDirection)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   masses <- list()
   
@@ -48,7 +48,7 @@ post_mass_batch <- function(mass,
   }
   
   if (!is.null(dataSources)) {
-    if (length(dataSources) == 1) {
+    if (length(dataSources) == 1L) {
       dataSources <- I(dataSources)
     } 
     data <- list("masses" = masses, 
@@ -75,13 +75,13 @@ post_mass_batch <- function(mass,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

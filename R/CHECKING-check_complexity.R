@@ -1,4 +1,4 @@
-check_complexity <- function(complexity) {
+.check_complexity <- function(complexity) {
   
   if (length(complexity) != 1L) {
     stop("Only one \"complexity\" is possible.", 

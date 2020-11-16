@@ -1,4 +1,4 @@
-check_apikey <- function(apikey) {
+.check_apikey <- function(apikey) {
   
   if (is.null(apikey)) {
     stop("No ChemSpider \"apikey\" provided.", 

@@ -17,9 +17,9 @@
 #' @export
 post_inchikey <- function(inchikey, apikey) {
   
-  check_inchikey(inchikey)
+  .check_inchikey(inchikey)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
 
   data <- list("inchikey" = inchikey)
   data <- jsonlite::toJSON(data, auto_unbox = TRUE)
@@ -36,13 +36,13 @@ post_inchikey <- function(inchikey, apikey) {
 
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
 
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  check_result(result)
+  .check_result(result)
 
   result
 }

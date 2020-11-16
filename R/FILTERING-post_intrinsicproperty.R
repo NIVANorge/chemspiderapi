@@ -51,7 +51,7 @@ post_intrinsicproperty <- function(property,
                                    orderDirection = "ascending", 
                                    apikey) {
   
-  check_property(property)
+  .check_property(property)
   
   if (property != "formula" && is.null(mass) || property != "formula" && is.null(range)) {
     stop("Both \"mass\" and \"range\" need to be provided.", 
@@ -63,15 +63,15 @@ post_intrinsicproperty <- function(property,
          call. = FALSE)
   }
   
-  check_mass_and_range(mass, range)
+  .check_mass_and_range(mass, range)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
-  check_complexity(complexity)
+  .check_complexity(complexity)
   
-  check_isotopic(isotopic)
+  .check_isotopic(isotopic)
   
-  check_order(orderBy, orderDirection)
+  .check_order(orderBy, orderDirection)
   
   options <- list("complexity" = complexity, "isotopic" = isotopic)
   
@@ -128,13 +128,13 @@ post_intrinsicproperty <- function(property,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(result, stringsAsFactors = FALSE)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

@@ -1,4 +1,4 @@
-check_status_code <- function(status_code) {
+.check_status_code <- function(status_code) {
   
   if (status_code != 200L) {
     

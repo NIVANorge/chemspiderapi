@@ -1,4 +1,4 @@
-check_inchi <- function(inchi) {
+.check_inchi <- function(inchi) {
   
   if (is.null(inchi)) {
     stop("No \"inchi\" string provided.", 

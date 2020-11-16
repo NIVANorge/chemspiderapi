@@ -6,8 +6,8 @@
 #' @param recordIds A vector of integer ChemSpider IDs.
 #' @param fields A character string indicating which fields to return; see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{FALSE}.
-#' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.
+#' @param id \code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{TRUE}.
+#' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.
 #' @return A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/records/batch}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -25,13 +25,13 @@ post_batch <- function(recordIds,
                        fields = "all", 
                        apikey, 
                        id = TRUE, 
-                       simplify_formula = TRUE) {
+                       simplify_formula = FALSE) {
   
-  check_recordIds(recordIds)
+  .check_recordIds(recordIds)
   
-  check_fields(fields)
+  .check_fields(fields)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   if (length(fields) == 1L) {
     if (fields == "all") {
@@ -59,21 +59,21 @@ post_batch <- function(recordIds,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(result$records, stringsAsFactors = FALSE)
   
-  if (isFALSE(id)) {
+  if (!id) {
     result$id <- NULL
   }
   
-  if (grepl("formula", fields, ignore.case = TRUE) && isTRUE(simplify_formula)) {
+  if (grepl("formula", fields, ignore.case = TRUE) && simplify_formula) {
     result$formula <- gsub(pattern = "[[:punct:]]", replacement = "", x = result$formula)
   }
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

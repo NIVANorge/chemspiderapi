@@ -1,4 +1,4 @@
-check_order <- function(orderBy, orderDirection) {
+.check_order <- function(orderBy, orderDirection) {
   
   if (!is.null(orderBy) && length(orderBy) > 1) {
     stop("Only a single \"orderBy\" entry is supported.", 

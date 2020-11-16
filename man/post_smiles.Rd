@@ -18,7 +18,7 @@ Returns the queryId string as (named) character vector.
 Functionality to post a SMILES string to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryID_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
-If successful, returns the \code{queryId} as character string.\cr
+If successful, returns the \code{queryId} as character string.
 }
 \examples{
 \dontrun{

@@ -20,11 +20,11 @@
 #' @export
 get_formula_batch_queryId_results <- function(queryId, status, apikey) {
   
-  check_queryId(queryId)
+  .check_queryId(queryId)
   
-  check_status(status)
+  .check_status(status)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -38,13 +38,13 @@ get_formula_batch_queryId_results <- function(queryId, status, apikey) {
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.data.frame(results = result$results, stringsAsFactors = FALSE)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

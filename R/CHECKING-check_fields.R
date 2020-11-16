@@ -1,4 +1,4 @@
-check_fields <- function(fields) {
+.check_fields <- function(fields) {
   
   if (!is.character(fields)) {
     stop("The provided \"fields\" are not a character vector.", 

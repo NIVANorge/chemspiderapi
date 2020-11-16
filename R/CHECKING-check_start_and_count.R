@@ -1,4 +1,4 @@
-check_start_and_count <- function(start, count) {
+.check_start_and_count <- function(start, count) {
   
   if (!is.null(start) && !is.numeric(start)) {
     stop("Please use a valid integer \"start\" value.", 

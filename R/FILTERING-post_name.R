@@ -23,11 +23,11 @@ post_name <- function(name,
                       orderDirection = "ascending", 
                       apikey) {
   
-  check_name(name)
+  .check_name(name)
   
-  check_order(orderBy, orderDirection)
+  .check_order(orderBy, orderDirection)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   data <- list("name" = name, 
                "orderBy" = orderBy, 
@@ -46,13 +46,13 @@ post_name <- function(name,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- as.character(result)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

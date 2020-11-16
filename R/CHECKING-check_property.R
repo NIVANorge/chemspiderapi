@@ -1,4 +1,4 @@
-check_property <- function(property) {
+.check_property <- function(property) {
   
   if (is.null(property)) {
     stop("No \"property\" provided.", 

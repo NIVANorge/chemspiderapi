@@ -23,11 +23,11 @@ get_queryId_results_sdf <- function(queryId,
                                     apikey, 
                                     decompress = TRUE) {
   
-  check_queryId(queryId)
+  .check_queryId(queryId)
   
-  check_status(status)
+  .check_status(status)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -41,13 +41,13 @@ get_queryId_results_sdf <- function(queryId,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   result <- rawToChar(raw_result$content)
   result <- jsonlite::fromJSON(result)
   result <- result$results
   
-  if (isTRUE(decompress)) {
+  if (decompress) {
     
     result <- jsonlite::base64_dec(result)
     

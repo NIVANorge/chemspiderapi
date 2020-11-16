@@ -8,8 +8,8 @@ get_recordId_details(
   recordId,
   fields = "all",
   apikey,
-  id = FALSE,
-  simplify_formula = TRUE
+  id = TRUE,
+  simplify_formula = FALSE
 )
 }
 \arguments{
@@ -19,9 +19,9 @@ get_recordId_details(
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
-\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{FALSE}.}
+\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{TRUE}.}
 
-\item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{TRUE}.}
+\item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
 }
 \value{
 A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.

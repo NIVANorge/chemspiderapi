@@ -1,4 +1,4 @@
-check_name <- function(name) {
+.check_name <- function(name) {
   
   if (is.null(name)) {
     stop("No \"name\" provided.", 

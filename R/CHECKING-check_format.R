@@ -1,4 +1,4 @@
-check_format <- function(input, inputFormat, outputFormat) {
+.check_format <- function(input, inputFormat, outputFormat) {
   
   if (is.null(input)) {
     stop("Please provide an \"input\".", 
@@ -38,15 +38,15 @@ check_format <- function(input, inputFormat, outputFormat) {
   }
   
   if (tolower(inputFormat) == "inchi") {
-    check_inchi(input)
+    .check_inchi(input)
   }
 
   if (tolower(inputFormat) == "inchikey") {
-    check_inchikey(input)
+    .check_inchikey(input)
   }
 
   if (tolower(inputFormat) == "smiles") {
-    check_smiles(input)
+    .check_smiles(input)
   }
 
 }

@@ -30,13 +30,13 @@ get_queryId_results <- function(queryId,
                                 count = NULL, 
                                 apikey) {
   
-  check_queryId(queryId)
+  .check_queryId(queryId)
   
-  check_status(status)
+  .check_status(status)
   
-  check_start_and_count(start, count)
+  .check_start_and_count(start, count)
   
-  check_apikey(apikey)
+  .check_apikey(apikey)
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
@@ -64,10 +64,10 @@ get_queryId_results <- function(queryId,
   
   raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  check_status_code(raw_result$status_code)
+  .check_status_code(raw_result$status_code)
   
   if ("limitedToMaxAllowed" %in% names(raw_result)) {
-    if (isTRUE(raw_result$limitedToMaxAllowed)) {
+    if (raw_result$limitedToMaxAllowed) {
       warning("The query has resulted in > 10'000 entries. Only the first 10'000 are returned.\nConsider splitting this request using \"start\" and \"count\".", 
               call. = FALSE)
     }
@@ -78,7 +78,7 @@ get_queryId_results <- function(queryId,
   
   result <- as.character(result$results)
   
-  check_result(result)
+  .check_result(result)
   
   result
 }

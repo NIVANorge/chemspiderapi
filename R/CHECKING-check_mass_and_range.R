@@ -1,4 +1,4 @@
-check_mass_and_range <- function(mass, range) {
+.check_mass_and_range <- function(mass, range) {
   
   if (any(!is.numeric(mass))) {
     stop("The provided \"mass\" is not a valid (double) number.", 

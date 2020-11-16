@@ -1,4 +1,4 @@
-check_isotopic <- function(isotopic) {
+.check_isotopic <- function(isotopic) {
   
   if (length(isotopic) != 1L) {
     stop("Only one \"isotopic\" is possible.", 
