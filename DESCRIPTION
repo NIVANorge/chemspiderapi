@@ -6,7 +6,7 @@ Authors@R: person("Raoul", "Wolf", email = "raoul.wolf@niva.no", role = c("aut",
 Description: ChemSpider has announced a fundamental change to the syntax of their API services in late 2018.
     This package provides convenience wrappers for the new API functionalities of ChemSpider, as well as complementary functions.
 License: MIT + file LICENSE
-Depends: R (>= 3.3.3)
+Depends: R (>= 3.5.0)
 Imports: 
     curl, 
     jsonlite
