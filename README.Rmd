@@ -10,6 +10,7 @@ output: github_document
 [![CircleCI build status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=shield)](https://circleci.com/gh/NIVANorge/chemspiderapi)
 [![Travis build status](https://travis-ci.org/NIVANorge/chemspiderapi.svg?branch=master)](https://travis-ci.org/NIVANorge/chemspiderapi)
 [![CodeCov test coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
+[![R build status](https://github.com/NIVANorge/chemspiderapi/workflows/R-CMD-check/badge.svg)](https://github.com/NIVANorge/chemspiderapi/actions)
 <!-- badges: end -->
 
 > R functionalities for ChemSpider's API services

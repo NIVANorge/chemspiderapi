@@ -13,6 +13,8 @@ status](https://circleci.com/gh/NIVANorge/chemspiderapi.svg?style=shield)](https
 status](https://travis-ci.org/NIVANorge/chemspiderapi.svg?branch=master)](https://travis-ci.org/NIVANorge/chemspiderapi)
 [![CodeCov test
 coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
+[![R build
+status](https://github.com/NIVANorge/chemspiderapi/workflows/R-CMD-check/badge.svg)](https://github.com/NIVANorge/chemspiderapi/actions)
 <!-- badges: end -->
 
 > R functionalities for ChemSpider’s API services
@@ -101,7 +103,7 @@ If `{curl}` or `{jsonlite}` are missing, (almost) all functions of
 
 ## Coverage
 
-As of 2020-10-27, the following functionalities are implemented (100%
+As of 2020-11-16, the following functionalities are implemented (100%
 functionality with 100% annotation):
 
 **FILTERING**
@@ -184,7 +186,7 @@ queries, e.g., `get_recordId_details()`.
 
 ## Vignettes
 
-As of 2020-10-27, the following five vignettes are available:
+As of 2020-11-16, the following five vignettes are available:
 
   - **Storing and Accessing API Keys**: A basic example on how to safely
     store and retrieve API keys using the `keyring` package.
