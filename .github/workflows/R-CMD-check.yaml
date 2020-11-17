@@ -63,8 +63,11 @@ jobs:
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get install libcurl3-gnutls libcurl4-openssl-dev
-          
+          sudo apt-get install libcurl4-openssl-dev
+        if: runner.os == 'macOS'
+        run: |
+          brew install imagemagick
+        
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
