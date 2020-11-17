@@ -60,10 +60,12 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
      
-      - name: Install system dependencies
+      - name: Install Linux system dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install libcurl4-openssl-dev
+        
+      - name: Install macOS system dependencies  
         if: runner.os == 'macOS'
         run: |
           brew install imagemagick
