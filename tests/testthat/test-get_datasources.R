@@ -20,13 +20,13 @@ test_that("get_datasources() returns nothing if multiple API keys are provided."
     )
 })
 
-test_that("get_datasources() returns nothing if coerce type is wrong.", {
+test_that("get_datasources() stops if coerce type is wrong.", {
   expect_error(
     get_datasources(coerce = 1234567890L)
   )
 })
 
-test_that("get_datasources() returns nothing if multiple coerce values are provided.", {
+test_that("get_datasources() stops if multiple coerce values are provided.", {
   expect_error(
     get_datasources(coerce = c(TRUE, FALSE))
   )
