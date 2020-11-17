@@ -9,22 +9,22 @@ get_datasources(apikey, coerce = FALSE, simplify = FALSE)
 \arguments{
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+\item{coerce}{\code{logical}: should the \code{list} be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
 
-\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
+\item{simplify}{\code{logical}: should the results be simplified to a \code{vector}? Defaults to \code{FALSE}.}
 }
 \value{
-A character vector, length > 350.
+Either a \code{list}, \code{data.frame}, or \code{vector} of characters.
 }
 \description{
-Returns a vector of all external ChemSpider data sources.
+Returns all external ChemSpider data sources.
 }
 \details{
 "Many other endpoints let you restrict which sources are used to lookup the requested query. Restricting the sources makes queries faster."\cr
 \cr
-Returns a character vector with all available external ChemSpider data sources.\cr
+Returns all available external ChemSpider data sources.\cr
 \cr
-This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, e.g., \code{chemspiderapi::get_recordId_externalreferences()}.
+This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, for example \code{get_recordId_externalreferences()}.
 }
 \examples{
 \dontrun{
