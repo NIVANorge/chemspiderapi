@@ -28,8 +28,9 @@ post_inchikey <- function(inchikey, apikey, coerce = FALSE, simplify = FALSE) {
 
   header <- list("Content-Type" = "", "apikey" = apikey)
 
-  url <- "https://api.rsc.org/compounds/v1/filter/inchikey"
-
+  url <- Sys.getenv("POST_INCHIKEY_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/inchikey")
+  
   handle <- curl::new_handle()
 
   curl::handle_setopt(handle, customrequest = "POST", postfields = data)

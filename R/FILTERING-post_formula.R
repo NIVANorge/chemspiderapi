@@ -31,7 +31,8 @@ post_formula <- function(formula,
                          dataSources = NULL, 
                          orderBy = "recordId", 
                          orderDirection = "ascending", 
-                         apikey, coerce = FALSE) {
+                         apikey, coerce = FALSE,
+                         simplify = FALSE) {
   
   .check_formula(formula)
   
@@ -57,7 +58,8 @@ post_formula <- function(formula,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/formula"
+  url <- Sys.getenv("POST_FORMULA_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/formula")
   
   handle <- curl::new_handle()
   
@@ -74,6 +76,10 @@ post_formula <- function(formula,
   
   if (coerce) {
     result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
   }
   
   result

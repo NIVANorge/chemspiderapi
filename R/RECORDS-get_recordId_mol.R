@@ -29,7 +29,10 @@ get_recordId_mol <- function(recordId, apikey, simplify = FALSE) {
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/mol")
+  base_url <- Sys.getenv("GET_RECORDID_URL",
+                         "https://api.rsc.org/compounds/v1/records/")
+  
+  url <- paste0(base_url, recordId, "/mol")
   
   handle <- curl::new_handle()
   

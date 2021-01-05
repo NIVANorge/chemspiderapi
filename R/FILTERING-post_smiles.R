@@ -31,7 +31,8 @@ post_smiles <- function(smiles, apikey, coerce = FALSE, simplify = FALSE) {
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/smiles"
+  url <- Sys.getenv("POST_SMILES_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/smiles")
   
   handle <- curl::new_handle()
   

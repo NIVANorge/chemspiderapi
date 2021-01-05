@@ -276,3 +276,45 @@ test_that("post_element() fails if a non 32-character length API key is provided
                  apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"queryId\":\"fe7fe60b-0b67-4b24-9d9b-1cf01b75f844\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_ELEMENT_URL" = web$url())
+
+test_that("post_element() returns a proper response.", {
+  expect_type(
+    post_element(includeElements = c("C", "H", "O"),
+                 excludeElements = c("Na", "K", "Fe"),
+                 complexity = "any", 
+                 isotopic = "any",
+                 orderBy = "recordId", orderDirection = "ascending",
+                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                 coerce = TRUE),
+    "list"
+  )
+})
+
+test_that("post_element() returns a proper response.", {
+  expect_type(
+    post_element(includeElements = c("C", "H", "O"),
+                 excludeElements = c("Na", "K", "Fe"),
+                 complexity = "any", 
+                 isotopic = "any",
+                 orderBy = "recordId", orderDirection = "ascending",
+                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                 simplify = TRUE),
+    "character"
+  )
+})
+
+Sys.unsetenv("POST_ELEMENT_URL")
+
+web$stop()

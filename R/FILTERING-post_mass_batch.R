@@ -68,7 +68,8 @@ post_mass_batch <- function(mass,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/mass/batch"
+  url <- Sys.getenv("POST_MASS_BATCH_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/mass/batch")
   
   handle <- curl::new_handle()
   

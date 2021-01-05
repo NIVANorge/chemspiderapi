@@ -53,7 +53,8 @@ post_batch <- function(recordIds,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/records/batch"
+  url <- Sys.getenv("POST_BATCH_URL",
+                    "https://api.rsc.org/compounds/v1/records/batch")
   
   handle <- curl::new_handle()
   

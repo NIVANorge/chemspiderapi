@@ -27,7 +27,8 @@ get_datasources <- function(apikey, coerce = FALSE, simplify = FALSE) {
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/lookups/datasources"
+  url <- Sys.getenv("GET_DATASOURCES_URL", 
+                    "https://api.rsc.org/compounds/v1/lookups/datasources")
   
   handle <- curl::new_handle()
   curl::handle_setopt(handle, customrequest = "GET")

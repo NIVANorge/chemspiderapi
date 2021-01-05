@@ -16,10 +16,10 @@ Suggests:
     knitr, 
     magick, 
     memoise, 
-    presser,
     ratelimitr, 
     rmarkdown, 
-    testthat
+    testthat,
+    webfakes
 URL: https://github.com/NIVANorge/chemspiderapi
 BugReports: https://github.com/NIVANorge/chemspiderapi/issues
 Encoding: UTF-8

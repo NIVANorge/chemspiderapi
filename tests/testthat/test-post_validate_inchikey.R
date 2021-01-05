@@ -85,3 +85,51 @@ test_that("post_validate_inchikey() fails if a non 32-character length API key i
     post_validate_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"valid\":true}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_VALIDATE_INCHIKEY_URL" = web$url())
+
+test_that("post_validate_inchikey() returns a proper response.", {
+  expect_type(
+    post_validate_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+                           apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "logical"
+  )
+})
+
+Sys.unsetenv("POST_VALIDATE_INCHIKEY_URL")
+
+web$stop()
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(400L)$
+    send(charToRaw("{\"valid\":false}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_VALIDATE_INCHIKEY_URL" = web$url())
+
+test_that("post_validate_inchikey() returns a proper response.", {
+  expect_type(
+    post_validate_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+                           apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "logical"
+  )
+})
+
+Sys.unsetenv("POST_VALIDATE_INCHIKEY_URL")
+
+web$stop()

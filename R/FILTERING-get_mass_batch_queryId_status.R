@@ -49,7 +49,10 @@ get_mass_batch_queryId_status <- function(queryId, count = TRUE, message = TRUE,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- paste0("https://api.rsc.org/compounds/v1/filter/mass/batch/", queryId, "/status")
+  base_url <- Sys.getenv("GET_MASS_BATCH_QUERYID_URL", 
+                         "https://api.rsc.org/compounds/v1/filter/mass/batch/")
+  
+  url <- paste0(base_url, queryId, "/status")
   
   handle <- curl::new_handle()
   curl::handle_setopt(handle, customrequest = "GET")

@@ -121,7 +121,8 @@ post_intrinsicproperty <- function(property,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/intrinsicproperty"
+  url <- Sys.getenv("POST_INTRINSICPROPERTY_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/intrinsicproperty")
   
   handle <- curl::new_handle()
   

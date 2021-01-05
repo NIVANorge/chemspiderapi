@@ -29,6 +29,9 @@ post_inchi <- function(inchi, apikey, coerce = FALSE, simplify = FALSE) {
   
   url <- "https://api.rsc.org/compounds/v1/filter/inchi"
   
+  url <- Sys.getenv("POST_INCHI_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/inchi")
+  
   handle <- curl::new_handle()
   
   curl::handle_setopt(handle, customrequest = "POST", postfields = data)

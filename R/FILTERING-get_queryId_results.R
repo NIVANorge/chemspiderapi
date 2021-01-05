@@ -40,20 +40,23 @@ get_queryId_results <- function(queryId, status, start = NULL, count = NULL,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
+  base_url <- Sys.getenv("GET_QUERYID_URL", 
+                         "https://api.rsc.org/compounds/v1/filter/")
+  
   if (is.null(start) && is.null(count)) {
-    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results")
+    url <- paste0(base_url, queryId, "/results")
   }
   
   if (!is.null(start) && is.null(count)) {
-    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start)
+    url <- paste0(base_url, queryId, "/results?start=", start)
   }
   
   if (is.null(start) && !is.null(count)) {
-    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?count=", count)
+    url <- paste0(base_url, queryId, "/results?count=", count)
   }
   
   if (!is.null(start) && !is.null(count)) {
-    url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results?start=", start, "&count=", count)
+    url <- paste0(base_url, queryId, "/results?start=", start, "&count=", count)
   }
   
   handle <- curl::new_handle()

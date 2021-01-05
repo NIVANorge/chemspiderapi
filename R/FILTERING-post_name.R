@@ -43,7 +43,8 @@ post_name <- function(name,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/name"
+  url <- Sys.getenv("POST_NAME_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/name")
   
   handle <- curl::new_handle()
   

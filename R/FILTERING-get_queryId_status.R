@@ -39,7 +39,10 @@ get_queryId_status <- function(queryId, count = TRUE, message = TRUE, apikey, co
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/status")
+  base_url <- base_url <- Sys.getenv("GET_QUERYID_URL", 
+                                     "https://api.rsc.org/compounds/v1/filter/")
+  
+  url <- paste0(base_url, queryId, "/status")
   
   handle <- curl::new_handle()
   

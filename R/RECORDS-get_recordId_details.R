@@ -50,7 +50,10 @@ get_recordId_details <- function(recordId,
 
   header <- list("Content-Type" = "", "apikey" = apikey)
 
-  url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/details?fields=", fields)
+  base_url <- Sys.getenv("GET_RECORDID_URL",
+                         "https://api.rsc.org/compounds/v1/records/")
+  
+  url <- paste0(base_url, recordId, "/details?fields=", fields)
 
   handle <- curl::new_handle()
 

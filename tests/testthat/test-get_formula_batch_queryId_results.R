@@ -127,3 +127,35 @@ test_that("get_formula_batch_queryId_results() fails if a non 32-character lengt
     get_formula_batch_queryId_results(queryId = "0c98889f-5e8b-4974-aabb-31ab28c54261", status = "Complete", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+test_that("get_formula_batch_queryId_results() fails if a wrong \"coerce\" is provided.", {
+  expect_error(
+    get_formula_batch_queryId_results(queryId = "0c98889f-5e8b-4974-aabb-31ab28c54261", status = "Complete", apikey = "abcdefghijklmnopqrstuvqxyz123456", coerce = "wrong")
+  )
+})
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$get("/fe7fe60b-0b67-4b24-9d9b-1cf01b75f844/results", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"batchResults\":[{\"formula\":\"C9H8O4\",\"results\":[954,99021436]},{\"formula\":\"C17H21NO4\",\"results\":[2724,24503676,98641190]}]}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("GET_FORMULA_BATCH_QUERYID_URL" = web$url())
+
+test_that("get_formula_batch_queryId_results() returns a proper response.", {
+  expect_type(
+    get_formula_batch_queryId_results(queryId = "fe7fe60b-0b67-4b24-9d9b-1cf01b75f844",
+                                      status = "Complete",
+                                      apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                                      coerce = TRUE),
+    "list"
+  )
+})
+
+Sys.unsetenv("GET_FORMULA_BATCH_QUERYID_URL")
+
+web$stop()

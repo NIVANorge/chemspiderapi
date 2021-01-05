@@ -43,7 +43,8 @@ post_element <- function(includeElements,
                          orderBy = "recordId", 
                          orderDirection = "ascending", 
                          apikey,
-                         coerce = FALSE) {
+                         coerce = FALSE,
+                         simplify = FALSE) {
   
   .check_elements(includeElements, excludeElements)
   
@@ -78,7 +79,8 @@ post_element <- function(includeElements,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/element"
+  url <- Sys.getenv("POST_ELEMENT_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/element")
   
   handle <- curl::new_handle()
   
@@ -95,6 +97,10 @@ post_element <- function(includeElements,
   
   if (coerce) {
     result <- as.data.frame(result, stringsAsFactors = FALSE)
+  }
+  
+  if (simplify) {
+    result <- unlist(result, use.names = FALSE)
   }
   
   result

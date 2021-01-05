@@ -41,7 +41,8 @@ post_convert <- function(input, inputFormat, outputFormat, apikey, coerce = FALS
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/tools/convert"
+  url <- Sys.getenv("POST_CONVERT_URL",
+                    "https://api.rsc.org/compounds/v1/tools/convert")
   
   handle <- curl::new_handle()
   

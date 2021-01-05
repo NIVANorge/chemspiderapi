@@ -67,3 +67,37 @@ test_that("post_smiles() fails if a non 32-character length API key is provided.
     post_smiles(smiles = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"queryId\":\"fe7fe60b-0b67-4b24-9d9b-1cf01b75f844\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_SMILES_URL" = web$url())
+
+test_that("post_smiles() returns a proper response.", {
+  expect_type(
+    post_smiles(smiles = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",
+                apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                coerce = TRUE),
+    "list"
+  )
+})
+
+test_that("post_smiles() returns a proper response.", {
+  expect_type(
+    post_smiles(smiles = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",
+                apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                simplify = TRUE),
+    "character"
+  )
+})
+
+Sys.unsetenv("POST_SMILES_URL")
+
+web$stop()

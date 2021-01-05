@@ -127,3 +127,37 @@ test_that("post_formula_batch() fails if a non 32-character length API key is pr
                  apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"queryId\":\"fe7fe60b-0b67-4b24-9d9b-1cf01b75f844\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_FORMULA_BATCH_URL" = web$url())
+
+test_that("post_formula_batch() returns a proper response.", {
+  expect_type(
+    post_formula_batch(formulas = c("C9H8O4", "C17H21NO4"),
+                       apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
+  )
+})
+
+test_that("post_formula_batch() returns a proper response.", {
+  expect_type(
+    post_formula_batch(formulas = c("C9H8O4", "C17H21NO4"),
+                       dataSources = "Royal Society of Chemistry",
+                       apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                       coerce = TRUE),
+    "list"
+  )
+})
+
+Sys.unsetenv("POST_FORMULA_BATCH_URL")
+
+web$stop()

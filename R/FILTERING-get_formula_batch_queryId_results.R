@@ -28,7 +28,10 @@ get_formula_batch_queryId_results <- function(queryId, status, apikey, coerce = 
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- paste0("https://api.rsc.org/compounds/v1/filter/formula/batch/", queryId, "/results")
+  base_url <- Sys.getenv("GET_FORMULA_BATCH_QUERYID_URL", 
+                         "https://api.rsc.org/compounds/v1/filter/formula/batch/")
+  
+  url <- paste0(base_url, queryId, "/results")
   
   handle <- curl::new_handle()
   curl::handle_setopt(handle, customrequest = "GET")
@@ -42,7 +45,7 @@ get_formula_batch_queryId_results <- function(queryId, status, apikey, coerce = 
   result <- jsonlite::fromJSON(result)
   
   if (coerce) {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- result$batchResults
   }
   
   result

@@ -57,7 +57,8 @@ post_formula_batch <- function(formulas,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/formula/batch"
+  url <- Sys.getenv("POST_FORMULA_BATCH_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/formula/batch")
   
   handle <- curl::new_handle()
   

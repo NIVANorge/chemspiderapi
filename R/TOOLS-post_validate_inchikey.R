@@ -27,7 +27,8 @@ post_validate_inchikey <- function(inchikey, apikey) {
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
+  url <- Sys.getenv("POST_VALIDATE_INCHIKEY_URL",
+                    "https://api.rsc.org/compounds/v1/tools/validate/inchikey")
   
   handle <- curl::new_handle()
   

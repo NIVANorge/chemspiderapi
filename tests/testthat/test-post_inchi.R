@@ -67,3 +67,37 @@ test_that("post_inchi() fails if a non 32-character length API key is provided."
     post_inchi(inchi = "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"queryId\":\"fe7fe60b-0b67-4b24-9d9b-1cf01b75f844\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_INCHI_URL" = web$url())
+
+test_that("post_inchi() returns a proper response.", {
+  expect_type(
+    post_inchi(inchi = "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3",
+               apikey = "abcdefghijklmnopqrstuvqxyz123456",
+               coerce = TRUE),
+    "list"
+  )
+})
+
+test_that("post_inchi() returns a proper response.", {
+  expect_type(
+    post_inchi(inchi = "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3",
+               apikey = "abcdefghijklmnopqrstuvqxyz123456",
+               simplify = TRUE),
+    "character"
+  )
+})
+
+Sys.unsetenv("POST_INCHI_URL")
+
+web$stop()

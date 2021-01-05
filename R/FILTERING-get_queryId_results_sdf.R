@@ -33,7 +33,10 @@ get_queryId_results_sdf <- function(queryId,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- paste0("https://api.rsc.org/compounds/v1/filter/", queryId, "/results/sdf")
+  base_url <- Sys.getenv("GET_QUERYID_URL", 
+                         "https://api.rsc.org/compounds/v1/filter/")
+  
+  url <- paste0(base_url, queryId, "/results/sdf")
   
   handle <- curl::new_handle()
   

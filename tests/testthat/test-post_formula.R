@@ -121,3 +121,39 @@ test_that("post_formula() fails if a non 32-character length API key is provided
                  apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"queryId\":\"fe7fe60b-0b67-4b24-9d9b-1cf01b75f844\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_FORMULA_URL" = web$url())
+
+test_that("post_formula() returns a proper response.", {
+  expect_type(
+    post_formula(formula = "C8H10N4O2", dataSources = NULL,
+                 orderBy = "recordId", orderDirection = "ascending",
+                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                 coerce = TRUE),
+    "list"
+  )
+})
+
+test_that("post_formula() returns a proper response.", {
+  expect_type(
+    post_formula(formula = "C8H10N4O2", dataSources = NULL,
+                 orderBy = "recordId", orderDirection = "ascending",
+                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                 simplify = TRUE),
+    "character"
+  )
+})
+
+Sys.unsetenv("POST_FORMULA_URL")
+
+web$stop()

@@ -31,13 +31,16 @@ get_recordId_externalreferences <- function(recordId,
   
   .check_coerce(coerce)
 
+  base_url <- Sys.getenv("GET_RECORDID_URL",
+                         "https://api.rsc.org/compounds/v1/records/")
+  
   if (!is.null(dataSources)) {
     if (length(dataSources) > 1) {
       dataSources <- paste(dataSources, collapse = ",")
     }
-    url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences?dataSources=", dataSources)
+    url <- paste0(base_url, recordId, "/externalreferences?dataSources=", dataSources)
   } else {
-    url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/externalreferences")
+    url <- paste0(base_url, recordId, "/externalreferences")
   }
 
   header <- list("Content-Type" = "", "apikey" = apikey)

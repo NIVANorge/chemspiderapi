@@ -38,7 +38,7 @@ test_that("check_apikey() fails if a non 32-character length API key is provided
     )
 })
 
-test_that("check_apikey() fails if a non 32-character length API key is provided.", {
+test_that("check_apikey() succeeds if a 32-character length API key is provided.", {
   expect_silent(
     .check_apikey(apikey = "abcdefghijklmnopqrstuvqxyz123456")
   )

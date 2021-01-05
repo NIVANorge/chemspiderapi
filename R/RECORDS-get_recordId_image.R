@@ -27,7 +27,10 @@ get_recordId_image <- function(recordId, apikey, decode = FALSE, simplify = FALS
 
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- paste0("https://api.rsc.org/compounds/v1/records/", recordId, "/image")
+  base_url <- Sys.getenv("GET_RECORDID_URL",
+                         "https://api.rsc.org/compounds/v1/records/")
+  
+  url <- paste0(base_url, recordId, "/image")
   
   handle <- curl::new_handle()
   

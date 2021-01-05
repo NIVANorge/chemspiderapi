@@ -66,7 +66,8 @@ post_mass <- function(mass,
   
   header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/mass"
+  url <- Sys.getenv("POST_MASS_URL", 
+                    "https://api.rsc.org/compounds/v1/filter/mass")
   
   handle <- curl::new_handle()
   
