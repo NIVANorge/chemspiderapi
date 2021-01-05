@@ -13,7 +13,8 @@ post_element(
   orderBy = "recordId",
   orderDirection = "ascending",
   apikey,
-  coerce = FALSE
+  coerce = FALSE,
+  simplify = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ post_element(
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
 \item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
+
+\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.
