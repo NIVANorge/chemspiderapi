@@ -31,7 +31,7 @@ app$use(webfakes::mw_json())
 app$get("/fe7fe60b-0b67-4b24-9d9b-1cf01b75f844/results", function(req, res) {
   res$
     set_status(200L)$
-    send(charToRaw("{\"batchResults\":[{\"formula\":\"C9H8O4\",\"results\":[954,99021436]}]}"))
+    send(charToRaw("{\"results\":[{\"formula\":\"C9H8O4\",\"results\":[954,99021436]}]}"))
 })
 
 web <- webfakes::new_app_process(app)

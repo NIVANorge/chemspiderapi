@@ -46,8 +46,12 @@ post_mass <- function(mass,
   
   .check_apikey(apikey)
   
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
+  
   if (!is.null(dataSources)) {
-    if (length(dataSources) == 1) {
+    if (length(dataSources) == 1L) {
       dataSources <- I(dataSources)
     } 
     data <- list("mass" = mass, 

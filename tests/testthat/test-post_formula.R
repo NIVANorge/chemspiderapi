@@ -154,6 +154,16 @@ test_that("post_formula() returns a proper response.", {
   )
 })
 
+test_that("post_formula() returns a proper response.", {
+  expect_type(
+    post_formula(formula = "C8H10N4O2", dataSources = "PubChem",
+                 orderBy = "recordId", orderDirection = "ascending",
+                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                 simplify = TRUE),
+    "character"
+  )
+})
+
 Sys.unsetenv("POST_FORMULA_URL")
 
 web$stop()

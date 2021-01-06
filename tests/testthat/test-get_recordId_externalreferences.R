@@ -66,3 +66,62 @@ test_that("get_recordId_externalreferences() fails if a non 32-character length 
     get_recordId_externalreferences(recordId = 2424L, dataSources = NULL, apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+test_that("get_recordId_externalreferences() fails if a wrong coerce is provided is provided.", {
+  expect_error(
+    get_recordId_externalreferences(recordId = 2424L, 
+                                    apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                                    coerce = "wrong")
+  )
+})
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$get("/2424/externalreferences", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"externalReferences\":[{\"source\":\"1717 CheMall\",\"sourceUrl\":\"http://www.1717chem.com\",\"externalId\":\"BT000262\",\"externalUrl\":\"http://3bsccorp.com/botanic-extracts-enzymes-and-coenzymes/BT000262\"}]}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("GET_RECORDID_URL" = web$url())
+
+test_that("get_recordId_externalreferences() returns a proper response.", {
+  expect_type(
+    get_recordId_externalreferences(recordId = 2424L,
+                                    apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                                    coerce = TRUE),
+    "list"
+  )
+})
+
+Sys.unsetenv("GET_RECORDID_URL")
+
+web$stop()
+
+# app <- webfakes::new_app()
+# app$use(webfakes::mw_json())
+# app$get("/2424/externalreferences?dataSources=PubChem", function(req, res) {
+#   res$
+#     set_status(200L)$
+#     send(charToRaw("{\"externalReferences\":[{\"source\":\"1717 CheMall\",\"sourceUrl\":\"http://www.1717chem.com\",\"externalId\":\"BT000262\",\"externalUrl\":\"http://3bsccorp.com/botanic-extracts-enzymes-and-coenzymes/BT000262\"}]}"))
+# })
+# 
+# web <- webfakes::new_app_process(app)
+# 
+# Sys.setenv("GET_RECORDID_URL" = web$url())
+# 
+# test_that("get_recordId_externalreferences() returns a proper response.", {
+#   expect_type(
+#     get_recordId_externalreferences(recordId = 2424L,
+#                                     dataSources = "PubChem",
+#                                     apikey = "abcdefghijklmnopqrstuvqxyz123456",
+#                                     coerce = TRUE),
+#     "list"
+#   )
+# })
+# 
+# Sys.unsetenv("GET_RECORDID_URL")
+# 
+# web$stop()

@@ -56,17 +56,19 @@ post_intrinsicproperty <- function(property,
   
   .check_property(property)
   
-  if (property != "formula" && is.null(mass) || property != "formula" && is.null(range)) {
+  if (tolower(property) != "formula" && is.null(mass) || tolower(property) != "formula" && is.null(range)) {
     stop("Both \"mass\" and \"range\" need to be provided.", 
          call. = FALSE)
   }
   
-  if (property == "formula" && is.null(formula)) {
+  if (tolower(property) == "formula" && is.null(formula)) {
     stop("No \"formula\" provided.", 
          call. = FALSE)
   }
   
-  .check_mass_and_range(mass, range)
+  if (any(tolower(property) %in% c("molecularweight", "nominalmass", "averagemass", "monoisotopicmass"))) {
+    .check_mass_and_range(mass, range)
+  }
   
   .check_apikey(apikey)
   

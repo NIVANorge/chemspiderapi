@@ -128,3 +128,54 @@ test_that("post_mass_batch() fails if a non 32-character length API key is provi
     post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+test_that("post_mass_batch() fails if a wrong coerce is provided.", {
+  expect_error(
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002),
+                    apikey = "abcdefghijklmnopqrstuvqxyz123456", coerce = "wrong")
+  )
+})
+
+test_that("post_mass() fails if a wrong simplify is provided.", {
+  expect_error(
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002),
+                    apikey = "abcdefghijklmnopqrstuvqxyz123456", simplify = "wrong")
+  )
+})
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$post("/", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"queryId\":\"e95e0aea-ee69-4590-8e94-5addc43a3876\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("POST_MASS_BATCH_URL" = web$url())
+
+test_that("post_mass_batch() returns a proper response.", {
+  expect_type(
+    post_mass_batch(mass = c(150, 140, 120), 
+                    range = c(0.002, 0.001, 0.002),
+                    apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                    coerce = TRUE, simplify = TRUE),
+    "character"
+  )
+})
+
+test_that("post_mass_batch() returns a proper response.", {
+  expect_type(
+    post_mass_batch(mass = c(150, 140, 120), 
+                    range = c(0.002, 0.001, 0.002),
+                    dataSources = "PubMed",
+                    apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                    coerce = TRUE, simplify = TRUE),
+    "character"
+  )
+})
+
+Sys.unsetenv("POST_MASS_BATCH_URL")
+
+web$stop()

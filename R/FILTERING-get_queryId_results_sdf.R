@@ -31,6 +31,8 @@ get_queryId_results_sdf <- function(queryId,
   
   .check_apikey(apikey)
   
+  .check_simplify(simplify)
+  
   header <- list("Content-Type" = "", "apikey" = apikey)
   
   base_url <- Sys.getenv("GET_QUERYID_URL", 

@@ -127,3 +127,35 @@ test_that("get_queryId_results_sdf() fails if a non 32-character length API key 
     get_queryId_results_sdf(queryId = "0c98889f-5e8b-4974-aabb-31ab28c54261", status = "Complete", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
+
+test_that("get_queryId_results_sdf() fails if a wrong simplify is provided.", {
+  expect_error(
+    get_queryId_results_sdf(queryId = "0c98889f-5e8b-4974-aabb-31ab28c54261", status = "Complete", apikey = "abcdefghijklmnopqrstuvqxyz123456", simplify = "wrong")
+  )
+})
+
+app <- webfakes::new_app()
+app$use(webfakes::mw_json())
+app$get("/2754e139-60e6-475b-9a0a-bf1591cb6a79/results/sdf", function(req, res) {
+  res$
+    set_status(200L)$
+    send(charToRaw("{\"results\":\"H4sIAAAAAAAAC6WUW2+bMBSA3y3lP/hhDyDVxscGg6cVKTONiBZgC+tuL1NKmVKpaatcFE1T//sOabJEIdOmYFlgPg7fORwjCKV9m3ijyc1CKCnBgC+kTAih4DeTir9MoJ+kEIJQHILjChllslmFB8w2y3/OjQU4BEq/WLSW8jyL5EqE6mQt+TkWgbUY3fGN9h06w6K4H8ioa198roUOuu7R3tKlLwEPtYAXixARnGfR3ICKutayt3TpS8SFDv2ue7TvSxfL/ntR3BjlH1iK/7VgEZgdjigi1aaIMMcJqtsUA4M2xcDwFG3+P/KIYmB0isKJyjDQtKmhIFoGRACtWETQ7kND1bEho/QqT0hM37xf3WT1bUxASt0jvQYNH+x0GJPN6RJKz4JMIcwLrwLmM1BOwKQL0gHfBWAR0yxkIBzlGgbgTTUz6YXPglReAFOp2lqzQUzs918gn1M8hs95sbvxGbMb4FKbYIvKbDi6KjHe5o61rnUuC7eCCodTgWu3UclkOaHl42pe1QtU+OKw/nf1z5hkWfHl21s7sh+GH5MBu04Hg0G/+Fr2Wb6NteUwiYkPalfmuLToCnaVjOsf9bx+2GQIhfnz1PV4FJPpcvn02vPW6zWvpvVs8XR3W8959TjzLF7eVZN7Vi7nq2q5mte8ycGny9l943iFo0d+A5/iFp3PBgAA\"}"))
+})
+
+web <- webfakes::new_app_process(app)
+
+Sys.setenv("GET_QUERYID_URL" = web$url())
+
+test_that("get_queryId_results_sdf() returns a proper response.", {
+  expect_type(
+    get_queryId_results_sdf(queryId = "2754e139-60e6-475b-9a0a-bf1591cb6a79",
+                            status = "Complete",
+                            apikey = "abcdefghijklmnopqrstuvqxyz123456",
+                            decode = TRUE, simplify = TRUE),
+    "character"
+  )
+})
+
+Sys.unsetenv("GET_QUERYID_URL")
+
+web$stop()

@@ -44,6 +44,10 @@ post_mass_batch <- function(mass,
   
   .check_apikey(apikey)
   
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
+  
   masses <- list()
   
   for (i in seq_len(length(mass))) {
